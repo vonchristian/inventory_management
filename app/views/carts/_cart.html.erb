@@ -1,0 +1,27 @@
+
+  <div class="card">
+    <div class="header">
+      <h4 class="title"> Your Cart
+        <span class="pull-right"><%= button_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger" %></span>
+      </h4>
+      <hr>
+    </div>
+    <div class="content">
+
+
+
+          <%=render @cart.line_items %>
+
+        <div class="modal-footer">
+          <h4 class="title"><b>Total:</b> <%=number_to_currency @cart.total_price %></h4>
+        </div>
+<hr>
+<% unless @cart.line_items.empty? %>
+<div class="row">
+<div class="col-md-12">
+        <span><center><%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-success btn-block"%></center>
+</div>
+</div>
+<% end %>
+      </div>
+    </div>

@@ -13,10 +13,10 @@
          </div>
 
          <ul class="nav">
-            <li class="<%#="active" if current_page? dashboard_path %>">
-                 <a href="/dashboards/index">
-                     <i class="fa fa-dashboard"></i>
-                     <p>Dashboard</p>
+            <li class="<%="active" if current_page? store_path %>">
+                 <a href="/">
+                     <i class="fa fa-home"></i>
+                     <p>Store</p>
                  </a>
              </li>
              <li class="<%="active" if current_page? products_path %>">
@@ -25,6 +25,12 @@
                      <p>Products</p>
                  </a>
                </li>
+               <li class="<%="active" if current_page? orders_path %>">
+                   <a href="/orders">
+                       <i class="fa fa-list"></i>
+                       <p>Orders</p>
+                   </a>
+                 </li>
          </ul>
    </div>
  </div>

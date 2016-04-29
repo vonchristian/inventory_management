@@ -1,0 +1,35 @@
+<div class="col-md-12">
+  <div class="card">
+      <div class="header">
+          <h4 class="title">Orders
+            <span class="pull-right"> <%#=link_to "New Contractor", new_contractor_path, class: "btn btn-primary" %></span>
+          </h4>
+          <hr>
+      </div>
+      <div class="content">
+        <% @orders.each do |order| %>
+          <ul class="list-unstyled team-members">
+            <li>
+              <div class="row">
+                <div class="col-xs-4">
+                    <%=order.name %>
+                </div>
+                <div class="col-xs-2">
+                  <%=order.address %>
+                  <br />
+                  <span class="text-muted"><small><%=order.mobile_number %></small></span>
+                </div>
+                <div class="col-xs-2">
+                  <p><%=number_to_currency order.line_items.total_price %></p>
+                </div>
+                <div class="col-sm-3">
+                  <%=link_to order do %>
+                  <btn class="btn btn-info btn-icon"><i class="fa fa-eye"></i> </span>
+                  <% end %>
+              </div>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>

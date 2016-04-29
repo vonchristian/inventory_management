@@ -1,0 +1,17 @@
+<ul class="list-unstyled team-members">
+  <li id="current_item">
+    <div class="row">
+      <div class="col-xs-3">
+          <%=link_to line_item.quantity, edit_line_item_path(line_item) %>
+      </div>
+      <div class="col-xs-6">
+        <%=line_item.product.name%>
+        <br />
+        <span class="text-muted"><small><%=number_to_currency line_item.product.price %></small></span>
+      </div>
+      <div class="col-xs-3 text-right">
+        <p><%=number_to_currency line_item.total_price %></p>
+      </div>
+    </div>
+  </li>
+</ul>
