@@ -1,0 +1,10 @@
+<% @products.each do |product| %>
+<div class="col-md-3">
+  <div class="card">
+    <div class="content">
+      <h4 class="title"><%=product.name %></h4>
+      <%=number_to_currency product.price %>
+    </div>
+  </div>
+</div>
+<% end %>
