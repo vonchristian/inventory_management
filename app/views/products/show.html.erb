@@ -1,1 +1,21 @@
-<%=@product.name %>
+<div class="col-md-8 col-md-offset-2">
+  <div class="card">
+    <div class="header">
+      <h4 class="title"><%=@product.name %>
+      <div class="pull-right">
+        <%=link_to "Edit", edit_product_path(@product), class: "btn btn-warning" %>
+        <%=link_to "New Stock", new_product_stock_path(@product), class: "btn btn-primary" %>
+      </div>
+      </h4>
+      <hr />
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-4">
+          <h4 class="title"><center><%=@product.orders.count %></center></h4>
+          <center> Ordered </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

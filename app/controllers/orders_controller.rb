@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all
+    @orders = Order.all.order(:created_at)
   end
   def new
     @cart = current_cart

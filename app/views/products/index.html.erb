@@ -1,1 +1,76 @@
-<%=link_to "New Product", new_product_path, class: "btn btn-primary" %>
+
+<div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">
+                                 <div class="row">
+                                   <div class="col-md-2">
+                                  List of Products
+                                </div>
+                                <div class="col-md-6">
+                                  <%=form_tag products_path, class: 'sidebar-form', method: :get do %>
+                                    <div class="input-group">
+                                      <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...' %>
+                                      <span class="input-group-btn">
+                                        <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
+                                          <i class="fa fa-search"></i>
+                                        <% end %>
+                                      </span>
+                                    </div>
+                                  <% end %>
+                                </div>
+                                <div class="col-md-3">
+                                  <%=link_to new_product_path do %>
+                                  <span class="btn btn-primary btn-icon pull-right"><i class="fa fa-plus"></i> New Product</span>
+                                  <% end %>
+                                </div>
+                              </div>
+</span>                                </h4>
+                                <p class="category"></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+
+                                        <th>Unit</th>
+                                        <th>Price</th>
+
+                                    </thead>
+                                    <tbody>
+                                    <% @products.each do |product| %>
+                                        <tr class="<%="text-danger" if product.out_of_stock?%>">
+                                            <td class="text-uppercase"><%=link_to product.name, product %></td>
+                                            <td><%=product.quantity%></td>
+                                            <td><%=product.unit %></td>
+                                            <td><span><%=number_to_currency product.price%></span></td>
+                                            <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary" %>
+                                              <%=link_to edit_product_path(product) do %>
+                                              <span class="btn btn-warning btn-icon"><i class="fa fa-pencil"></i></span>
+                                              <% end %>
+                                            </td>
+                                            <td>
+                                              <% if product.out_of_stock? %>
+                                              <span class="btn btn-danger btn-icon"> Out of Stock </span>
+                                              <% end %>
+
+                                            </td>
+                                        </tr>
+
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+    </div>

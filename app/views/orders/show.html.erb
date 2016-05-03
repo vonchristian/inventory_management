@@ -1,16 +1,42 @@
-<div class="container">
-  <div class="col-md-6">
+
+  <div class="col-md-6 col-md-offset-3">
   <div class="card">
     <div class="header">
-      <h4 class="title">Order Details </h4>
+      <h4 class="title">Order Details <span class="pull-right"><%=@order.created_at.strftime("%B %e, %Y") %></span> </h4>
       <hr>
     </div>
     <div class="content">
-        <%=render @order.line_items %>
+      <h4 class="title"><%=@order.name %></h4>
+      <%=@order.address %><br>
+      <%=@order.mobile_number %><br>
+      <%=@order.email %>
+      <hr>
+      <%@order.line_items.each do |line_item| %>
+      <ul class="list-unstyled team-members">
+        <li id="current_item">
+          <div class="row">
+            <div class="col-xs-3">
+
+                <span><%=line_item.quantity %> <%=line_item.product.unit %></span>
+            </div>
+            <div class="col-xs-5">
+              <%=line_item.product.name%>
+              <br />
+              <span class="text-success"><small><%=number_to_currency line_item.product.price %></small></span>
+            </div>
+            <div class="col-xs-4 text-right">
+              <%=number_to_currency line_item.total_price %>
+            </div>
+
+          </div>
+          <hr>
+        </li>
+      </ul>
+      <% end %>
+
         <div class="modal-footer">
           <b>Paid Amount: </b> <%=number_to_currency @order.line_items.total_price %>
         </div>
       </div>
     </div>
-</div>
 </div>

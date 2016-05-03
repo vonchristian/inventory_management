@@ -1,11 +1,27 @@
 class Product < ApplicationRecord
+  include PublicActivity::Common
+  include PgSearch
+  pg_search_scope :search_by_name, :against => :name
+
   has_many :line_items
   has_many :orders, through: :line_items
+  has_many :stocks
   validates :name, :price, presence: true
   validates :price, numericality: { greater_than: 0.1 }
 
+  accepts_nested_attributes_for :stocks
   before_destroy :ensure_not_referenced_by_any_line_item
+  def quantity
+    stocks.all.sum(:quantity) - line_items.all.sum(:quantity)
+  end
 
+
+  def quantity_and_unit
+    "#{quantity} #{unit}"
+  end
+  def out_of_stock?
+    quantity.zero? || quantity.negative?
+  end
   private
   def ensure_not_referenced_by_any_line_item
     if line_items.empty?

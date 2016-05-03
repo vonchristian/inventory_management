@@ -7,8 +7,8 @@
 
    <div class="sidebar-wrapper">
          <div class="logo">
-             <a href="http://www.creative-tim.com" class="simple-text">
-                Kiphodan
+             <a href="/" class="simple-text">
+                Kiphodan - POS
              </a>
          </div>
 
@@ -62,9 +62,9 @@
                  <ul class="nav navbar-nav navbar-right">
                      <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                 <i class="fa fa-user"></i>
+                                <span><i class="fa fa-user"></i> </span>
 
-               <p><%#=current_user.email %></p>
+               <p><%=current_user.email %></p>
 
                <b class="caret"></b>
                            </a>
@@ -73,7 +73,8 @@
                              <li><a href="#">Notification 2</a></li>
                              <li><a href="#">Notification 3</a></li>
                              <li><a href="#">Notification 4</a></li>
-                            <li><%#=link_to "Sign out", destroy_user_session_path %></li>
+                            <li><%=link_to 'Sign out', destroy_user_session_path, method: :delete %>
+                </li>
                            </ul>
                      </li>
                  </ul>

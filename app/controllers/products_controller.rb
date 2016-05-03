@@ -1,9 +1,14 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    if params[:name].present?
+      @products = Product.search_by_name(params[:name])
+    else
+      @products = Product.all.order(:name)
+    end
   end
   def new
     @product = Product.new
+    @product.stocks.build
   end
   def create
     @product = Product.create(product_params)
@@ -27,8 +32,22 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit
+    @product = Product.find(params[:id ])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    @product.update(product_params)
+    if @product.save
+      redirect_to @product, notice: "Product updated successfully."
+    else
+      render :edit
+    end
+  end
+
   private
   def product_params
-    params.require(:product).permit(:name, :price)
+    params.require(:product).permit(:name, :price, :unit, stocks_attributes:[:quantity, :date])
   end
 end

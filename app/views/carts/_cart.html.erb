@@ -1,27 +1,32 @@
 
   <div class="card">
     <div class="header">
-      <h4 class="title"> Your Cart
+      <h4 class="title"> Orders
         <span class="pull-right"><%= button_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger" %></span>
       </h4>
       <hr>
     </div>
     <div class="content">
+<% if @cart.line_items.empty? %>
 
-
-
+<h4 class="title"> <center>Cart is empty. </center></h4>
+<br>
+<% else %>
           <%=render @cart.line_items %>
-
-        <div class="modal-footer">
-          <h4 class="title"><b>Total:</b> <%=number_to_currency @cart.total_price %></h4>
+<div class="pull-left">
+  <h4 class="title"> Total </h4>
+</div>
+        <div class="pull-right">
+          <h4 class="title"> <%=number_to_currency @cart.total_price %></h4>
         </div>
+        <br>
 <hr>
-<% unless @cart.line_items.empty? %>
 <div class="row">
 <div class="col-md-12">
         <span><center><%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-success btn-block"%></center>
 </div>
 </div>
-<% end %>
+
       </div>
     </div>
+<% end %>

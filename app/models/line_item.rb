@@ -3,6 +3,8 @@ class LineItem < ApplicationRecord
   belongs_to :cart
   belongs_to :order
 
+  validates :quantity, numericality: { less_than_or_equal_to: :product_quantity }
+  delegate :quantity, to: :product, prefix: true
   def total_price
     product.price * quantity
   end
