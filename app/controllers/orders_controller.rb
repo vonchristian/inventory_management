@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(current_cart)
     respond_to do |format|
-      if @order.save
+      if @order.save!
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html { redirect_to store_url, notice:

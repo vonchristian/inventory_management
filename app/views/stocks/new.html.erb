@@ -9,7 +9,7 @@
           <%=simple_form_for [@product, @stock] do |f| %>
             <%=f.error_notification %>
             <%=f.input :quantity %>
-            <%=f.input :date, as: :string  %>
+            <%=f.input :date, as: :string, input_html: {class: "datepicker"} %>
             <div class="modal-footer">
               <%=f.submit "Save Stock", class: "btn btn-primary" %>
             </div>
@@ -21,3 +21,4 @@
     </div>
   </div>
 </div>
+<
