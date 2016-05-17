@@ -9,10 +9,10 @@
     <div class="content">
 <% if @cart.line_items.empty? %>
 
-<h4 class="title"> <center>Cart is empty. </center></h4>
+<h4 class="title"> <center>No Order. </center></h4>
 <br>
 <% else %>
-          <%=render @cart.line_items %>
+          <%=render @cart.line_items.sort_by{|l| l.product_name } %>
 <div class="pull-left">
   <h4 class="title"> Total </h4>
 </div>
