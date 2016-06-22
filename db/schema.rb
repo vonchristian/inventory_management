@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503145821) do
+ActiveRecord::Schema.define(version: 20160622101427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 20160503145821) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.decimal  "number"
+    t.integer  "discount_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -38,17 +51,31 @@ ActiveRecord::Schema.define(version: 20160503145821) do
     t.string   "mobile_number"
     t.string   "email"
     t.integer  "pay_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "delivery_type"
+    t.string   "receipt_number"
   end
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.decimal  "price",       precision: 9, scale: 2
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.decimal  "price",        precision: 9, scale: 2
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "unit"
+    t.integer  "category_id"
+    t.boolean  "alert"
+    t.integer  "alert_number"
+    t.index ["category_id"], name: "index_products_on_category_id", using: :btree
+  end
+
+  create_table "refunds", force: :cascade do |t|
+    t.decimal  "amount"
+    t.integer  "reason"
+    t.integer  "request_status"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -58,6 +85,14 @@ ActiveRecord::Schema.define(version: 20160503145821) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree
+  end
+
+  create_table "taxes", force: :cascade do |t|
+    t.integer  "tax_type"
+    t.string   "name"
+    t.decimal  "percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

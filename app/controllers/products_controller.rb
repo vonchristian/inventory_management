@@ -11,12 +11,8 @@ class ProductsController < ApplicationController
     @product.stocks.build
   end
   def create
+    @products = Product.all 
     @product = Product.create(product_params)
-    if @product.save
-      redirect_to @product, notice: "Product saved successfully."
-    else
-      render :new
-    end
   end
   def show
     begin

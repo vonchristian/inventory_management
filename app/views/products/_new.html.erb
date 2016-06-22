@@ -1,10 +1,13 @@
-<div class="col-md-4 col-md-offset-4">
-  <div class="card">
-    <div class="header">
-      <h4 class="title"> Product Details </h4>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">New Account Details </h4>
     </div>
-    <div class="content">
-
+    <div class="card">
+      <div class="content">
+        <div class="modal-body">
+          <ul class="errors text-danger">
+          </ul>
           <%=simple_form_for @product do |f| %>
             <%=f.error_notification %>
             <%=f.input :name %>
@@ -18,6 +21,7 @@
               <%=f.submit "Save Product", class: "btn btn-primary" %>
             </div>
           <% end %>
+        </div>
       </div>
     </div>
   </div>

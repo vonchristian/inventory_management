@@ -462,7 +462,6 @@ hr {
   background-color: #f4f3ef;
   background-image: linear-gradient(to bottom, transparent 0%, rgba(112, 112, 112, 0) 60%, rgba(186, 186, 186, 0.15) 100%);
   position: relative;
-  z-index: 2;
   float: right;
   width: calc(100% - 260px);
   min-height: 100%;

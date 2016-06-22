@@ -31,6 +31,18 @@
                        <p>Orders</p>
                    </a>
                  </li>
+                 <li class="<%="active" if current_page? orders_path %>">
+                     <a href="/orders">
+                         <i class="fa fa-users"></i>
+                         <p>Employees</p>
+                     </a>
+                   </li>
+                   <li class="<%="active" if current_page? orders_path %>">
+                       <a href="/orders">
+                           <i class="fa fa-building"></i>
+                           <p>Business</p>
+                       </a>
+                     </li>
          </ul>
    </div>
  </div>

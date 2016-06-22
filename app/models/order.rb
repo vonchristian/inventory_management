@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
-  enum pay_type:[:cash, :check]
+  enum pay_type:[:cash, :credit]
+  enum delivery_type: [:pick_up, :deliver, :to_go]
   has_many :line_items, dependent: :destroy
 
   def add_line_items_from_cart(cart)

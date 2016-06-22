@@ -1,4 +1,4 @@
-
+<div id="product-modal" class="modal fade"></div>
 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
@@ -21,7 +21,7 @@
                                   <% end %>
                                 </div>
                                 <div class="col-md-3">
-                                  <%=link_to new_product_path do %>
+                                  <%=link_to new_product_path, remote: true do %>
                                   <span class="btn btn-primary btn-icon pull-right"><i class="fa fa-plus"></i> New Product</span>
                                   <% end %>
                                 </div>
@@ -33,21 +33,21 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <th>Name</th>
-                                        <th>Quantity</th>
-
-                                        <th>Unit</th>
                                         <th>Price</th>
+
+                                        <th>In Stock</th>
+                                        <th>Stock Alert</th>
 
                                     </thead>
                                     <tbody>
                                     <% @products.each do |product| %>
                                         <tr class="<%="text-danger" if product.out_of_stock?%>">
-                                            <td class="text-uppercase"><%=link_to product.name, product %></td>
-                                            <td><%=product.quantity%></td>
+                                            <td><%=link_to product.name, product, class: "category" %></td>
+                                            <td><%=number_to_currency product.quantity%></td>
                                             <td><%=product.unit %></td>
                                             <td><span><%=number_to_currency product.price%></span></td>
                                             <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary" %>
-                                            
+
                                             </td>
                                             <td>
                                               <% if product.out_of_stock? %>
