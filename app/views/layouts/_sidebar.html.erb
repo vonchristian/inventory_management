@@ -8,7 +8,7 @@
    <div class="sidebar-wrapper">
          <div class="logo">
              <a href="/" class="simple-text">
-                Kiphodan - POS
+                ITWORX - POS
              </a>
          </div>
 
@@ -31,18 +31,19 @@
                        <p>Orders</p>
                    </a>
                  </li>
-                 <li class="<%="active" if current_page? orders_path %>">
-                     <a href="/orders">
-                         <i class="fa fa-users"></i>
-                         <p>Employees</p>
+                 <li class="<%="active" if current_page? members_path %>">
+                     <a href="/members">
+                         <i class="fa fa-male"></i>
+                         <p>Customers</p>
                      </a>
                    </li>
-                   <li class="<%="active" if current_page? orders_path %>">
-                       <a href="/orders">
-                           <i class="fa fa-building"></i>
-                           <p>Business</p>
-                       </a>
-                     </li>
+                 <li class="<%="active" if current_page? orders_path %>">
+                     <a href="/orders">
+                         <i class="fa fa-cog"></i>
+                         <p>Settings</p>
+                     </a>
+                   </li>
+                  
          </ul>
    </div>
  </div>

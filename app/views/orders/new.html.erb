@@ -1,3 +1,4 @@
+<div id="member-modal" class="modal fade"></div>
 <div class="container">
   <div class="card">
     <div class="header">
@@ -16,10 +17,10 @@
         <div class="col-md-5 col-md-offset-1">
           <%=simple_form_for @order do |f| %>
             <%=f.error_notification %>
-            <%=f.input :name %>
-            <%=f.input :address %>
-            <%=f.input :mobile_number %>
-            <%=f.input :email %>
+            <%=link_to 'New Member', new_member_path, remote: true %>
+            <%=f.input :user_id, label: 'Customer', collection: Member.all.map{ |a| [a.first_name, a.id]} %>
+
+
             <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons %>
             <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons %>
             <div class="modal-footer">

@@ -1,7 +1,23 @@
-<div class="row">
-  <div class="col-md-4 col-sm-offset-4">
-    <%=form_tag store_path, class: 'sidebar-form', method: :get do %>
-      <div class="input-group">
+
+  <div class="card">
+    <div class="content">
+      <div class="row">
+        <div class="col-md-5">
+          <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <li class="dropdown">
+                    <button href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown" aria-expanded="false">All Products <b class="caret"></b></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><%=link_to 'This Day'  %></li>
+                      <li> <%=link_to 'This Week' %></li>
+                      <li> <%=link_to 'This Month' %></li>
+                    </ul>
+                  </li>
+                </ul>
+        </div>
+  <div class="col-md-6">
+    <%=form_tag store_path, class: 'form-inline', method: :get do %>
+      <div class="input-group stylish-input-group">
         <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...' %>
         <span class="input-group-btn">
           <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
@@ -12,44 +28,53 @@
     <% end %>
   </div>
 </div>
-  <hr>
+<hr>
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-7">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price </th>
+          <th> On Stock </th>
+          <th> Quantity </th>
+          <th> </th>
+        </tr>
     <% @products.each do |product| %>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="header">
-            <h4 class="title"><%=product.name %>
-              <span class='pull-right'><small class="text-info"><%=number_to_currency product.price %></small></span>
-            </h4>
-          </div>
-          <div class="content">
-            <div class="modal-footer">
+      <tbody>
+        <tr>
+          <td><%=product.name %></td>
+          <td><%=number_to_currency product.price %></td>
+          <td><%=product.quantity.round%> <%=product.unit %></td>
+
+
+
+
               <%=simple_form_for @line_item do |f| %>
-                <div class="row">
-                  <div class="col-md-4">
-                    <%=f.input :quantity, label: false, as: :string, required: true %>
+                    <td class="col-md-3">
+                    <%=f.input :quantity, label: false %>
 
                     <%=f.input :product_id, input_html: {value: product.id }, as: :hidden %>
-                  </div>
-                  <div class="col-md-8">
+                  </td>
+                  <td>
                     <% if  product.out_of_stock? %>
-                      <span class="btn btn-danger active"> Out of Stock </span>
+                      <span class="btn btn-danger btn-sm active"> Out of Stock </span>
                     <% else %>
-                      <%=f.submit "Add to Cart", data: {disable_with: "Adding Product..."}, class: "btn btn-primary" %>
+                      <%=f.submit "Add to Cart", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active" %>
                     <% end %>
-                  </div>
-                </div>
-                <p class="text-warning"><%=product.quantity%> <%=product.unit %> remaining</p>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+                  </td>
 
-  <div class="col-md-4" id="cart">
+              <% end %>
+          </tr>
+        </tbody>
+    <% end %>
+  </table>
+  </div>
+  <div class="col-md-5" id="cart">
     <%=render @cart %>
   </div>
+</div>
+</div>
+</div>
+</div>
 </div>

@@ -1201,8 +1201,9 @@ textarea.form-control {
 }
 .table > thead > tr > th {
   border-bottom-width: 0;
-  font-size: 1.25em;
-  font-weight: 300;
+  font-size: 1em;
+  font-weight: 100;
+  text-transform: uppercase;
 }
 .table .radio,
 .table .checkbox {

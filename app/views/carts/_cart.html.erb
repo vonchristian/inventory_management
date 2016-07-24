@@ -4,7 +4,7 @@
       <h4 class="title"> Orders
         <span class="pull-right"><%= button_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger" %></span>
       </h4>
-      <hr>
+    <br>
     </div>
     <div class="content">
 <% if @cart.line_items.empty? %>

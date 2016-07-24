@@ -10,7 +10,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <%=form_tag products_path, class: 'sidebar-form', method: :get do %>
-                                    <div class="input-group">
+                                    <div class="input-group stylish-input-group">
                                       <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...' %>
                                       <span class="input-group-btn">
                                         <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
@@ -46,7 +46,7 @@
                                             <td><%=number_to_currency product.quantity%></td>
                                             <td><%=product.unit %></td>
                                             <td><span><%=number_to_currency product.price%></span></td>
-                                            <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary" %>
+                                            <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary btn-sm active" %>
 
                                             </td>
                                             <td>
