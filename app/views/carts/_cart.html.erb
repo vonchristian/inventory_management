@@ -1,6 +1,4 @@
-
-  <div class="card">
-    <div class="header">
+<div class="border-right">
       <h4 class="title"> Orders
         <span class="pull-right"><%= button_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger" %></span>
       </h4>
@@ -8,9 +6,8 @@
     </div>
     <div class="content">
 <% if @cart.line_items.empty? %>
-
-<h4 class="title"> <center>No Order. </center></h4>
 <br>
+ <center><%=image_tag('empty_cart.png', height: 100, width: 100, class: 'img-responsive') %></center>
 <% else %>
           <%=render @cart.line_items.sort_by{|l| l.product_name } %>
 <div class="pull-left">
@@ -23,10 +20,9 @@
 <hr>
 <div class="row">
 <div class="col-md-12">
-        <span><center><%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-success btn-block"%></center>
+        <span><center><%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-success btn-block active"%></center>
 </div>
 </div>
 
-      </div>
-    </div>
+
 <% end %>

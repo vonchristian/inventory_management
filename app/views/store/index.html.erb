@@ -2,7 +2,7 @@
   <div class="card">
     <div class="content">
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3">
           <ul class="nav navbar-nav">
                   <li class="dropdown">
                     <li class="dropdown">
@@ -15,7 +15,8 @@
                   </li>
                 </ul>
         </div>
-  <div class="col-md-6">
+
+  <div class="col-md-3">
     <%=form_tag store_path, class: 'form-inline', method: :get do %>
       <div class="input-group stylish-input-group">
         <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...' %>
@@ -27,18 +28,19 @@
       </div>
     <% end %>
   </div>
+
 </div>
 <hr>
 <div class="row">
-  <div class="col-md-7">
+  <div class="col-md-6">
     <table class="table table-hover">
       <thead>
         <tr>
           <th>Product</th>
           <th>Price </th>
-          <th> On Stock </th>
-          <th> Quantity </th>
-          <th> </th>
+          <th>Stock </th>
+          <th>Quantity </th>
+          <th></th>
         </tr>
     <% @products.each do |product| %>
       <tbody>
@@ -70,7 +72,7 @@
     <% end %>
   </table>
   </div>
-  <div class="col-md-5" id="cart">
+  <div class="col-md-5 col-md-offset-1" id="cart">
     <%=render @cart %>
   </div>
 </div>
