@@ -1,2 +1,27 @@
 <%=link_to 'New Member', new_member_path, remote: true, class: "btn btn-primary" %>
 <div id="member-modal" class="modal fade"></div>
+<div class="col-md-12">
+  <div class="card">
+    <div class="header">
+      <h4 class="title"> Members </h4>
+    </div>
+    <div class="content">
+      <div class="table table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Member</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Member.all.each do |member| %>
+              <tr>
+                <td><%= member.first_name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
