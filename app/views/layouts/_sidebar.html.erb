@@ -37,13 +37,19 @@
                          <p>Customers</p>
                      </a>
                    </li>
+                   <li class="<%="active" if current_page? reports_path %>">
+                       <a href="/reports">
+                           <i class="fa fa-file-text-o"></i>
+                           <p>Reports</p>
+                       </a>
+                     </li>
                  <li class="<%="active" if current_page? orders_path %>">
                      <a href="/orders">
                          <i class="fa fa-cog"></i>
                          <p>Settings</p>
                      </a>
                    </li>
-                  
+
          </ul>
    </div>
  </div>

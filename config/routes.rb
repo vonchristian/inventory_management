@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :carts
   resources :orders
   resources :members
+  resources :reports, only: [:index]
 end
