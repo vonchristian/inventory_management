@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all.order(:created_at)
+    @orders = Order.all.order(:date).reverse
   end
   def new
     @cart = current_cart
@@ -36,6 +36,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:user_id, :pay_type, :delivery_type)
+    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date)
   end
 end

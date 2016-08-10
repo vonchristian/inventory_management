@@ -6,11 +6,13 @@
       <hr>
     </div>
     <div class="content">
-      <h4 class="title"><%=@order.name %></h4>
-      <%=@order.address %><br>
-      <%=@order.mobile_number %><br>
-      <%=@order.email %>
+      <h4 class="title"><%=@order.member.try(:full_name) %></h4>
+      <%=@order.member.try(:address) %><br>
+      <%=@order.member.try(:mobile_number) %><br>
+      <%=@order.member.try(:email) %>
       <hr>
+      <h4 class="title"> Items </h4>
+      <br>
       <%@order.line_items.each do |line_item| %>
       <ul class="list-unstyled team-members">
         <li id="current_item">
@@ -22,10 +24,21 @@
             <div class="col-xs-5">
               <%=line_item.product.name%>
               <br />
-              <span class="text-success"><small><%=number_to_currency line_item.product.price %></small></span>
+              <span class="text-success"><small>
+                <% if @order.retail? %>
+                <%=number_to_currency line_item.product.price %>
+                <% else %>
+                <%=number_to_currency line_item.product.wholesale_price %>
+                <% end %>
+              </small></span>
             </div>
             <div class="col-xs-4 text-right">
+              <% if line_item.retail? %>
               <%=number_to_currency line_item.total_price %>
+              <% else %>
+              <%=number_to_currency line_item.total_whole_sale_price %>
+              <% end %>
+
             </div>
 
           </div>
@@ -35,7 +48,12 @@
       <% end %>
 
         <div class="modal-footer">
-          <b>Paid Amount: </b> <%=number_to_currency @order.line_items.total_price %>
+          <b>Amount: </b>
+          <% if @order.line_items.last.retail? %>
+          <%=number_to_currency @order.line_items.total_price %>
+          <% else %>
+          <%=number_to_currency @order.line_items.total_whole_sale_price %>
+          <% end %>
         </div>
       </div>
     </div>

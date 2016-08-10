@@ -1,20 +1,23 @@
 <ul class="list-unstyled team-members">
   <li id="current_item">
     <div class="row">
-      <div class="col-xs-2">
-          <span><%=line_item.quantity %> <%=line_item.product.unit %></span>
+      <div class="col-xs-3">
+          <small><%=line_item.quantity %> <%=line_item.product.unit %></small>
       </div>
       <div class="col-xs-5">
-        <%=line_item.product.name%>
+        <small><%=line_item.product.name%></small>
         <br />
-        <span class="text-success"><small><%=number_to_currency line_item.product.price %></small></span>
+        <span class="text-success"><small><%=number_to_currency line_item.unit_cost %></small></span>
       </div>
       <div class="col-xs-2 text-left">
-        <%=number_to_currency line_item.total_price %>
+        <small>
+          <%=number_to_currency line_item.total_cost %>
+
+        </small>
       </div>
       <div class="col-xs-2 pull-right">
-        <%=link_to line_item, method: :delete, confirm: 'Are you sure?' do %>
-        <span class="btn btn-danger btn-xs" title="Remove"><i class="fa fa-times"></i> </span>
+        <%=link_to line_item, method: :delete, data: {confirm: 'Are you sure?'} do %>
+        <small class="btn btn-danger btn-xs" title="Remove"><i class="fa fa-times"></i> </small>
         <% end %>
       </div>
     </div>

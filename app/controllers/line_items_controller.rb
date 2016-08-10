@@ -4,7 +4,8 @@ class LineItemsController < ApplicationController
     @line_item = @cart.line_items.create(line_item_params)
     respond_to do |format|
       if @line_item.save
-        @cart.add_product
+        @line_item.retail!
+        @cart.add_line_item(@line_item)
         format.html { redirect_to store_url }
         format.js   { @current_item = @line_item }
       else
@@ -21,6 +22,6 @@ class LineItemsController < ApplicationController
 
   private
   def line_item_params
-    params.require(:line_item).permit(:product_id, :quantity)
+    params.require(:line_item).permit(:product_id, :quantity, :unit_cost, :total_cost)
   end
 end

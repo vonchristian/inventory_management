@@ -14,20 +14,14 @@
                 <th>Date </th>
                 <th> Name </th>
                 <th> Amount </th>
-                <th> Type </th>
               </tr>
             </thead>
             <tbody>
-              <% @orders.each do |order| %>
+              <% @orders.order(:date).reverse.each do |order| %>
                 <tr>
                   <td><%= order.date.strftime('%B %e, %Y') %></td>
                   <td><%= link_to order.member.full_name, order %></td>
-                  <td> <% if order.wholesale? %>
-                    <%= number_to_currency order.line_items.total_whole_sale_price %>
-                    <% else %>
-                    <%= number_to_currency order.line_items.total_price %>
-                  <% end %></td>
-                  <td></td>
+                  <td> <%= number_to_currency order.line_items.total_price %></td>
                 </tr>
               <% end %>
             </tbody>

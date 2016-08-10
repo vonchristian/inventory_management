@@ -11,4 +11,14 @@ Rails.application.routes.draw do
   resources :orders
   resources :members
   resources :reports, only: [:index]
+  resources :settings, only: [:index]
+  resources :credits, only: [:index]
+
+  resources :categories
+  resources :wholesales
+  resources :stocks, only: [:index, :show]
+  namespace :wholesales do
+    resources :line_items
+    resources :orders
+  end
 end

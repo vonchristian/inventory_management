@@ -1,0 +1,23 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="header">
+      <h4 class="title"> Member Details </h4>
+    </div>
+    <div class="content">
+      <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+              <li role="presentation"><a href="#purchases" aria-controls="purchases" role="tab" data-toggle="tab">Purchases</a></li>
+              <li role="presentation"><a href="#credits" aria-controls="credits" role="tab" data-toggle="tab">Credits</a></li>
+
+              <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+              <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">History</a></li>
+
+            </ul>
+            <div class="tab-content">
+              <%=render 'info' %>
+              <%=render 'purchases' %>
+              <%=render 'credits' %>
+            </div>
+    </div>
+  </div>
+</div>

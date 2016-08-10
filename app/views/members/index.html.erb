@@ -1,9 +1,16 @@
-<%=link_to 'New Member', new_member_path, remote: true, class: "btn btn-primary" %>
+
 <div id="member-modal" class="modal fade"></div>
 <div class="col-md-12">
   <div class="card">
     <div class="header">
-      <h4 class="title"> Members </h4>
+      <h4 class="title"> Members
+        <span class="pull-right">
+          <%=link_to new_member_path, remote: true do %>
+          <span class="btn btn-primary"><i class="fa fa-user-plus"></i> New Member </span>
+          <% end %>
+        </span>
+      </h4>
+      <p class="category"> List of members </p>
     </div>
     <div class="content">
       <div class="table table-responsive">
@@ -11,12 +18,16 @@
           <thead>
             <tr>
               <th>Member</th>
+              <th> Mobile Number</th>
+              <th> Address </th>
             </tr>
           </thead>
           <tbody>
             <% Member.all.each do |member| %>
               <tr>
-                <td><%= member.first_name %></td>
+                <td><%= link_to member.full_name, member %></td>
+                <td><%= member.mobile %></td>
+                <td><%= member.address %></td>
               </tr>
             <% end %>
           </tbody>

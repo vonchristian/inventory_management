@@ -11,10 +11,10 @@
 <% else %>
           <%=render @cart.line_items.sort_by{|l| l.product_name } %>
 <div class="pull-left">
-  <h4 class="title"> Total </h4>
+  <h4 class="title"> <b>Total</b> </h4>
 </div>
         <div class="pull-right">
-          <h4 class="title"> <%=number_to_currency @cart.total_price %></h4>
+          <h4 class="title"> <b><%=number_to_currency @cart.total_price %></b></h4>
         </div>
         <br>
 <hr>

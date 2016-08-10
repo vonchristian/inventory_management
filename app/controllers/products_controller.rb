@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     @product.stocks.build
   end
   def create
-    @products = Product.all 
+    @products = Product.all
     @product = Product.create(product_params)
   end
   def show
@@ -44,6 +44,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:name, :price, :unit, stocks_attributes:[:quantity, :date])
+    params.require(:product).permit(:name, :price, :wholesale_price, :unit, :stock_alert_count, stocks_attributes:[:quantity, :date])
   end
 end

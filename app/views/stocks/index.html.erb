@@ -1,7 +1,7 @@
 <div class="col-md-12">
   <div class="card">
       <div class="header">
-          <h4 class="title">Orders
+          <h4 class="title">Purchases
             <span class="pull-right"> <%#=link_to "New Contractor", new_contractor_path, class: "btn btn-primary" %></span>
           </h4>
           <hr>
@@ -12,22 +12,24 @@
             <thead>
               <tr>
                 <th>Date </th>
-                <th> Name </th>
+                <th> Quantity </th>
+                <th> Product </th>
                 <th> Amount </th>
-                <th> Type </th>
+
+
               </tr>
             </thead>
             <tbody>
-              <% @orders.each do |order| %>
+              <% @stocks.each do |stock| %>
                 <tr>
-                  <td><%= order.date.strftime('%B %e, %Y') %></td>
-                  <td><%= link_to order.member.full_name, order %></td>
-                  <td> <% if order.wholesale? %>
-                    <%= number_to_currency order.line_items.total_whole_sale_price %>
-                    <% else %>
-                    <%= number_to_currency order.line_items.total_price %>
-                  <% end %></td>
-                  <td></td>
+                  <td><%= stock.date %></td>
+                  <td><%= stock.quantity %></td>
+                  <td><%= link_to stock.product.name, stock %></td>
+
+
+                    <td><%= number_to_currency stock.purchase_price %>
+                  </td>
+
                 </tr>
               <% end %>
             </tbody>

@@ -8,7 +8,7 @@
    <div class="sidebar-wrapper">
          <div class="logo">
              <a href="/" class="simple-text">
-                ITWORX - POS
+                COOP Catalyst
              </a>
          </div>
 
@@ -19,21 +19,39 @@
                      <p>Store</p>
                  </a>
              </li>
+             <li class="<%="active" if current_page? wholesales_path %>">
+                  <a href="/wholesales">
+                      <i class="fa fa-home"></i>
+                      <p>Store (Wholesale)</p>
+                  </a>
+              </li>
              <li class="<%="active" if current_page? products_path %>">
                  <a href="/products">
-                     <i class="fa fa-server"></i>
+                     <i class="fa fa-cubes"></i>
                      <p>Products</p>
                  </a>
                </li>
                <li class="<%="active" if current_page? orders_path %>">
                    <a href="/orders">
-                       <i class="fa fa-list"></i>
-                       <p>Orders</p>
+                       <i class="fa fa-check"></i>
+                       <p>Sales</p>
                    </a>
                  </li>
+                 <li class="<%="active" if current_page? credits_path %>">
+                     <a href="/credits">
+                         <i class="fa fa-minus"></i>
+                         <p>Credits</p>
+                     </a>
+                   </li>
+                   <li class="<%="active" if current_page? credits_path %>">
+                       <a href="/stocks">
+                           <i class="fa fa-circle"></i>
+                           <p>Purchases</p>
+                       </a>
+                     </li>
                  <li class="<%="active" if current_page? members_path %>">
                      <a href="/members">
-                         <i class="fa fa-male"></i>
+                         <i class="fa fa-users"></i>
                          <p>Customers</p>
                      </a>
                    </li>
@@ -43,9 +61,9 @@
                            <p>Reports</p>
                        </a>
                      </li>
-                 <li class="<%="active" if current_page? orders_path %>">
-                     <a href="/orders">
-                         <i class="fa fa-cog"></i>
+                 <li class="<%="active" if current_page? settings_path %>">
+                     <a href="/settings">
+                         <i class="fa fa-sliders"></i>
                          <p>Settings</p>
                      </a>
                    </li>

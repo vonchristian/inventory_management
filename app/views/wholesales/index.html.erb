@@ -37,7 +37,7 @@
       <thead>
         <tr>
           <th>Product</th>
-          <th>Price </th>
+          <th>Wholesale Price </th>
           <th>Stock </th>
           <th>Quantity </th>
           <th></th>
@@ -46,20 +46,18 @@
       <tbody>
         <tr>
           <td><%=product.name %></td>
-          <td><%=number_to_currency product.price %></td>
+          <td><%=number_to_currency product.wholesale_price %></td>
           <td><%=product.quantity.round%> <%=product.unit %></td>
 
 
 
 
-              <%=simple_form_for @line_item, url: :line_items do |f| %>
+              <%=simple_form_for @line_item, url: :wholesales_line_items do |f| %>
                     <td class="col-md-3">
-
-                      <%=f.input :quantity,  input_html: {value: 1} %>
+                    <%=f.input :quantity, label: false %>
 
                     <%=f.input :product_id, input_html: {value: product.id }, as: :hidden %>
-                    <%=f.input :unit_cost, input_html: { value: product.price}, as: :hidden %>
-
+                    <%=f.input :unit_cost, input_html: { value: product.wholesale_price}, as: :hidden %>
                   </td>
                   <td>
                     <% if  product.out_of_stock? %>
@@ -76,7 +74,7 @@
   </table>
   </div>
   <div class="col-md-5 col-md-offset-1" id="cart">
-    <%=render @cart %>
+    <%=render  @cart %>
   </div>
 </div>
 </div>

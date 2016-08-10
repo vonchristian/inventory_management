@@ -1,4 +1,7 @@
 class StocksController < ApplicationController
+  def index
+    @stocks = Stock.all
+  end
   def new
     @product = Product.find(params[:product_id])
     @stock = @product.stocks.build
@@ -16,6 +19,6 @@ class StocksController < ApplicationController
 
   private
   def stock_params
-    params.require(:stock).permit(:quantity, :date)
+    params.require(:stock).permit(:quantity, :date, :purchase_price)
   end
 end
