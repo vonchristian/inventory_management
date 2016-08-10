@@ -25,7 +25,7 @@
               <%=line_item.product.name%>
               <br />
               <span class="text-success"><small>
-                <% if @order.retail? %>
+                <% if line_item.retail? %>
                 <%=number_to_currency line_item.product.price %>
                 <% else %>
                 <%=number_to_currency line_item.product.wholesale_price %>
