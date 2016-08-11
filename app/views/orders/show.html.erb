@@ -1,17 +1,17 @@
 
   <div class="col-md-6 col-md-offset-3">
-  <div class="card">
-    <div class="header">
-      <h4 class="title">Order Details <span class="pull-right"><%=@order.created_at.strftime("%B %e, %Y") %></span> </h4>
-      <hr>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Order Details <span class="pull-right"><small><i class="fa fa-clock-o"></i> <%=@order.date.strftime("%A, %B %e, %Y %H:%m %p") %></small></span> </h4>
+      <b>#<%=@order.reference_number %></b>
     </div>
     <div class="content">
-      <h4 class="title"><%=@order.member.try(:full_name) %></h4>
-      <%=@order.member.try(:address) %><br>
-      <%=@order.member.try(:mobile_number) %><br>
-      <%=@order.member.try(:email) %>
+      <h4><%=@order.member.try(:full_name) || 'Guest'%></h4>
+      <b>Address</b> <%=@order.member.try(:address) || 'Unkown' %><br>
+      <b>Mobile Number</b> <%=@order.member.try(:mobile_number) || 'Unknown' %><br>
+      <b>Email</b> <%=@order.member.try(:email) || 'Unknown'%>
       <hr>
-      <h4 class="title"> Items </h4>
+      <h4>Items </h4>
       <br>
       <%@order.line_items.each do |line_item| %>
       <ul class="list-unstyled team-members">

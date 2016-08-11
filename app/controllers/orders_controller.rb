@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all.order(:date).reverse
+    @orders = Order.all.order(:id).reverse
   end
   def new
     @cart = current_cart

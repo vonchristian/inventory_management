@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
   def index
-    @business = Business.last
+   @business = Business.find(params[:business_id])
   end
 end

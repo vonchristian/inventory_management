@@ -1,10 +1,10 @@
 <div id="product-modal" class="modal fade"></div>
 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
+                        <div class="box box-default">
+                            <div class="panel-heading">
                                  <div class="row">
-                                   <div class="col-md-2">
+                                   <div class="col-md-3">
                                      <ul class="nav navbar-nav">
                                              <li class="dropdown">
                                                <li class="dropdown">
@@ -21,9 +21,9 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                  <%=form_tag products_path, class: 'sidebar-form', method: :get do %>
+                                  <%=form_tag products_path, method: :get do %>
                                     <div class="input-group stylish-input-group">
-                                      <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...', autofocus: true %>
+                                      <%=text_field_tag :name, params[:name], class: 'form-control', placeholder: 'Search Inventory...'%>
                                       <span class="input-group-btn">
                                         <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
                                           <i class="fa fa-search"></i>
@@ -45,20 +45,20 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Wholesale Price </th>
+                                        <th><span class='pull-right'> Price</span></th>
+                                        <th><span class='pull-right'> Wholesale Price </span> </th>
 
-                                        <th>In Stock</th>
+                                        <th><span class='pull-right'>In Stock</span></th>
                                         <th>Stock Alert</th>
 
                                     </thead>
                                     <tbody>
                                     <% @products.each do |product| %>
                                         <tr class="<%="text-danger" if product.out_of_stock?%>">
-                                            <td><%=link_to product.name, product, class: "category" %></td>
-                                            <td><%=number_to_currency product.price%></td>
-                                            <td><%=number_to_currency product.wholesale_price%></td>
-                                            <td><%=product.quantity %><%=product.unit %></td>
+                                            <td><%=link_to product.name, product %></td>
+                                            <td><span class='pull-right'><%=number_to_currency product.price%></span></td>
+                                            <td><span class='pull-right'><%=number_to_currency product.wholesale_price%></span></td>
+                                            <td><span class='pull-right'><%=product.quantity %></span></td>
                                             <td><span><%=product.stock_status.try(:titleize) %></span></td>
                                             <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary btn-sm active" %>
 

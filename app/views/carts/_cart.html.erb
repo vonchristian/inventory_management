@@ -1,6 +1,6 @@
+<% if @cart.line_items.present? %>
 <div class="col-md-12">
-  <p><%=Business.last.name %></p>
-      <h4> Orders
+      <h4> <span class='badge bg-green'><%=@cart.line_items.count %></span> Orders
         <span class="pull-right">
           <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
       </h4>
@@ -12,21 +12,8 @@
       <%=render @cart.line_items.sort_by{|l| l.product_name } %>
   </div>
 
-  <div class="col-md-12">
 
-<div class="pull-left">
-  <h4> <b>SubTotal</b> </h4>
-</div>
-        <div class="pull-right">
-          <h4> <b><%=number_to_currency @cart.total_price %></b></h4>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <h4> VAT &nbsp; &nbsp; &nbsp; (12 %) </h4>
-      </div>
-      <div class="col-md-12">
-        <h4> Vatable Amount </h4>
-      </div>
+
         <div class="col-md-12">
         <div class="pull-left">
           <h3> <b>Total</b> </h3>
@@ -39,25 +26,28 @@
 </div>
 
 
+<br>
+<br>
+<br>
 
-<br>
-<br>
-<br>
   <%=simple_form_for Order.new do |f| %>
   <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
-  <%#=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons, checked: Order.pay_types.first %>
-  <%#=f.input :date, as: :string, input_html: {class: 'datepicker'} %>
+  <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first %>
+  <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
 
-  <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
+  <%#=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
   <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'} %>
   <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
 
-  <%#=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
+  <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
   <%=f.submit "Checkout", class: 'btn btn-success btn-block btn-lg' %>
+  <br>
   <% end %>
+
 </div>
 </div>
 </div>
+  <% end %>
 <script>
   $(document).ready(function() {
     $("#order_user_id").select2({

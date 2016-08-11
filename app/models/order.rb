@@ -7,7 +7,10 @@ class Order < ApplicationRecord
   has_many :credit_payments
   before_save :set_date, :set_user
 
-  validates :user_id, presence: true
+  validates :user_id, presence: true, allow_nil: true
+  def reference_number
+    "#{id.to_s.rjust(8, '0')}"
+  end
   def self.total_amount
     all.map{|a| a.total_amount }.sum
   end

@@ -1,16 +1,15 @@
 <div class="col-md-12">
-  <div class="card">
-      <div class="header">
-          <h4 class="title">Orders
-            <span class="pull-right"> <%#=link_to "New Contractor", new_contractor_path, class: "btn btn-primary" %></span>
+  <div class="panel panel-default">
+      <div class="panel-heading">
+          <h4>Sales
           </h4>
-          <hr>
       </div>
-      <div class="content">
+      <div class="panel-body">
         <div class="table table-responsive">
           <table class="table table-hover">
             <thead>
               <tr>
+                <th> OR </th>
                 <th>Date </th>
                 <th> Name </th>
                 <th> Amount </th>
@@ -20,8 +19,9 @@
             <tbody>
               <% @orders.each do |order| %>
                 <tr>
+                  <td><%=order.reference_number %></td>
                   <td><%= order.date.strftime('%B %e, %Y') %></td>
-                  <td><%= link_to order.member.full_name, order %></td>
+                  <td><%= link_to order.member.try(:full_name), order %></td>
                   <td> <% if order.wholesale? %>
                     <%= number_to_currency order.line_items.total_whole_sale_price %>
                     <% else %>

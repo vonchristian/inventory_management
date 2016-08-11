@@ -17,7 +17,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'kaminari'
 gem 'pg_search'
 gem 'devise'
-gem "paperclip", "~> 5.0.0.beta1"
+gem "paperclip", "~> 5.0.0"
 gem 'bootstrap-datepicker-rails'
 gem 'pundit'
 gem "select2-rails"

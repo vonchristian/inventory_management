@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811085020) do
+ActiveRecord::Schema.define(version: 20160811131536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20160811085020) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.decimal  "purchase_price"
+    t.string   "serial_number"
+    t.date     "expiry_date"
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree
   end
 

@@ -1,24 +1,64 @@
 <div class="col-md-12">
-  <div class="card">
-    <div class="header">
-      <h4 class="title">Reports </h4>
+  <div class="panel">
+    <div class="panel-heading bg-purple">
+      <h4>Reports Section</h4>
+    </div>
+    <div class="panel-body">
+    <div class="">
+      <h4>Sales and Inventories</h4>
     </div>
     <div class="content">
       <div class="row">
         <div class="col-md-6">
-      <h4 class="title"> Daily Sales Report </h4>
-      <p class="category"> Generate daily sales report for today. </p>
+      <h4> Daily Sales Report </h4>
+      <p> Generate daily sales report for today. </p>
+      <br>
+      <h4> Weekly Sales Report </h4>
+      <p> Generate daily sales report for today. </p>
+      <br>
+      <h4> Monthly Sales Report </h4>
+      <p> Generate daily sales report for today. </p>
     </div>
     <div class="col-md-5">
-      <h4 class="title">Stocks Alert</h4>
-      <p class="category"> Generate reports for stock alert of products. </p>
+      <h4>Inventories</h4>
+      <p> Generate reports for stock alert of products. </p>
       <br>
-      <%=link_to low_stock_products_path(format: 'pdf') do %>
-      <h4 class="title"><span class='text-danger'><i class='fa fa-file-text-o'></i> Low Stock Products </span> </h4>
-      <p class="category">Generate report for all low stock products. </p>
+      <%=link_to low_stock_products_path(format: 'pdf'), class: 'text-warning' do %>
+      <h4><span class='text-danger'><i class='fa fa-file-text-o'></i> Low Stock Products </span> </h4>
+      <p>Generate report for all low stock products. </p>
       <% end %>
       <hr />
-      <h4 class="title text-danger"><i class='fa fa-file-text-o text-danger'></i> Out of Stock Products </h4>
-      <p class="category">Generate report for all out of stock products. </p>
+      <%=link_to out_of_stock_products_path(format: 'pdf'), class: 'text-danger' do %>
+      <h4 class="text-danger"><i class='fa fa-file-text-o text-danger'></i> Out of Stock Products </h4>
+      <p>Generate report for all out of stock products. </p>
+      <% end %>
     </div>
   </div>
+  <hr>
+  <h4>Receivables </h4>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Due from Customers </h4>
+      <p>Generate report for credits due from customers </p>
+      <hr>
+    </div>
+  </div>
+
+  <h4>Payables </h4>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Payable to Creditors </h4>
+      <p>Generate report for accounts payable to creditors </p>
+    
+    </div>
+  </div>
+  <hr>
+  <h4>Accounts </h4>
+  <div class="row">
+    <div class="col-md-12">
+      <h4> Financial Statement </h4>
+      <p>Generate Financial Statement of your business </p>
+      <hr>
+      <h4> Statement of Cash Flow </h4>
+      <p>Generate Financial Statement of your business </p>
+<hr>
