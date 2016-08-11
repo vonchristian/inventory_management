@@ -31,5 +31,17 @@ Rails.application.routes.draw do
   end
   resources :businesses
   resources :info, only: [:index]
-  resources :users, only: [:show]
+  resources :users, only: [:show, :new, :create]
+  namespace :accounting do
+    resources :reports, only:[:index]
+    resources :accounts
+    resources :assets, controller: 'accounts', type: 'Accounting::Asset'
+    resources :liabilities, controller: 'accounts', type: 'Accounting::Liability'
+    resources :equities, controller: 'accounts', type: 'Accounting::Equity'
+    resources :revenues, controller: 'accounts', type: 'Accounting::Revenue'
+    resources :expenses, controller: 'accounts', type: 'Accounting::Expense'
+    resources :entries
+
+
+    end
 end

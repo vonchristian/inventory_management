@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811131536) do
+ActiveRecord::Schema.define(version: 20160811151125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "definition"
+    t.boolean  "contra"
+    t.integer  "main_account_id"
+    t.index ["main_account_id"], name: "index_accounts_on_main_account_id", using: :btree
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.string   "house_number"
@@ -25,6 +37,18 @@ ActiveRecord::Schema.define(version: 20160811131536) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
+  end
+
+  create_table "amounts", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "account_id"
+    t.integer  "entry_id"
+    t.decimal  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_amounts_on_account_id", using: :btree
+    t.index ["entry_id"], name: "index_amounts_on_entry_id", using: :btree
+    t.index ["type"], name: "index_amounts_on_type", using: :btree
   end
 
   create_table "businesses", force: :cascade do |t|
@@ -55,6 +79,20 @@ ActiveRecord::Schema.define(version: 20160811131536) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.date     "date"
+    t.string   "description"
+    t.integer  "commercial_document_id"
+    t.string   "commercial_document_type"
+    t.integer  "user_id"
+    t.string   "reference_number"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["commercial_document_id"], name: "index_entries_on_commercial_document_id", using: :btree
+    t.index ["commercial_document_type"], name: "index_entries_on_commercial_document_type", using: :btree
+    t.index ["user_id"], name: "index_entries_on_user_id", using: :btree
+  end
+
   create_table "line_items", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cart_id"
@@ -82,6 +120,8 @@ ActiveRecord::Schema.define(version: 20160811131536) do
     t.decimal  "cash_tendered"
     t.decimal  "change"
     t.decimal  "tax_amount"
+    t.integer  "entry_id"
+    t.index ["entry_id"], name: "index_orders_on_entry_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
@@ -108,6 +148,8 @@ ActiveRecord::Schema.define(version: 20160811131536) do
     t.integer  "request_status"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "entry_id"
+    t.index ["entry_id"], name: "index_refunds_on_entry_id", using: :btree
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -119,6 +161,8 @@ ActiveRecord::Schema.define(version: 20160811131536) do
     t.decimal  "purchase_price"
     t.string   "serial_number"
     t.date     "expiry_date"
+    t.integer  "entry_id"
+    t.index ["entry_id"], name: "index_stocks_on_entry_id", using: :btree
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree
   end
 
@@ -155,8 +199,13 @@ ActiveRecord::Schema.define(version: 20160811131536) do
   end
 
   add_foreign_key "addresses", "users"
+  add_foreign_key "amounts", "accounts"
+  add_foreign_key "amounts", "entries"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "products"
   add_foreign_key "line_items", "users"
+  add_foreign_key "orders", "entries"
+  add_foreign_key "refunds", "entries"
+  add_foreign_key "stocks", "entries"
   add_foreign_key "stocks", "products"
 end

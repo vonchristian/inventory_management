@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :line_items, through: :orders
   accepts_nested_attributes_for :addresses
-  enum role: [:cashier, :stock_custodian, :bir_officer, :proprietor]
+  enum role: [:cashier, :stock_custodian, :bir_officer, :proprietor, :bookkeeper, :accountant]
 
   def full_name
     "#{first_name} #{last_name}"

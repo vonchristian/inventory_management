@@ -1,0 +1,22 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="header">
+      <%= link_to "New Entry", new_accounting_entry_path, remote: true, class: "btn btn-primary" %>
+    </div>
+    <div class="new-entry"></div>
+    <table class="table table-striped">
+      <thead>
+        <tr class="title">
+          <th>Code</th>
+          <th>Name</th>
+          <td>Type</td>
+          <td>&nbsp;</td>
+        </tr>
+      </thead>
+      <tbody class="entry-index">
+        <%= render "index" %>
+      </tbody>
+    </table>
+  </div>
+  <div id="entryModal" class="modal fade"></div>
+</div>

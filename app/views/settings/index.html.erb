@@ -1,19 +1,37 @@
-<div class="col-md-12">
+
+<div class="col-md-6">
   <div class="box box-warning">
     <div class="box-header">
-      <h4 class="title"> Category Settings
+      <h4> Category Settings
         <span class="pull-right">
           <%=link_to 'New', new_category_path, class: 'btn btn-primary btn-sm active' %>
         </span>
       </h4>
     </div>
-    <div class="box-body">
+  </div>
+    <div class="box box-warning">
+      <div class="box-header">
+        <h4> Employees
+          <span class="pull-right">
+            <%=link_to new_user_path do %>
+              <span class="btn btn-primary"><i class="fa fa-user-plus"></i> New </span>
+            <% end %>
+          </span>
+        </h4>
+      </div>
+    </div>
+</div>
+  <div class="col-md-6">
+    <div class="box box-warning">
+      <div class="box-header">
       <h4>Business Settings
         <span class="pull-right">
           <%=link_to 'Set', new_business_path, class: 'btn btn-primary' %>
         </span>
       </h4>
-      <%=link_to 'Update Settings', edit_business_path(@business), class: 'btn btn-primary' %>
+    </div>
+    <div class="box-body">
+      <%=link_to 'Update Settings', edit_business_path(Business.last), class: 'btn btn-primary' %>
       <div class="row">
         <div class="col-md-4">
           Business Name

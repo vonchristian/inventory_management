@@ -1,0 +1,10 @@
+<% @accounts.each do |account| %>
+  <tr>
+    <td><%= account.code %></td>
+    <td><%= account.name %><small class="text-info"> <%=(account.main_account.try(:name))%> </small></td>
+    <td><%= account.type.gsub('Accounting::', '') %></td>
+    <td><%= account.debits_balance %> </td>
+    <td><%= account.credits_balance %> </td>
+    <td><%= link_to "Edit", edit_accounting_account_path(account), remote: true, class: "btn btn-default btn-xs" %></td>
+  </tr>
+<% end %>

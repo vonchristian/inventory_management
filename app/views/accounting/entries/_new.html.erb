@@ -1,0 +1,35 @@
+<div class="modal-header">
+<h3 class="title">New Entry</h3>
+</div>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <%= simple_form_for @entry, remote: true, html: { style: "display:inline;" } do |f| %>
+    <div class="modal-body">
+      <ul class="errors text-danger">
+      </ul>
+<div class="row">
+  <div class="col-md-6">
+        <%=f.input :date, as: :string, input_html: { class: "datepicker" } %>
+</div>
+<div class="col-md-6">
+<%=f.input :reference_number %>
+
+</div>
+</div>
+          <%=f.input :description %>
+
+    <%=f.simple_fields_for :debit_amounts do |ff| %>
+    <%=ff.input :amount %>
+    <%=ff.input :account, collection: Accounting::Account.all.pluck(:name) %>
+    <% end %>
+    <%=f.simple_fields_for :credit_amounts do |ff| %>
+    <%=ff.input :amount %>
+    <%=ff.input :account, collection: Accounting::Account.all.pluck(:name) %>
+    <% end %>
+    <div class="modal-footer">
+      <%= f.submit class: "btn btn-primary" %>
+      <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+    </div>
+  <% end %>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>New Employee </h4>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+      <%=simple_form_for @user, url: :users, html: {class: "form-horizontal"}, wrapper: :horizontal_form do |f| %>
+      <h4>Information </h4>
+        <%=f.error_notification %>
+        <%=f.input :first_name %>
+        <%= f.input :last_name %>
+        <hr>
+        <h4>Contact Details </h4>
+        <%= f.input :mobile %>
+        <%= f.input :email %>
+        <hr>
+        <h4>Account Settings </h4>
+        <%= f.input :role, collection: User.roles.keys.to_a.map{|a| [a.titleize, a] } %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+        <div class="modal-footer">
+          <%=f.submit 'Register Employee', class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $("#user_role").select2({
+        theme: "bootstrap"
+      });
+    });
+  </script>

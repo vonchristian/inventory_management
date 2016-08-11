@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :member, foreign_key: 'user_id'
+  belongs_to :entry, class_name: "Accounting::Entry", foreign_key: 'entry_id'
   enum pay_type:[:cash, :credit, :check]
   enum order_type: [:retail, :wholesale]
   enum delivery_type: [:pick_up, :deliver, :to_go]
