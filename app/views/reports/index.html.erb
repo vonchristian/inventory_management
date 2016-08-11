@@ -4,5 +4,21 @@
       <h4 class="title">Reports </h4>
     </div>
     <div class="content">
+      <div class="row">
+        <div class="col-md-6">
       <h4 class="title"> Daily Sales Report </h4>
       <p class="category"> Generate daily sales report for today. </p>
+    </div>
+    <div class="col-md-5">
+      <h4 class="title">Stocks Alert</h4>
+      <p class="category"> Generate reports for stock alert of products. </p>
+      <br>
+      <%=link_to low_stock_products_path(format: 'pdf') do %>
+      <h4 class="title"><span class='text-danger'><i class='fa fa-file-text-o'></i> Low Stock Products </span> </h4>
+      <p class="category">Generate report for all low stock products. </p>
+      <% end %>
+      <hr />
+      <h4 class="title text-danger"><i class='fa fa-file-text-o text-danger'></i> Out of Stock Products </h4>
+      <p class="category">Generate report for all out of stock products. </p>
+    </div>
+  </div>

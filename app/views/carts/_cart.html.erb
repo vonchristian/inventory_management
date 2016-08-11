@@ -1,28 +1,55 @@
-<div class="border-right">
-      <h4 class="title"> Orders
-        <span class="pull-right"><%= button_to 'Empty cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger" %></span>
+<div class="col-md-12">
+      <h4> Orders
+        <span class="pull-right">
+          <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
       </h4>
     <br>
     </div>
-    <div class="content">
-<% if @cart.line_items.empty? %>
-<br>
- <center><%=image_tag('empty_cart.png', height: 100, width: 100, class: 'img-responsive') %></center>
-<% else %>
-          <%=render @cart.line_items.sort_by{|l| l.product_name } %>
+    <hr>
+<div class="row">
+  <div class="col-md-12">
+      <%=render @cart.line_items.sort_by{|l| l.product_name } %>
+  </div>
+
+  <div class="col-md-12">
+
 <div class="pull-left">
-  <h4 class="title"> <b>Total</b> </h4>
+  <h4> <b>SubTotal</b> </h4>
 </div>
         <div class="pull-right">
-          <h4 class="title"> <b><%=number_to_currency @cart.total_price %></b></h4>
+          <h4> <b><%=number_to_currency @cart.total_price %></b></h4>
         </div>
-        <br>
-<hr>
-<div class="row">
-<div class="col-md-12">
-        <span><center><%= button_to "Checkout", new_order_path, method: :get, class: "btn btn-success btn-block active"%></center>
+      </div>
+      <div class="col-md-12">
+        <h4> Tax VAT</h4>
+      </div>
+        <div class="col-md-12">
+        <div class="pull-left">
+          <h3> <b>Total</b> </h3>
+        </div>
+                <div class="pull-right">
+                  <h3> <b><%=number_to_currency @cart.total_price %></b></h3>
+                </div>
+
 </div>
 </div>
 
 
-<% end %>
+
+<br>
+<br>
+<br>
+  <%=simple_form_for Order.new do |f| %>
+  <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
+  <%#=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons, checked: Order.pay_types.first %>
+  <%#=f.input :date, as: :string, input_html: {class: 'datepicker'} %>
+  <%=f.input :user_id, input_html: {value: User.find_by_first_name('Guest').id}, as: :hidden %>
+  <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'} %>
+  <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
+
+  <%#=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
+  <%=f.submit "Checkout", class: 'btn btn-success btn-block btn-lg' %>
+  <% end %>
+</div>
+</div>
+</div>

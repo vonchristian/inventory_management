@@ -21,6 +21,7 @@ class OrdersController < ApplicationController
         'Thank you for your order.' }
         format.json { render json: @order, status: :created,
         location: @order }
+        #print_receipt
       else
         @cart = current_cart
         format.html { render action: "new" }
@@ -32,6 +33,15 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+  end
+
+  def guest
+    @order = Order.new(order_params)
+    @order.add_line_items_from_cart(current_cart)
+    @order.member = Member.find_by_first_name('Guest')
+    @order.save
+    redirect_to store_url, notice:
+    'Thank you for your order.'
   end
 
   private

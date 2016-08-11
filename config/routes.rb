@@ -8,11 +8,19 @@ Rails.application.routes.draw do
   end
   resources :line_items
   resources :carts
-  resources :orders
+  resources :orders do
+      match "/guest" => "orders#guest",  via: [:post], on: :member
+    end
   resources :members
   resources :reports, only: [:index]
   resources :settings, only: [:index]
   resources :credits, only: [:index]
+  resources :available_products, only: [:index]
+
+  resources :low_stock_products, only: [:index]
+  resources :out_of_stock_products, only: [:index]
+
+
 
   resources :categories
   resources :wholesales

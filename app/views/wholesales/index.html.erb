@@ -19,7 +19,7 @@
   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
     <%=form_tag store_path, class: 'form-inline', method: :get do %>
       <div class="input-group stylish-input-group">
-        <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...' %>
+        <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...', autofocus: true %>
         <span class="input-group-btn">
           <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
             <i class="fa fa-search"></i>
@@ -63,7 +63,7 @@
                     <% if  product.out_of_stock? %>
                       <span class="btn btn-danger btn-sm active"> Out of Stock </span>
                     <% else %>
-                      <%=f.submit "Add to Cart", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active" %>
+                      <%=f.submit "Add to Cart", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active", autofocus: true %>
                     <% end %>
                   </td>
 

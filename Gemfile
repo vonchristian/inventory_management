@@ -22,6 +22,9 @@ gem 'bootstrap-datepicker-rails'
 gem 'pundit'
 gem "select2-rails"
 gem 'public_activity'
+gem 'prawn'
+gem 'prawn-table'
+gem 'prawn-icon'
 
 group :development, :test do
   gem 'byebug', platform: :mri

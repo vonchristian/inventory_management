@@ -4,6 +4,13 @@ class ProductsController < ApplicationController
       @products = Product.search_by_name(params[:name])
     else
       @products = Product.all.order(:name)
+      respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = ProductsPdf.new(@products, view_context)
+                send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Products Report.pdf"
+        end
+      end
     end
   end
   def new
@@ -13,6 +20,7 @@ class ProductsController < ApplicationController
   def create
     @products = Product.all
     @product = Product.create(product_params)
+    @product.check_stock_status
   end
   def show
     begin
@@ -44,6 +52,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:name, :price, :wholesale_price, :unit, :stock_alert_count, stocks_attributes:[:quantity, :date])
+    params.require(:product).permit(:name, :price, :wholesale_price, :unit, :stock_alert_count, :bar_code, stocks_attributes:[:quantity, :date])
   end
 end

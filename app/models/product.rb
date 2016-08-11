@@ -1,7 +1,8 @@
 class Product < ApplicationRecord
   include PublicActivity::Common
   include PgSearch
-  pg_search_scope :search_by_name, :against => :name
+  enum stock_status: [:available, :low_stock, :out_of_stock, :discontinued]
+  pg_search_scope :search_by_name, :against => [:name, :bar_code]
 
   has_many :line_items
   has_many :orders, through: :line_items
@@ -11,6 +12,7 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :stocks
   before_destroy :ensure_not_referenced_by_any_line_item
+
   def quantity
     stocks.all.sum(:quantity) - line_items.all.sum(:quantity)
   end
@@ -36,12 +38,20 @@ class Product < ApplicationRecord
       "Low"
     end
   end
+  def check_stock_status
+    return self.low_stock! if quantity < stock_alert_count && quantity > 0
+    return self.out_of_stock! if self.out_of_stock?
+    return self.available! if !out_of_stock? || !low_stock?
+  end
+  def set_product_as_available
+    self.available!
+  end
   private
   def ensure_not_referenced_by_any_line_item
     if line_items.empty?
       return true
     else
-      erros.add(:base, 'Line Items present')
+      errors.add(:base, 'Line Items present')
       return false
     end
   end

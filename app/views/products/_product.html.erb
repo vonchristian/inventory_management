@@ -53,7 +53,7 @@
 
                                     </thead>
                                     <tbody>
-                                    <% @products.each do |product| %>
+
                                         <tr class="<%="text-danger" if product.out_of_stock?%>">
                                             <td><%=link_to product.name, product, class: "category" %></td>
                                             <td><%=number_to_currency product.price%></td>
@@ -67,7 +67,7 @@
                                         </tr>
 
                                         </tr>
-                                        <% end %>
+
                                     </tbody>
                                 </table>
 

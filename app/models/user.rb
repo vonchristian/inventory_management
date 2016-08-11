@@ -5,7 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :addresses
   has_many :orders
+  has_many :line_items, through: :orders
   accepts_nested_attributes_for :addresses
+  enum role: [:sales_clerk, :stock_custodian]
 
   def full_name
     "#{first_name} #{last_name}"
