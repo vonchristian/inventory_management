@@ -1,13 +1,50 @@
-<div class="col-md-4">
-  <div class="card card-user">
-    <div class="header">
+<div class="col-md-12">
+  <div class="box box-warning">
+    <div class="box-header">
       <h4 class="title"> Category Settings
         <span class="pull-right">
           <%=link_to 'New', new_category_path, class: 'btn btn-primary btn-sm active' %>
         </span>
       </h4>
     </div>
-    <div class="content">
+    <div class="box-body">
+      <h4>Business Settings </h4>
+      <%=link_to 'Update Settings', new_business_path, class: 'btn btn-primary' %>
+      <div class="row">
+        <div class="col-md-4">
+          Business Name
+        </div>
+        <div class="col-md-8">
+          <%=@business.name %>
+        </div>
+      </div>
+        <hr>
+        <div class="row">
+        <div class="col-md-4">
+          TIN
+        </div>
+        <div class="col-md-8">
+          <%=@business.tin %>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+      <div class="col-md-4">
+        Proprietor
+      </div>
+      <div class="col-md-8">
+        <%=@business.proprietor %>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+    <div class="col-md-4">
+      VAT Registered
+    </div>
+    <div class="col-md-8">
+      <%=@business.vat %>
+    </div>
+  </div>
     </div>
   </div>
 </div>

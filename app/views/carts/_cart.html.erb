@@ -1,4 +1,5 @@
 <div class="col-md-12">
+  <p><%=Business.last.name %></p>
       <h4> Orders
         <span class="pull-right">
           <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
@@ -21,7 +22,10 @@
         </div>
       </div>
       <div class="col-md-12">
-        <h4> Tax VAT</h4>
+        <h4> VAT &nbsp; &nbsp; &nbsp; (12 %) </h4>
+      </div>
+      <div class="col-md-12">
+        <h4> Vatable Amount </h4>
       </div>
         <div class="col-md-12">
         <div class="pull-left">
@@ -43,7 +47,8 @@
   <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
   <%#=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons, checked: Order.pay_types.first %>
   <%#=f.input :date, as: :string, input_html: {class: 'datepicker'} %>
-  <%=f.input :user_id, input_html: {value: User.find_by_first_name('Guest').id}, as: :hidden %>
+
+  <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
   <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'} %>
   <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
 
@@ -53,3 +58,10 @@
 </div>
 </div>
 </div>
+<script>
+  $(document).ready(function() {
+    $("#order_user_id").select2({
+      theme: "bootstrap"
+    });
+  });
+</script>

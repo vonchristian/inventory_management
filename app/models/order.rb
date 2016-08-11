@@ -11,6 +11,13 @@ class Order < ApplicationRecord
   def self.total_amount
     all.map{|a| a.total_amount }.sum
   end
+  def tax_rate
+    if business.non_vat_registered?
+      0.03
+    elsif business.vat_registered?
+      0.12
+    end
+  end
   def total_amount
     line_items.sum(:total_cost)
   end

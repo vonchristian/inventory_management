@@ -41,7 +41,7 @@
               <th>Quantity </th>
               <th></th>
             </tr>
-            <% @products.limit(10).each do |product| %>
+            <% @products.each do |product| %>
               <tbody>
                 <tr>
                   <td><%=number_to_currency(product.quantity.round, unit: "")%></td>
@@ -129,6 +129,18 @@
         <!-- /.info-box -->
       </div>
     </div>
+    <div class="row">
+    <div class="col-md-12">
+      <div class="box box-solid">
+        <div class="box-header">
+        <h4 class="box-title"> Reports </h4>
+      </div>
+      <div class="box-body">
+        <p>Generate Reports for the transactions </p>
+      </div>
+    </div>
+    </div>
+  </div>
 </div>
   <div class="col-md-5 col-md-offset-1" id="cart">
     <div class="box box-primary">
