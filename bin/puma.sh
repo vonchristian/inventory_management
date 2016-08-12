@@ -1,3 +1,5 @@
+#! /bin/sh
+
 PUMA_CONFIG_FILE=/var/www/inventory_management/current/config/puma.rb
 PUMA_PID_FILE=/var/www/inventory_management/shared/tmp/pids/puma.pid
 PUMA_SOCKET=/var/www/inventory_management/shared/tmp/sockets/puma.sock
