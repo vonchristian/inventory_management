@@ -10,6 +10,6 @@ class ProductPolicy < ApplicationPolicy
     create?
   end
   def create?
-    @employee.stock_custodian?
+    @employee.stock_custodian? || @employee.proprietor?
   end
 end

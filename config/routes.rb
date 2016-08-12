@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root :to => 'accounting/accounts#index', :constraints => lambda { |request| request.env['warden'].user.role == 'bookkeeper' if request.env['warden'].user }, as: :bookkeeper_root
 
   resources :products do
-    resources :stocks
+    resources :stocks, only: [:new, :create], module: :products
   end
   resources :line_items
   resources :carts
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :wholesales
-  resources :stocks, only: [:index, :show]
+  resources :stocks, only: [:index, :show, :new, :create]
   namespace :wholesales do
     resources :line_items
     resources :orders
