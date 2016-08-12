@@ -5,6 +5,7 @@ class StoreController < ApplicationController
       else
         @products = Product.all
       end
+      authorize :store
     @cart = current_cart
     @line_item = LineItem.new
   end

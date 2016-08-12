@@ -1,8 +1,33 @@
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <%=image_tag(current_user.profile_photo.url(:thumb), class: 'img-circle') %>
 
+      </div>
+      <div class="pull-left info">
+        <p><%=current_user.first_name.try(:titleize) %></p>
+        <a href="#"><i class="fa fa-circle text-success"></i> <%=current_user.role.titleize %></a>
+      </div>
+    </div>
+    <!-- search form -->
+    <form action="#" method="get" class="sidebar-form">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+      </div>
+    </form>
+    <!-- /.search form -->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
 <% if current_user.proprietor? %>
   <%= render 'layouts/shared/sidebar_for_owner' %>
 <% elsif current_user.cashier? %>
   <%= render 'layouts/shared/sidebar_for_cashier' %>
 <% elsif current_user.stock_custodian? %>
-  <% render 'layouts/shared/sidebar_for_stock_custodian' %>
+  <%= render 'layouts/shared/sidebar_for_stock_custodian' %>
 <% end %>

@@ -12,10 +12,12 @@ class ProductsController < ApplicationController
         end
       end
     end
+    authorize Product
   end
   def new
     @product = Product.new
     @product.stocks.build
+    authorize @product
   end
   def create
     @products = Product.all

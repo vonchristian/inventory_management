@@ -1,6 +1,7 @@
 class StocksController < ApplicationController
   def index
     @stocks = Stock.all
+    authorize @stocks
   end
   def new
     @product = Product.find(params[:product_id])

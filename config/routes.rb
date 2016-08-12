@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "users", sessions: "users/sessions" }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'store#index', as: 'store'
   get "store/index"
+  root :to => "employees#new", :constraints => lambda { |request| request.env['warden'].user.nil? }, as: :unauthenticated_root
+  root :to => 'employees#new', :constraints => lambda { |request| request.env['warden'].user.role == 'proprietor' if request.env['warden'].user }, as: :admin_root
+  root :to => 'products#index', :constraints => lambda { |request| request.env['warden'].user.role == 'stock_custodian' if request.env['warden'].user }, as: :stock_custodian_root
   resources :products do
     resources :stocks
   end
@@ -31,7 +33,8 @@ Rails.application.routes.draw do
   end
   resources :businesses
   resources :info, only: [:index]
-  resources :users, only: [:show, :new, :create]
+  resources :users, only: [:show]
+  resources :employees, only: [:new, :create]
   namespace :accounting do
     resources :reports, only:[:index]
     resources :accounts

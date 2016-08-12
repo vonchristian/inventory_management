@@ -25,13 +25,16 @@
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <%=image_tag(current_user.profile_photo.url(:medium), class: 'img-circle') %>
 
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+              <%=current_user.full_name %>            <small><%=current_user.role.titleize %> </small>
+              <br>
+              <br>
+              <p></p>
               </p>
             </li>
+
             <!-- Menu Body -->
 
             <!-- Menu Footer-->

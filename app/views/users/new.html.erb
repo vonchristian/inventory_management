@@ -9,6 +9,12 @@
         </div>
         <div class="col-md-6">
       <%=simple_form_for @user, url: :users, html: {class: "form-horizontal"}, wrapper: :horizontal_form do |f| %>
+      <%if @user.profile_photo.blank? %>
+          <center><%=image_tag("default.png", height: 80, width: 80, :class=>"img-square") %></center>
+        <% else %>
+          <center><%= image_tag @user.profile_photo.url(:large), class: 'center-block img-responsive img-rounded'%></center>
+        <% end %>
+        <center><%= f.input :profile_photo, as: :file %></center>
       <h4>Information </h4>
         <%=f.error_notification %>
         <%=f.input :first_name %>

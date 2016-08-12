@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all.order(:id).reverse
+    if current_user.proprietor?
+      @orders = Order.all.order(:id).reverse
+    else
+      @orders = current_user.sales
+    end
   end
   def new
     @cart = current_cart
@@ -13,6 +17,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(current_cart)
+    @order.employee = current_user
     respond_to do |format|
       if @order.save!
         Cart.destroy(session[:cart_id])

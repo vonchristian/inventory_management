@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  belongs_to :employee, foreign_key: 'employee_id'
   belongs_to :member, foreign_key: 'user_id'
   belongs_to :entry, class_name: "Accounting::Entry", foreign_key: 'entry_id'
   enum pay_type:[:cash, :credit, :check]
@@ -7,6 +8,7 @@ class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :credit_payments
   before_save :set_date, :set_user
+  after_commit :create_entry
 
   validates :user_id, presence: true, allow_nil: true
   def reference_number
@@ -32,6 +34,9 @@ class Order < ApplicationRecord
     end
   end
   private
+  def create_entry
+    Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Sales"], credit_amounts_attributes:[amount: self.total_amount, account: 'Cash on Hand'])
+  end
   def set_date
     self.date = Time.zone.now
   end
