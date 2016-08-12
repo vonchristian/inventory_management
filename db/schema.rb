@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812043751) do
+ActiveRecord::Schema.define(version: 20160812061800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,8 +62,12 @@ ActiveRecord::Schema.define(version: 20160812043751) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "deleted_at"
+    t.integer  "employee_id"
+    t.index ["deleted_at"], name: "index_carts_on_deleted_at", using: :btree
+    t.index ["employee_id"], name: "index_carts_on_employee_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -89,8 +93,10 @@ ActiveRecord::Schema.define(version: 20160812043751) do
     t.datetime "updated_at",               null: false
     t.datetime "date"
     t.integer  "employee_id"
+    t.datetime "deleted_at"
     t.index ["commercial_document_id"], name: "index_entries_on_commercial_document_id", using: :btree
     t.index ["commercial_document_type"], name: "index_entries_on_commercial_document_type", using: :btree
+    t.index ["deleted_at"], name: "index_entries_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_entries_on_employee_id", using: :btree
     t.index ["user_id"], name: "index_entries_on_user_id", using: :btree
   end
@@ -106,7 +112,9 @@ ActiveRecord::Schema.define(version: 20160812043751) do
     t.decimal  "total_cost"
     t.integer  "pricing_type", default: 0
     t.integer  "user_id"
+    t.datetime "deleted_at"
     t.index ["cart_id"], name: "index_line_items_on_cart_id", using: :btree
+    t.index ["deleted_at"], name: "index_line_items_on_deleted_at", using: :btree
     t.index ["product_id"], name: "index_line_items_on_product_id", using: :btree
     t.index ["user_id"], name: "index_line_items_on_user_id", using: :btree
   end
@@ -124,6 +132,8 @@ ActiveRecord::Schema.define(version: 20160812043751) do
     t.decimal  "tax_amount"
     t.integer  "entry_id"
     t.integer  "employee_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_orders_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_orders_on_entry_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree

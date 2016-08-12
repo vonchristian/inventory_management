@@ -1,5 +1,6 @@
 module Accounting
   class Entry < ApplicationRecord
+    acts_as_paranoid
     before_save :default_date
         belongs_to :commercial_document, :polymorphic => true
         belongs_to :recorder, class_name: 'Employee', foreign_key: 'employee_id'

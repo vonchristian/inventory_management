@@ -1,4 +1,6 @@
 class Cart < ApplicationRecord
+  acts_as_paranoid
+  belongs_to :employee
   has_many :line_items, dependent: :destroy
   has_many :products, through: :line_items
 

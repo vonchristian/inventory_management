@@ -21,7 +21,7 @@
                 <tr>
                   <td><%=order.reference_number %></td>
                   <td><%= order.date.strftime('%B %e, %Y') %></td>
-                  <td><%= link_to order.member.try(:full_name), order %></td>
+                  <td><%= link_to order.member.try(:full_name) || 'Guest', order %></td>
                   <td> <% if order.wholesale? %>
                     <%= number_to_currency order.line_items.total_whole_sale_price %>
                     <% else %>

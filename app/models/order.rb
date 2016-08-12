@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  acts_as_paranoid
   belongs_to :employee, foreign_key: 'employee_id'
   belongs_to :member, foreign_key: 'user_id'
   belongs_to :entry, class_name: "Accounting::Entry", foreign_key: 'entry_id'

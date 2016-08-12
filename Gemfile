@@ -25,6 +25,7 @@ gem 'public_activity'
 gem 'prawn'
 gem 'prawn-table'
 gem 'prawn-icon'
+gem 'acts_as_paranoid'
 
 group :development, :test do
   gem 'byebug', platform: :mri

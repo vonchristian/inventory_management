@@ -15,8 +15,8 @@ class LineItemsController < ApplicationController
   end
 
   def destroy
-    @cart = LineItem.find(params[:id])
-    @cart.destroy
+    @line_item = LineItem.find(params[:id])
+    @line_item.destroy
     redirect_to store_index_url
   end
 
