@@ -47,7 +47,9 @@ Rails.application.routes.draw do
     resources :equities, controller: 'accounts', type: 'Accounting::Equity'
     resources :revenues, controller: 'accounts', type: 'Accounting::Revenue'
     resources :expenses, controller: 'accounts', type: 'Accounting::Expense'
-    resources :entries
+    resources :entries do
+      match "/scope_to_date" => "entries#scope_to_date", as: :scope_to_date, via: [:get], on: :collection
+    end
   end
 
   namespace :owner do

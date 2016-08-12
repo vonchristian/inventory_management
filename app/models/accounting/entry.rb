@@ -2,7 +2,7 @@ module Accounting
   class Entry < ApplicationRecord
     before_save :default_date
         belongs_to :commercial_document, :polymorphic => true
-        belongs_to :employee, class_name: 'Employee', foreign_key: 'user_id'
+        belongs_to :recorder, class_name: 'Employee', foreign_key: 'employee_id'
         has_many :credit_amounts, :extend => AmountsExtension, :class_name => 'Accounting::CreditAmount', :inverse_of => :entry, dependent: :destroy
         has_many :debit_amounts, :extend => AmountsExtension, :class_name => 'Accounting::DebitAmount', :inverse_of => :entry, dependent: :destroy
         has_many :credit_accounts, :through => :credit_amounts, :source => :account, :class_name => 'Accounting::Account'
@@ -24,9 +24,9 @@ module Accounting
         # Support the deprecated .build method
         def self.entered_on(hash={})
           if hash[:from_date] && hash[:to_date]
-            from_date = hash[:from_date].kind_of?(Date) ? hash[:from_date] : Date.parse(hash[:from_date])
-            to_date = hash[:to_date].kind_of?(Date) ? hash[:to_date] : Date.parse(hash[:to_date])
-            where('date' => from_date..to_date).sum(:amount)
+            from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : DateTime.parse(hash[:from_date])
+            to_date = hash[:to_date].kind_of?(Time) ? hash[:to_date] : DateTime.parse(hash[:to_date])
+            where('date' => from_date..to_date)
           else
             all
           end

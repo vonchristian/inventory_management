@@ -49,7 +49,7 @@
     <div class="col-md-6">
       <h4>Payable to Creditors </h4>
       <p>Generate report for accounts payable to creditors </p>
-    
+
     </div>
   </div>
   <hr>
@@ -62,3 +62,7 @@
       <h4> Statement of Cash Flow </h4>
       <p>Generate Financial Statement of your business </p>
 <hr>
+<li><%=link_to 'This Day', scope_to_date_accounting_entries_path(:from_date => Time.zone.now.beginning_of_day, :to_date => Time.zone.now.end_of_day, format: 'pdf') %></li>
+          <li> <%=link_to 'This Week', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') %></li>
+          <li> <%=link_to 'This Month', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') %></li>
+            <li> <%=link_to 'This Year', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_year, to_date: Time.zone.now.end_of_year, format: 'pdf') %></li>

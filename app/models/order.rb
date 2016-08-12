@@ -35,7 +35,7 @@ class Order < ApplicationRecord
   end
   private
   def create_entry
-    Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Sales"], credit_amounts_attributes:[amount: self.total_amount, account: 'Cash on Hand'])
+    Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Cash on Hand"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
   end
   def set_date
     self.date = Time.zone.now

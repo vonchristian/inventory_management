@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812002630) do
+ActiveRecord::Schema.define(version: 20160812043751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(version: 20160812002630) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.date     "date"
     t.string   "description"
     t.integer  "commercial_document_id"
     t.string   "commercial_document_type"
@@ -88,8 +87,11 @@ ActiveRecord::Schema.define(version: 20160812002630) do
     t.string   "reference_number"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.datetime "date"
+    t.integer  "employee_id"
     t.index ["commercial_document_id"], name: "index_entries_on_commercial_document_id", using: :btree
     t.index ["commercial_document_type"], name: "index_entries_on_commercial_document_type", using: :btree
+    t.index ["employee_id"], name: "index_entries_on_employee_id", using: :btree
     t.index ["user_id"], name: "index_entries_on_user_id", using: :btree
   end
 
