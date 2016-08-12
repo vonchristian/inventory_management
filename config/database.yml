@@ -17,8 +17,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -81,5 +79,5 @@ test:
 production:
   <<: *default
   database: inventory_management_production
-  username: inventory_management
+  username: itworx
   password: <%= ENV['INVENTORY_MANAGEMENT_DATABASE_PASSWORD'] %>
