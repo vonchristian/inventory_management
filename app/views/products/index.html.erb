@@ -45,21 +45,16 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <th>Name</th>
-                                        <th><span class='pull-right'> Price</span></th>
-                                        <th><span class='pull-right'> Wholesale Price </span> </th>
-
                                         <th><span class='pull-right'>In Stock</span></th>
-                                        <th>Stock Alert</th>
+                                        <th>Sold</th>
 
                                     </thead>
                                     <tbody>
                                     <% @products.each do |product| %>
                                         <tr class="<%="text-danger" if product.out_of_stock?%>">
                                             <td><%=link_to product.name, product %></td>
-                                            <td><span class='pull-right'><%=number_to_currency product.price%></span></td>
-                                            <td><span class='pull-right'><%=number_to_currency product.wholesale_price%></span></td>
-                                            <td><span class='pull-right'><%=product.quantity %></span></td>
-                                            <td><span><%=product.stock_status.try(:titleize) %></span></td>
+                                          <td><span class='pull-right'><%=product.in_stock%></span></td>
+                                            <td><span><%=product.sold %></span></td>
                                             <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary btn-sm active" %>
 
                                             </td>

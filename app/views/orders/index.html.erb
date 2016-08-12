@@ -13,6 +13,7 @@
                 <th>Date </th>
                 <th> Name </th>
                 <th> Amount </th>
+                <th> Items Total </th>
                 <th> Type </th>
               </tr>
             </thead>
@@ -25,8 +26,9 @@
                   <td> <% if order.wholesale? %>
                     <%= number_to_currency order.line_items.total_whole_sale_price %>
                     <% else %>
-                    <%= number_to_currency order.line_items.total_price %>
+                    <%= number_to_currency order.total_amount %>
                   <% end %></td>
+                  <td><%=order.line_items.count %></td>
                   <td></td>
                 </tr>
               <% end %>

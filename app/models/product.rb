@@ -4,17 +4,24 @@ class Product < ApplicationRecord
   enum stock_status: [:available, :low_stock, :out_of_stock, :discontinued]
   pg_search_scope :search_by_name, :against => [:name, :bar_code]
 
-  has_many :line_items
-  has_many :orders, through: :line_items
   has_many :stocks
-  validates :name, :price, presence: true
-  validates :price, numericality: { greater_than: 0.1 }
+  has_many :line_items, through: :stocks
+  validates :name, presence: true
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
   def quantity
     stocks.all.sum(:quantity) - line_items.all.sum(:quantity)
   end
+
+  def in_stock
+    stocks.sum(:quantity) - sold
+  end
+
+  def sold
+   line_items.sum(:quantity)
+ end
+
 
 
   def quantity_and_unit

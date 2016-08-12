@@ -83,6 +83,22 @@
       <%#=@business.vat %>
     </div>
   </div>
+
+</div>
+</div>
+</div>
+<div class="col-md-6">
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      <h4 class="panel-title"> Warranty
+        <span class="pull-right">
+          <%=link_to 'Set', new_warranty_path, class: 'btn btn-warning' %>
+        </span>
+       </h4>
+     </div>
+     <div class="panel-body">
+       <%=Warranty.last.try(:description) %>
+
     </div>
   </div>
 </div>

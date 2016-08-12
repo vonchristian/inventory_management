@@ -1,7 +1,7 @@
 <section class="content-header">
   <h1>
-  <%=Business.last.name %>
-   <small><%=Business.last.address %></small>
+  <%=Business.last.try(:name) %>
+   <small><%=Business.last.try(:address) %></small>
      </h1>
   <ol class="breadcrumb">
     <li class="active">ITWORX POS Software - by ITWORX Technology Services</li>
@@ -41,7 +41,7 @@
           </div>
         <hr>
         <br>
-        <% if params[:name].present? %>
+        <% if params[:name].present? && @stocks.count > 0 %>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -51,12 +51,12 @@
               <th>Quantity </th>
               <th></th>
             </tr>
-            <% @products.each do |product| %>
+            <% @stocks.each do |stock| %>
               <tbody>
                 <tr>
-                  <td><%=number_to_currency(product.quantity.round, unit: "")%></td>
-                  <td><%=product.name %></td>
-                  <td><%=number_to_currency product.price %></td>
+                  <td><%=number_to_currency(stock.quantity.round, unit: "")%></td>
+                  <td><%=stock.name.truncate(20) %></td>
+                  <td><%=number_to_currency stock.retail_price %></td>
 
 
 
@@ -66,11 +66,11 @@
 
                       <%=f.input :quantity,  input_html: {value: 1}, autofocus: true, label: false %>
 
-                    <%=f.input :product_id, input_html: {value: product.id }, as: :hidden %>
-                    <%=f.input :unit_cost, input_html: { value: product.price}, as: :hidden %>
+                    <%=f.input :stock_id, input_html: {value: stock.id }, as: :hidden %>
+                    <%=f.input :unit_cost, input_html: { value: stock.retail_price}, as: :hidden %>
                   </td>
                   <td>
-                    <% if  product.out_of_stock? %>
+                    <% if  stock.out_of_stock? %>
                       <span class="text-danger"> Out of Stock </span>
                     <% else %>
                       <%=f.submit "Add", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active" %>
@@ -82,6 +82,8 @@
         </tbody>
     <% end %>
   </table>
+  <% elsif @stocks.count.zero? %>
+  <p class="alert alert-info"> Product not found.<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> </p>
   <% end %>
 
   </div>

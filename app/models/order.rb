@@ -12,6 +12,18 @@ class Order < ApplicationRecord
   after_commit :create_entry
 
   validates :user_id, presence: true, allow_nil: true
+  def vatable_amount
+    0
+  end
+  def vat_percentage
+    12
+  end
+  def machine_accreditation
+    "8989289348279"
+  end
+  def total_discount
+    0
+  end
   def reference_number
     "#{id.to_s.rjust(8, '0')}"
   end

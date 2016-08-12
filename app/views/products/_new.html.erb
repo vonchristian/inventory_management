@@ -10,11 +10,8 @@
           </ul>
           <%=simple_form_for @product, remote: true do |f| %>
             <%=f.error_notification %>
-            <%=f.input :name %>
-            <%=f.input :bar_code %>
-            <%=f.input :price %>
-            <%=f.input :wholesale_price %>
-            <%=f.input :unit %>
+            <%=f.input :name, autofocus: true %>
+            <%=f.input :description %>
             <%=f.input :stock_alert_count %>
             <div class="modal-footer">
               <%=link_to "Cancel", "#", class: 'pull-left' %>

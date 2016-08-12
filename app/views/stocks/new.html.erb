@@ -11,7 +11,12 @@
             <%=f.input :date, as: :string, input_html: {class: "datepicker"} %>
             <%=f.input :serial_number %>
             <%=f.input :quantity %>
+            <%=f.input :unit_price %>
             <%=f.input :purchase_price %>
+            <h4>Pricing Details </h4>
+            <%=f.input :retail_price %>
+            <%=f.input :wholesale_price %>
+
             <%=f.input :expiry_date, as: :string, input_html: {class: "datepicker"} %>
             <div class="modal-footer">
               <%=f.submit "Save Stock", class: "btn btn-primary" %>

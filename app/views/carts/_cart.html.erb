@@ -1,6 +1,7 @@
 <% if @cart.line_items.present? %>
 <div class="col-md-12">
       <h4> <span class='badge bg-green'><%=@cart.line_items.count %></span> Orders
+        <%=link_to 'View Orders', cart_path(@cart), class: 'btn btn-info' %>
         <span class="pull-right">
           <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
       </h4>
@@ -9,7 +10,7 @@
     <hr>
 <div class="row">
   <div class="col-md-12">
-      <%=render @cart.line_items.sort_by{|l| l.product_name } %>
+      <%=render @cart.line_items.sort_by{|l| l.stock_name } %>
   </div>
 
 
@@ -35,7 +36,7 @@
   <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first %>
   <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
 
-  <%#=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
+  <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
   <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'} %>
   <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
 
