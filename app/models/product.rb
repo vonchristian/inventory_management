@@ -10,7 +10,6 @@ class Product < ApplicationRecord
   validates :name, :price, presence: true
   validates :price, numericality: { greater_than: 0.1 }
 
-  accepts_nested_attributes_for :stocks
   before_destroy :ensure_not_referenced_by_any_line_item
 
   def quantity

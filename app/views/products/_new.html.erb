@@ -16,10 +16,6 @@
             <%=f.input :wholesale_price %>
             <%=f.input :unit %>
             <%=f.input :stock_alert_count %>
-            <%=f.simple_fields_for :stocks do |ff| %>
-            <%=ff.input :quantity %>
-            <%=ff.input :date, as: :string %>
-            <% end %>
             <div class="modal-footer">
               <%=link_to "Cancel", "#", class: 'pull-left' %>
               <%=f.submit "Save Product", class: "btn btn-primary" %>

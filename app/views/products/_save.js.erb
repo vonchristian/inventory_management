@@ -6,4 +6,5 @@ $("ul.errors").html("")
 <% else %>
   $("#product-modal").modal("hide")
   window.location.reload();
+  $("#stock_product_id").load(location.href + " #stock_product_id>*", "")
 <% end %>
