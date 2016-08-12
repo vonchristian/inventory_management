@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :wholesales
-  resources :stocks, only: [:index, :show, :new, :create]
+  resources :stocks, only: [:index, :show, :new, :create] do
+    match "/scope_to_date" => "stocks#scope_to_date",  via: [:get], on: :collection
+  end
   namespace :wholesales do
     resources :line_items
     resources :orders
