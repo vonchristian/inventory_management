@@ -13,7 +13,7 @@
                 <th>Date </th>
                 <th> Product </th>
                 <th><span class='pull-right'> Quantity</span> </th>
-                <th> Amount </th>
+                <th><span class='pull-right'> Amount </span></th>
               </tr>
             </thead>
             <tbody>
@@ -22,9 +22,7 @@
                   <td><%= stock.date %></td>
                   <td><%= link_to stock.product.name, stock %></td>
                   <td><span class='pull-right'> <%= stock.quantity.round %></span></td>
-
-                    <td><%= number_to_currency stock.purchase_price %>
-                  </td>
+                  <td><span class='pull-right'> <%= number_to_currency stock.purchase_price %></span></td>
 
                 </tr>
               <% end %>
