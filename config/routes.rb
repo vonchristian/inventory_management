@@ -57,4 +57,5 @@ Rails.application.routes.draw do
   namespace :owner do
     resources :dashboard, only: [:index]
   end
+  resources :warranties, only: [:new, :create]
 end

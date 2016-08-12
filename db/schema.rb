@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160812080032) do
+=======
+ActiveRecord::Schema.define(version: 20160813024811) do
+>>>>>>> feature
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +61,14 @@ ActiveRecord::Schema.define(version: 20160812080032) do
     t.boolean  "vat"
     t.string   "address"
     t.string   "proprietor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "mobile_number"
+    t.string   "email"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -102,7 +112,6 @@ ActiveRecord::Schema.define(version: 20160812080032) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.integer  "product_id"
     t.integer  "cart_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -113,9 +122,10 @@ ActiveRecord::Schema.define(version: 20160812080032) do
     t.integer  "pricing_type", default: 0
     t.integer  "user_id"
     t.datetime "deleted_at"
+    t.integer  "stock_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id", using: :btree
     t.index ["deleted_at"], name: "index_line_items_on_deleted_at", using: :btree
-    t.index ["product_id"], name: "index_line_items_on_product_id", using: :btree
+    t.index ["stock_id"], name: "index_line_items_on_stock_id", using: :btree
     t.index ["user_id"], name: "index_line_items_on_user_id", using: :btree
   end
 
@@ -142,9 +152,8 @@ ActiveRecord::Schema.define(version: 20160812080032) do
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.decimal  "price",             precision: 9, scale: 2
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "unit"
     t.integer  "category_id"
     t.boolean  "alert"
@@ -167,17 +176,24 @@ ActiveRecord::Schema.define(version: 20160812080032) do
   end
 
   create_table "stocks", force: :cascade do |t|
-    t.decimal  "quantity",       precision: 8, scale: 2
+    t.decimal  "quantity",        precision: 8, scale: 2
     t.datetime "date"
     t.integer  "product_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.decimal  "purchase_price"
     t.string   "serial_number"
     t.date     "expiry_date"
     t.integer  "entry_id"
+<<<<<<< HEAD
     t.integer  "employee_id"
     t.index ["employee_id"], name: "index_stocks_on_employee_id", using: :btree
+=======
+    t.string   "name"
+    t.decimal  "retail_price"
+    t.decimal  "wholesale_price"
+    t.decimal  "unit_price"
+>>>>>>> feature
     t.index ["entry_id"], name: "index_stocks_on_entry_id", using: :btree
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree
   end
@@ -218,11 +234,18 @@ ActiveRecord::Schema.define(version: 20160812080032) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  create_table "warranties", force: :cascade do |t|
+    t.string   "description"
+    t.integer  "business_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["business_id"], name: "index_warranties_on_business_id", using: :btree
+  end
+
   add_foreign_key "addresses", "users"
   add_foreign_key "amounts", "accounts"
   add_foreign_key "amounts", "entries"
   add_foreign_key "line_items", "carts"
-  add_foreign_key "line_items", "products"
   add_foreign_key "line_items", "users"
   add_foreign_key "orders", "entries"
   add_foreign_key "refunds", "entries"

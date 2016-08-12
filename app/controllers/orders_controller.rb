@@ -39,6 +39,14 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @line_items = @order.line_items
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PosReceiptPdf.new(@order, @line_items, view_context)
+          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice.pdf"
+      end
+    end
   end
 
   def guest

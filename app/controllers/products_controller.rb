@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
   def create
     @products = Product.all
     @product = Product.create(product_params)
-    @product.check_stock_status
   end
   def show
     begin
@@ -54,6 +53,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:name, :price, :wholesale_price, :unit, :stock_alert_count, :bar_code)
+    params.require(:product).permit(:name, :description)
   end
 end
