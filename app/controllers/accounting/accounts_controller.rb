@@ -10,6 +10,7 @@ module Accounting
         else
           @accounts = type_class.all.order(:code)
         end
+        authorize @accounts
       end
     def show
     end

@@ -16,10 +16,12 @@ module Accounting
         end
       end
     end
+    authorize @entries
   end
 
     def new
       @entry = Accounting::Entry.new
+      authorize @entry
       @entry.debit_amounts.build
       @entry.credit_amounts.build
     end
@@ -27,6 +29,7 @@ module Accounting
     def create
       @entries = Accounting::Entry.all
       @entry = Accounting::Entry.create(entry_params)
+      authorize @entry
     end
 
     def show

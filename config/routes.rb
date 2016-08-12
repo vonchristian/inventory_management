@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root :to => "employees#new", :constraints => lambda { |request| request.env['warden'].user.nil? }, as: :unauthenticated_root
   root :to => 'employees#new', :constraints => lambda { |request| request.env['warden'].user.role == 'proprietor' if request.env['warden'].user }, as: :admin_root
   root :to => 'products#index', :constraints => lambda { |request| request.env['warden'].user.role == 'stock_custodian' if request.env['warden'].user }, as: :stock_custodian_root
+  root :to => 'accounting/accounts#index', :constraints => lambda { |request| request.env['warden'].user.role == 'bookkeeper' if request.env['warden'].user }, as: :bookkeeper_root
+
   resources :products do
     resources :stocks
   end
@@ -35,7 +37,9 @@ Rails.application.routes.draw do
   resources :info, only: [:index]
   resources :users, only: [:show]
   resources :employees, only: [:new, :create]
+
   namespace :accounting do
+    resources :dashboard, only: [:index]
     resources :reports, only:[:index]
     resources :accounts
     resources :assets, controller: 'accounts', type: 'Accounting::Asset'
@@ -44,7 +48,9 @@ Rails.application.routes.draw do
     resources :revenues, controller: 'accounts', type: 'Accounting::Revenue'
     resources :expenses, controller: 'accounts', type: 'Accounting::Expense'
     resources :entries
+  end
 
-
-    end
+  namespace :owner do
+    resources :dashboard, only: [:index]
+  end
 end

@@ -1,15 +1,20 @@
 <div class="col-md-12">
-  <div class="card">
-    <div class="header">
-      <%= link_to "New Entry", new_accounting_entry_path, remote: true, class: "btn btn-primary" %>
+  <div class="panel panel-default">
+    <div class="panel-heading bg-purple">
+      <h4>Transactions </h4>
     </div>
+    <div class="panel-body">
+      <% if policy(Accounting::Entry.new).create? %>
+      <%= link_to "New Entry", new_accounting_entry_path, remote: true, class: "btn btn-primary" %>
+      <% end %>
     <div class="new-entry"></div>
+
     <table class="table table-striped">
       <thead>
-        <tr class="title">
-          <th>Code</th>
-          <th>Name</th>
-          <td>Type</td>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Amount</th>
           <td>&nbsp;</td>
         </tr>
       </thead>

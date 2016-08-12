@@ -19,7 +19,8 @@
       <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="hidden-xs"><%=current_user.first_name  || current_user.email %></span>
+
+            <span class="hidden-xs"><%=image_tag(current_user.profile_photo.url(:small), height: 18, width: 18, class: 'img-circle') %> <%=current_user.first_name  || current_user.email %></span>
             <i class="caret"></i>
           </a>
           <ul class="dropdown-menu">

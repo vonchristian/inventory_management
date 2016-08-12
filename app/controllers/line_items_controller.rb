@@ -6,10 +6,10 @@ class LineItemsController < ApplicationController
       if @line_item.save
         @line_item.retail!
         @cart.add_line_item(@line_item)
-        format.html { redirect_to store_url }
+        format.html { redirect_to store_index_url }
         format.js   { @current_item = @line_item }
       else
-        format.html { redirect_to store_url }
+        format.html { redirect_to store_index_url }
       end
     end
   end
@@ -17,7 +17,7 @@ class LineItemsController < ApplicationController
   def destroy
     @cart = LineItem.find(params[:id])
     @cart.destroy
-    redirect_to store_url
+    redirect_to store_index_url
   end
 
   private

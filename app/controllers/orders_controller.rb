@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   def new
     @cart = current_cart
       if @cart.line_items.empty?
-        redirect_to store_url, notice: "Your cart is empty"
+        redirect_to store_index_url, notice: "Your cart is empty"
       return
     end
     @order = Order.new
@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
       if @order.save!
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to store_url, notice:
+        format.html { redirect_to store_index_url, notice:
         'Thank you for your order.' }
         format.json { render json: @order, status: :created,
         location: @order }

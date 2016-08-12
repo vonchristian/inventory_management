@@ -2,5 +2,6 @@
   <tr>
     <td><%= entry.date %></td>
     <td><%= entry.description %></td>
+    <td><%= number_to_currency entry.debit_amounts.sum(:amount) %></td>
   </tr>
 <% end %>
