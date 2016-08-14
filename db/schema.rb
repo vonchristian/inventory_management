@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160812080032) do
-=======
 ActiveRecord::Schema.define(version: 20160813024811) do
->>>>>>> feature
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,15 +181,12 @@ ActiveRecord::Schema.define(version: 20160813024811) do
     t.string   "serial_number"
     t.date     "expiry_date"
     t.integer  "entry_id"
-<<<<<<< HEAD
-    t.integer  "employee_id"
-    t.index ["employee_id"], name: "index_stocks_on_employee_id", using: :btree
-=======
     t.string   "name"
     t.decimal  "retail_price"
     t.decimal  "wholesale_price"
     t.decimal  "unit_price"
->>>>>>> feature
+    t.integer  "employee_id"
+    t.index ["employee_id"], name: "index_stocks_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_stocks_on_entry_id", using: :btree
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree
   end

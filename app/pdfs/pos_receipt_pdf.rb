@@ -1,15 +1,26 @@
+require 'barby'
+require 'barby/barcode/code_39'
+require 'barby/outputter/prawn_outputter'
 class PosReceiptPdf < Prawn::Document
   TABLE_WIDTHS = [25, 60, 50]
   def initialize(order, line_items, view_context)
-    super(margin: 10, page_size: [160, 500], page_layout: :portrait)
     @order = order
     @line_items = line_items
     @view_context = view_context
+    # line_height = 14
+    # min_height = 419.53
+    # variable_height = y_position * line_height
+    # height = min_height + variable_height
+    super(margin: 10, page_size: [160, :auto], page_layout: :portrait)
+
     heading
     customer_details
     order_details
     payment_details
+    barcode
     footer_for_receipt
+    last_character
+
   end
   def price(number)
     @view_context.number_to_currency(number, :unit => "P ")
@@ -18,6 +29,7 @@ class PosReceiptPdf < Prawn::Document
     y_position = cursor
     font  "Helvetica"
     move_down 30
+
     text "<b>OFFICIAL RECEIPT</b>", size: 6, inline_format: true, align: :center
     text "<b># #{@order.reference_number}</b>", size: 6, inline_format: true, align: :center
 
@@ -77,15 +89,27 @@ def payment_table_data
 
 
 end
+def barcode
+  barcode = Barby::Code39.new @order.reference_number
+  barcode.annotate_pdf(self, height: 10)
+end
 def footer_for_receipt
   text "<b>#{@order.employee.try(:full_name).upcase}</b>", size: 6, align: :center, inline_format: true
   text "Sales Person", size: 6, align: :center
   move_down 5
-  move_down 15
   text "#{@order.reference_number}", size: 6, align: :center
   move_down 3
   text "THIS SERVES AS AN OFFICIAL RECEIPT", size: 6, align: :center
   text "MACHINE ACCREDITATION : #{@order.machine_accreditation}", size: 4, align: :center
   move_down 10
+end
+def last_character
+  bounding_box([(bounds.left + 5), bounds.top - 130], width: 750) do
+          font_size(10)
+          text_box "#{@order.reference_number * 100}", inline_format: :true, :at => [bounds.left + 10, bounds.top - 10]
+          stroke_bounds do
+            rectangle [0, 0],  760, :height => :auto  # ===> I need this height auto
+          end
+        end
 end
 end
