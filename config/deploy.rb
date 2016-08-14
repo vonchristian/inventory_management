@@ -123,7 +123,7 @@ namespace :puma do
   end
 end
 
-namespace :deploy do
+namespace :deploy_to_production do
   desc "reload the database with seed data"
   task :seed do
     run "cd #{app_path}; bundle exec rake db:seed RAILS_ENV=#{stage}"
