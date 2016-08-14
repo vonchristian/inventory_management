@@ -25,6 +25,7 @@ gem 'prawn-table'
 gem 'prawn-icon'
 gem 'acts_as_paranoid'
 gem 'mina-puma', :require => false
+gem "figaro"
 
 group :production do
   gem 'pg', '~> 0.18',  group: :development

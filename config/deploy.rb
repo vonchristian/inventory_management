@@ -122,3 +122,10 @@ namespace :puma do
     queue "cd #{app_path} && RAILS_ENV=#{stage} && bin/puma.sh restart"
   end
 end
+
+namespace :deploy do
+  desc "reload the database with seed data"
+  task :seed do
+    run "cd #{app_path}; bundle exec rake db:seed RAILS_ENV=#{stage}"
+  end
+end
