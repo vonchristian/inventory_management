@@ -29,7 +29,7 @@
             <%=image_tag(current_user.profile_photo.url(:medium), class: 'img-circle') %>
 
               <p>
-              <%=current_user.full_name %>            <small><%=current_user.role.titleize %> </small>
+              <%=current_user.full_name %>            <small><%=current_user.role.try(:titleize) %> </small>
               <br>
               <br>
               <p></p>
