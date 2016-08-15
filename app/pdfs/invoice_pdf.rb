@@ -36,13 +36,13 @@ class InvoicePdf < Prawn::Document
                                   [["TIN   #{Business.last.try(:tin)}", ""]] +
                                   [["Address  #{Business.last.try(:address)}"]] +
                                   [["Contact #"]] +
-                                  [["Email #", "",  "No. #{@order.reference_number}"]]
+                                  [["Email #", "",  "No. #{@order.invoice_number.number}"]]
 
 
     end
     def barcode
       bounding_box [420, 690], width: 100 do
-        barcode = Barby::Code39.new(@order.reference_number)
+        barcode = Barby::Code39.new(@order.invoice_number.number)
         barcode.annotate_pdf(self, height: 40)
       end
     end

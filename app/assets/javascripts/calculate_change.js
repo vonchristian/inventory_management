@@ -1,7 +1,9 @@
 function calculateChange() {
-  var myBox2 = document.getElementById('total').value;
-  var myBox1 = document.getElementById('order_cash_tendered').value;
-  var result = document.getElementById('order_change');
-  var myResult = myBox1 - myBox2;
-  result.value = myResult;
+  var totalAmount = document.getElementById('total').value;
+  var cashTendered = document.getElementById('order_cash_tendered').value;
+  var discount = document.getElementById('order_discount_attributes_amount').value;
+
+  var change = document.getElementById('order_change');
+  var myResult = cashTendered - totalAmount + discount;
+  change.value = myResult;
 }

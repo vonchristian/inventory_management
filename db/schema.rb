@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815021427) do
+ActiveRecord::Schema.define(version: 20160815033259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20160815021427) do
     t.integer  "discount_type"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "order_id"
+    t.decimal  "amount"
   end
 
   create_table "entries", force: :cascade do |t|
@@ -112,6 +114,7 @@ ActiveRecord::Schema.define(version: 20160815021427) do
     t.string   "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "date"
     t.index ["order_id"], name: "index_invoice_numbers_on_order_id", using: :btree
   end
 
@@ -138,13 +141,14 @@ ActiveRecord::Schema.define(version: 20160815021427) do
     t.string   "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "date"
     t.index ["order_id"], name: "index_official_receipt_numbers_on_order_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
     t.integer  "pay_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "delivery_type"
     t.string   "receipt_number"
     t.integer  "user_id"
@@ -155,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160815021427) do
     t.integer  "entry_id"
     t.integer  "employee_id"
     t.datetime "deleted_at"
+    t.boolean  "discounted",     default: false
     t.index ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_orders_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_orders_on_entry_id", using: :btree

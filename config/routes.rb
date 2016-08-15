@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       match "/guest" => "orders#guest",  via: [:post], on: :member
       match "/print" => "orders#print",  via: [:get], on: :member
       match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
+      match "/print_official_receipt" => "orders#print_official_receipt",  via: [:get], on: :member
+
 
     end
   resources :members
@@ -61,4 +63,5 @@ Rails.application.routes.draw do
     resources :dashboard, only: [:index]
   end
   resources :warranties, only: [:new, :create]
+  resources :birs
 end

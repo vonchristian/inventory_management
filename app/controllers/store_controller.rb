@@ -8,5 +8,7 @@ class StoreController < ApplicationController
       authorize :store
     @cart = current_cart
     @line_item = LineItem.new
+    @order = Order.new
+    @order.build_discount
   end
 end

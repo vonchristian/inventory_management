@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
       return
     end
     @order = Order.new
+    @order.build_discount
   end
   def create
     @order = Order.new(order_params)
@@ -60,9 +61,22 @@ class OrdersController < ApplicationController
   def print_invoice
     @order = Order.find(params[:id])
     @line_items = @order.line_items
+      InvoiceNumber.new.generate_for(@order)
     respond_to do |format|
       format.pdf do
         pdf = InvoicePdf.new(@order, @line_items, view_context)
+          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice No.#{@order.invoice_number}.pdf"
+        pdf.print
+      end
+    end
+  end
+  def print_official_receipt
+    @order = Order.find(params[:id])
+    @line_items = @order.line_items
+    OfficialReceiptNumber.new.generate_for(@order)
+    respond_to do |format|
+      format.pdf do
+        pdf = PosReceiptPdf.new(@order, @line_items, view_context)
           send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice No.#{@order.invoice_number}.pdf"
         pdf.print
       end
@@ -84,6 +98,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date)
+    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date, :discounted)
   end
 end

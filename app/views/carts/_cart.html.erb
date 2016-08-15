@@ -17,7 +17,7 @@
 
         <div class="col-md-12">
         <div class="pull-left">
-          <h3> <b>Total</b> </h3>
+          <h3> <b>Sub Total</b> </h3>
         </div>
                 <div class="pull-right">
                   <h3> <b><%=number_to_currency @cart.total_price %></b></h3>
@@ -31,16 +31,23 @@
 <br>
 <br>
 
-  <%=simple_form_for Order.new do |f| %>
+  <%=simple_form_for @order do |f| %>
   <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
   <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first %>
   <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
 
   <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
+  <%=f.input :discounted, as: :boolean, input_html: { id: 'order_discount'} %>
+  <div id="discount_details" style="display:none;">
+    <%=f.simple_fields_for :discount do |ff| %>
+   <%= ff.input :amount, input_html: {oninput: 'calculateChange()', class: 'input-lg', value: 0}, label: "Discount Amount" %>
+   <% end %>
+ </div>
   <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'} %>
   <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
 
   <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
+
   <%=f.submit "Checkout", class: 'btn btn-success btn-block btn-lg' %>
   <br>
   <% end %>
@@ -55,4 +62,15 @@
       theme: "bootstrap"
     });
   });
+</script>
+<script>
+  var checkbox = document.getElementById('order_discount');
+  var details_div = document.getElementById('discount_details');
+  checkbox.onchange = function() {
+     if(this.checked) {
+       details_div.style['display'] = 'block';
+     } else {
+       details_div.style['display'] = 'none';
+     }
+  };
 </script>

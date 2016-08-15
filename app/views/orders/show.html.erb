@@ -6,9 +6,12 @@
       <b>#<%=@order.reference_number %></b>
     </div>
     <div class="content">
-      <%=link_to 'View OR', order_path(@order, format: 'pdf') %>
-      <%=link_to 'View Invoice', print_invoice_order_path(@order, format: 'pdf') %>
-      <h4><%=@order.member.try(:full_name) || 'Guest'%></h4>
+      <%=link_to 'Generate OR', print_official_receipt_order_path(@order, format: 'pdf'), class: 'btn btn-default'%>
+      <%=link_to 'Generate Invoice', print_invoice_order_path(@order, format: 'pdf'), class: 'btn btn-primary' %>
+      <hr>
+      <h4 class="panel-title"><b>Customer</b></h4>
+      <br>
+      <b> Name </b><%=@order.member.try(:full_name) || 'Guest'%><br>
       <b>Address</b> <%=@order.member.try(:address) || 'Unkown' %><br>
       <b>Mobile Number</b> <%=@order.member.try(:mobile_number) || 'Unknown' %><br>
       <b>Email</b> <%=@order.member.try(:email) || 'Unknown'%>

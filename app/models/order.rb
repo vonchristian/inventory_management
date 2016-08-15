@@ -10,10 +10,15 @@ class Order < ApplicationRecord
   enum delivery_type: [:pick_up, :deliver, :to_go]
   has_many :line_items, dependent: :destroy
   has_many :credit_payments
+  has_one :discount
   before_save :set_date, :set_user
   after_commit :create_entry
 
   validates :user_id, presence: true, allow_nil: true
+  accepts_nested_attributes_for :discount
+  def customer_name
+    member.try(:full_name)
+  end
   def vatable_amount
     0
   end
@@ -50,7 +55,7 @@ class Order < ApplicationRecord
   end
   private
   def create_entry
-    if @entry.cash?
+    if self.cash?
     Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Cash on Hand"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
   else
     false
