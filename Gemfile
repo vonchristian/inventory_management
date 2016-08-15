@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
-gem 'rails'
+gem 'rails', '5.0.0.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -27,6 +27,7 @@ gem 'acts_as_paranoid'
 gem 'mina-puma', :require => false
 gem "figaro"
 gem 'barby'
+gem 'prawn-print'
 
 group :production do
   gem 'pg', '~> 0.18',  group: :development

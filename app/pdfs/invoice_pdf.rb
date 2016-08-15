@@ -1,3 +1,6 @@
+require 'barby'
+require 'barby/barcode/code_39'
+require 'barby/outputter/prawn_outputter'
 class InvoicePdf < Prawn::Document
   TABLE_WIDTHS = [50, 210, 120, 80, 90, 100]
   ORDER_DETAILS_WIDTHS = [200,200, 150]
@@ -7,6 +10,7 @@ class InvoicePdf < Prawn::Document
     @line_items = line_items
     @view_context = view_context
     business_details
+    barcode
     heading
     customer_details
     display_orders_table
@@ -17,7 +21,7 @@ class InvoicePdf < Prawn::Document
     @view_context.number_to_currency(number, :unit => "P ")
   end
   def business_details
-    table(business_details_data, cell_style: { size: 9, font: "Helvetica", inline_format: true}, column_widths: ORDER_DETAILS_WIDTHS) do
+    table(business_details_data, cell_style: { size: 9, font: "Helvetica", inline_format: true, :padding => [0,0,0,0]}, column_widths: ORDER_DETAILS_WIDTHS) do
         cells.borders = []
         # column(0).background_color = "CCCCCC"
         row(0).font_style = :bold
@@ -28,21 +32,29 @@ class InvoicePdf < Prawn::Document
     end
   end
   def business_details_data
-      @business_details_data ||=  [["#{Business.last.try(:name)}","", "No. #{@order.reference_number}"]] +
-                                  [["TIN   #{Business.last.try(:tin)}"]] +
+      @business_details_data ||=  [["#{Business.last.try(:name)}"]] +
+                                  [["TIN   #{Business.last.try(:tin)}", ""]] +
                                   [["Address  #{Business.last.try(:address)}"]] +
                                   [["Contact #"]] +
-                                  [["Email #"]]
+                                  [["Email #", "",  "No. #{@order.reference_number}"]]
 
+
+    end
+    def barcode
+      bounding_box [420, 690], width: 100 do
+        barcode = Barby::Code39.new(@order.reference_number)
+        barcode.annotate_pdf(self, height: 40)
+      end
     end
 
   def heading
+    move_down 2
     text '<b>SALES INVOICE</b>', size: 14, align: :center, inline_format: true
     move_down 2
     stroke_horizontal_rule
   end
   def customer_details
-    table(customer_details_data, cell_style: { size: 10, font: "Helvetica", inline_format: true}, column_widths: ORDER_DETAILS_WIDTHS) do
+    table(customer_details_data, cell_style: { :padding => [2,0,0,2], size: 10, font: "Helvetica", inline_format: true}, column_widths: ORDER_DETAILS_WIDTHS) do
         cells.borders = []
         # column(0).background_color = "CCCCCC"
     end
@@ -80,7 +92,7 @@ class InvoicePdf < Prawn::Document
 
   def order_details
     move_down 20
-    table(order_details_data, cell_style: { size: 10, font: "Helvetica", inline_format: true}, column_widths: ORDER_DETAILS_WIDTHS) do
+    table(order_details_data, cell_style: {:padding => [3,0,0,3], size: 10, font: "Helvetica", inline_format: true}, column_widths: ORDER_DETAILS_WIDTHS) do
         cells.borders = []
         # column(0).background_color = "CCCCCC"
         column(1).align = :right
@@ -92,7 +104,7 @@ class InvoicePdf < Prawn::Document
     end
   end
   def order_details_data
-      @order_details_data ||= [["Approved By:","Items Total", "#{@line_items.count}"]] +
+      @order_details_data ||= [["Approved By:","ITEMS TOTAL", "#{@line_items.count}"]] +
                               [["_______________________________","Total Sales (VAT Inclusive)", "#{price(@order.total_amount)}"]] +
                               [["","Less: VAT"]] +
                               [["Inspected By:","Amount: Net of VAT"]] +

@@ -42,12 +42,11 @@
       <div class="box-header">
       <h4>Business Settings
         <span class="pull-right">
-          <%=link_to 'Set', new_business_path, class: 'btn btn-primary' %>
+          <%=link_to 'Update', edit_business_path(Business.last), class: 'btn btn-primary' %>
         </span>
       </h4>
     </div>
     <div class="box-body">
-      <%=link_to 'Update Settings', edit_business_path(Business.last), class: 'btn btn-primary' %>
       <div class="row">
         <div class="col-md-4">
           Business Name
@@ -62,7 +61,7 @@
           TIN
         </div>
         <div class="col-md-8">
-          <%#=@business.tin %>
+          <%=Business.last.try(:tin) %>
         </div>
       </div>
       <hr>
@@ -71,7 +70,7 @@
         Proprietor
       </div>
       <div class="col-md-8">
-        <%#=@business.proprietor %>
+        <%=Business.last.try(:proprietor) %>
       </div>
     </div>
     <hr>
@@ -80,7 +79,7 @@
       VAT Registered
     </div>
     <div class="col-md-8">
-      <%#=@business.vat %>
+      <%=Business.last.try(:vat) %>
     </div>
   </div>
 

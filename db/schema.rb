@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813024811) do
+ActiveRecord::Schema.define(version: 20160815021427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,14 @@ ActiveRecord::Schema.define(version: 20160813024811) do
     t.index ["user_id"], name: "index_entries_on_user_id", using: :btree
   end
 
+  create_table "invoice_numbers", force: :cascade do |t|
+    t.integer  "order_id"
+    t.string   "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_invoice_numbers_on_order_id", using: :btree
+  end
+
   create_table "line_items", force: :cascade do |t|
     t.integer  "cart_id"
     t.datetime "created_at",                   null: false
@@ -123,6 +131,14 @@ ActiveRecord::Schema.define(version: 20160813024811) do
     t.index ["deleted_at"], name: "index_line_items_on_deleted_at", using: :btree
     t.index ["stock_id"], name: "index_line_items_on_stock_id", using: :btree
     t.index ["user_id"], name: "index_line_items_on_user_id", using: :btree
+  end
+
+  create_table "official_receipt_numbers", force: :cascade do |t|
+    t.integer  "order_id"
+    t.string   "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_official_receipt_numbers_on_order_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
@@ -238,8 +254,10 @@ ActiveRecord::Schema.define(version: 20160813024811) do
   add_foreign_key "addresses", "users"
   add_foreign_key "amounts", "accounts"
   add_foreign_key "amounts", "entries"
+  add_foreign_key "invoice_numbers", "orders"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "users"
+  add_foreign_key "official_receipt_numbers", "orders"
   add_foreign_key "orders", "entries"
   add_foreign_key "refunds", "entries"
   add_foreign_key "stocks", "entries"

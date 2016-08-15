@@ -13,6 +13,7 @@ class OrdersPdf < Prawn::Document
   end
   def heading
     text 'Order Reports', size: 12, align: :center
+    text "#{@from_date.strftime("%B %e, %Y")}", size: 10
   end
   def display_orders_table
     if @orders.blank?

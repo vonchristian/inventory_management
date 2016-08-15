@@ -14,6 +14,10 @@ class Stock < ApplicationRecord
   validates :purchase_price, :unit_price, :retail_price, :wholesale_price, presence: true, numericality: true
   before_save :set_date
   after_commit :create_entry, :set_name
+  def self.total_cost_of_purchase
+    all.sum(:purchase_price)
+  end
+
   def self.entered_on(hash={})
     if hash[:from_date] && hash[:to_date]
       from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : DateTime.parse(hash[:from_date])
@@ -35,7 +39,7 @@ class Stock < ApplicationRecord
   def out_of_stock?
     sold_quantity.zero? || quantity.zero?
   end
-  
+
   private
   def set_date
     if self.date.nil?

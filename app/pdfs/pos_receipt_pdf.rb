@@ -7,11 +7,11 @@ class PosReceiptPdf < Prawn::Document
     @order = order
     @line_items = line_items
     @view_context = view_context
-    # line_height = 14
-    # min_height = 419.53
-    # variable_height = y_position * line_height
-    # height = min_height + variable_height
-    super(margin: 10, page_size: [160, :auto], page_layout: :portrait)
+    line_height = 400
+    min_height = 419.53
+    variable_height = line_height * line_height
+    height = min_height + variable_height
+    super(margin: 10, page_size: [160, line_height], page_layout: :portrait)
 
     heading
     customer_details
@@ -20,6 +20,18 @@ class PosReceiptPdf < Prawn::Document
     barcode
     footer_for_receipt
     last_character
+    repeat :all do
+      #Create a bounding box and move it up 18 units from the bottom boundry of the page
+      bounding_box [bounds.left, bounds.bottom + 25], width: bounds.width do
+        barcode = Barby::Code39.new(@order.reference_number)
+        barcode.annotate_pdf(self, height: 20)
+        move_down 2
+        text "#{@order.reference_number}", size: 6, align: :center
+        text "MACHINE ACCREDITATION : #{@order.machine_accreditation}", size: 4, align: :center
+        move_down 2
+        text "<b>THIS SERVES AS AN OFFICIAL RECEIPT</b>", size: 6, align: :center, inline_format: true
+      end
+end
 
   end
   def price(number)
@@ -46,7 +58,7 @@ class PosReceiptPdf < Prawn::Document
     move_down 3
   end
   def customer_details
-    text "Sold To: #{@order.member.try(:full_name).upcase}", size: 6, inline_format: true
+    text "Sold To: #{@order.member.try(:full_name)}", size: 6, inline_format: true
     text "Address: #{@order.member.try(:address)}", size: 5, inline_format: true
     text "Contact #: #{@order.member.try(:mobile)}", size: 5, inline_format: true
     text "Date: #{@order.date.strftime("%B %e, %Y")}", size: 5, inline_format: true
@@ -90,26 +102,12 @@ def payment_table_data
 
 end
 def barcode
-  barcode = Barby::Code39.new @order.reference_number
-  barcode.annotate_pdf(self, height: 10)
+
 end
 def footer_for_receipt
-  text "<b>#{@order.employee.try(:full_name).upcase}</b>", size: 6, align: :center, inline_format: true
-  text "Sales Person", size: 6, align: :center
-  move_down 5
-  text "#{@order.reference_number}", size: 6, align: :center
-  move_down 3
-  text "THIS SERVES AS AN OFFICIAL RECEIPT", size: 6, align: :center
-  text "MACHINE ACCREDITATION : #{@order.machine_accreditation}", size: 4, align: :center
+
   move_down 10
 end
 def last_character
-  bounding_box([(bounds.left + 5), bounds.top - 130], width: 750) do
-          font_size(10)
-          text_box "#{@order.reference_number * 100}", inline_format: :true, :at => [bounds.left + 10, bounds.top - 10]
-          stroke_bounds do
-            rectangle [0, 0],  760, :height => :auto  # ===> I need this height auto
-          end
-        end
 end
 end

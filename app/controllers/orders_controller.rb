@@ -22,11 +22,10 @@ class OrdersController < ApplicationController
       if @order.save!
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to store_index_url, notice:
+        format.html { redirect_to print_order_url(@order), notice:
         'Thank you for your order.' }
         format.json { render json: @order, status: :created,
         location: @order }
-        #print_receipt
       else
         @cart = current_cart
         format.html { render action: "new" }
@@ -45,6 +44,7 @@ class OrdersController < ApplicationController
       format.pdf do
         pdf = PosReceiptPdf.new(@order, @line_items, view_context)
           send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice.pdf"
+        pdf.print
       end
     end
   end
@@ -57,6 +57,30 @@ class OrdersController < ApplicationController
     redirect_to store_url, notice:
     'Thank you for your order.'
   end
+  def print_invoice
+    @order = Order.find(params[:id])
+    @line_items = @order.line_items
+    respond_to do |format|
+      format.pdf do
+        pdf = InvoicePdf.new(@order, @line_items, view_context)
+          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice No.#{@order.invoice_number}.pdf"
+        pdf.print
+      end
+    end
+  end
+
+  def print
+    @order = Order.find(params[:id])
+    @line_items = @order.line_items
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PosReceiptPdf.new(order, order.line_items, view_context)
+        pdf.print
+      end
+    end
+  end
+
 
   private
   def order_params

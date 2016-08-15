@@ -6,7 +6,8 @@
       <b>#<%=@order.reference_number %></b>
     </div>
     <div class="content">
-      <%=link_to 'View Invoice', order_path(@order, format: 'pdf') %>
+      <%=link_to 'View OR', order_path(@order, format: 'pdf') %>
+      <%=link_to 'View Invoice', print_invoice_order_path(@order, format: 'pdf') %>
       <h4><%=@order.member.try(:full_name) || 'Guest'%></h4>
       <b>Address</b> <%=@order.member.try(:address) || 'Unkown' %><br>
       <b>Mobile Number</b> <%=@order.member.try(:mobile_number) || 'Unknown' %><br>

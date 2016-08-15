@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   acts_as_paranoid
+  has_one :official_receipt_number
+  has_one :invoice_number
   belongs_to :employee, foreign_key: 'employee_id'
   belongs_to :member, foreign_key: 'user_id'
   belongs_to :entry, class_name: "Accounting::Entry", foreign_key: 'entry_id'
@@ -48,7 +50,11 @@ class Order < ApplicationRecord
   end
   private
   def create_entry
+    if @entry.cash?
     Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Cash on Hand"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
+  else
+    false
+  end
   end
   def set_date
     self.date = Time.zone.now

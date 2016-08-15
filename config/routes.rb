@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :carts
   resources :orders do
       match "/guest" => "orders#guest",  via: [:post], on: :member
+      match "/print" => "orders#print",  via: [:get], on: :member
+      match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
+
     end
   resources :members
   resources :reports, only: [:index]
