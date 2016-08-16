@@ -80,4 +80,4 @@ production:
   <<: *default
   database: inventory_management_production
   username: itworx
-  password: itworx12345
+  password: <%= ENV['INVENTORY_MANAGEMENT_DATABASE_PASSWORD'] %>
