@@ -1,4 +1,4 @@
-exitclass CreateRefunds < ActiveRecord::Migration[5.0]
+class CreateRefunds < ActiveRecord::Migration[5.0]
   def change
     create_table :refunds do |t|
       t.decimal :amount
