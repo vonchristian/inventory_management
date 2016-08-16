@@ -1,11 +1,12 @@
 class Stock < ApplicationRecord
   include PgSearch
   pg_search_scope :search_by_name, :against => [:name, :serial_number]
-
+  enum stock_type:[:purchased, :returned]
   belongs_to :product
   belongs_to :employee
     has_many :line_items
     has_many :orders, through: :line_items
+    has_many :refunds
   after_commit :set_product_as_available
   delegate :set_product_as_available, to: :product
   belongs_to :entry, class_name: "Accounting::Entry", foreign_key: 'entry_id'
@@ -28,6 +29,7 @@ class Stock < ApplicationRecord
     end
   end
   def in_stock
+    quantity - sold_quantity 
   end
 
   def sold

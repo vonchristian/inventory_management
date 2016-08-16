@@ -4,6 +4,6 @@ function calculateChange() {
   var discount = document.getElementById('order_discount_attributes_amount').value;
 
   var change = document.getElementById('order_change');
-  var myResult = cashTendered - totalAmount + discount;
+  var myResult = cashTendered - totalAmount + parseFloat(discount);
   change.value = myResult;
 }

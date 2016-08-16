@@ -1,3 +1,26 @@
+<div class="row">
+<div class="col-md-6">
+  <div class="box box-solid">
+    <div class="box-header">
+    <h4 class="box-title"> Reports </h4>
+  </div>
+  <div class="box-body">
+    <p>Generate Reports for the transactions </p>
+  </div>
+</div>
+</div>
+<div class="col-md-6">
+  <div class="box box-solid">
+    <div class="box-header">
+    <h4 class="box-title"> Reports </h4>
+  </div>
+  <div class="box-body">
+    <p>Generate Reports for the transactions </p>
+  </div>
+</div>
+</div>
+
+
 <div class="col-md-12">
   <div class="box box-solid">
     <div class="box-header">
@@ -13,12 +36,12 @@
             <th> Amount </th>
           </tr>
           <tbody>
-            <% OfficialReceiptNumber.all.each do |official_receipt_number| %>
+            <% OfficialReceiptNumber.all.order(:date).each do |official_receipt_number| %>
               <tr>
-                <td><%=official_receipt_number.date %></td>
+                <td><%=official_receipt_number.order.date.strftime("%B %e, %Y") %></td>
                 <td><%=link_to official_receipt_number.number, order_path(official_receipt_number.order) %></td>
                 <td><%=official_receipt_number.order.try(:customer_name) %></td>
-                <td><%=official_receipt_number.order.total_amount %></td>
+                <td><%=number_to_currency official_receipt_number.order.total_amount %></td>
               </tr>
             <% end %>
           </tbody>

@@ -1,15 +1,14 @@
-module Products
-  class StocksController < ApplicationController
+module Stocks
+  class RefundsController < ApplicationController
     def new
-      @product = Product.find(params[:product_id])
-      @stock = @product.stocks.build
+      @stock = Product.find(params[:stock_id])
+      @refund = @stock.refunds.build
     end
 
     def create
       @product = Product.find(params[:product_id])
       @stock = @product.stocks.create(stock_params)
       if @stock.save
-        @stock.purchased
         redirect_to @product, notice: "New stock saved successfully."
       else
         render :new
@@ -21,4 +20,4 @@ module Products
       params.require(:stock).permit(:quantity, :date, :purchase_price, :serial_number, :expiry_date, :unit_price, :retail_price, :wholesale_price)
     end
   end
-end
+  end

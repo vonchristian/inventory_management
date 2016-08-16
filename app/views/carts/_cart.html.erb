@@ -1,7 +1,7 @@
 <% if @cart.line_items.present? %>
 <div class="col-md-12">
       <h4> <span class='badge bg-green'><%=@cart.line_items.count %></span> Orders
-        <%=link_to 'View Orders', cart_path(@cart), class: 'btn btn-info' %>
+        <%=link_to 'View Orders', cart_path(@cart), class: 'btn btn-info btn-xs' %>
         <span class="pull-right">
           <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
       </h4>
@@ -33,19 +33,20 @@
 
   <%=simple_form_for @order do |f| %>
   <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
-  <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first %>
+  <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first, as: :radio_buttons %>
   <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
 
   <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
+<div id='cash_payment_details'>
   <%=f.input :discounted, as: :boolean, input_html: { id: 'order_discount'} %>
   <div id="discount_details" style="display:none;">
     <%=f.simple_fields_for :discount do |ff| %>
    <%= ff.input :amount, input_html: {oninput: 'calculateChange()', class: 'input-lg', value: 0}, label: "Discount Amount" %>
    <% end %>
  </div>
-  <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'} %>
+  <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'}, label: "Cash / Check Amount" %>
   <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
-
+</div>
   <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
 
   <%=f.submit "Checkout", class: 'btn btn-success btn-block btn-lg' %>
@@ -66,6 +67,17 @@
 <script>
   var checkbox = document.getElementById('order_discount');
   var details_div = document.getElementById('discount_details');
+  checkbox.onchange = function() {
+     if(this.checked) {
+       details_div.style['display'] = 'block';
+     } else {
+       details_div.style['display'] = 'none';
+     }
+  };
+</script>
+<script>
+  var checkbox = document.getElementById('order_pay_type');
+  var details_div = document.getElementById('cash_payment_details');
   checkbox.onchange = function() {
      if(this.checked) {
        details_div.style['display'] = 'block';

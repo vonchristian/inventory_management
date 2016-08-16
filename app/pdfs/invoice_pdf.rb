@@ -36,7 +36,7 @@ class InvoicePdf < Prawn::Document
                                   [["TIN   #{Business.last.try(:tin)}", ""]] +
                                   [["Address  #{Business.last.try(:address)}"]] +
                                   [["Contact #"]] +
-                                  [["Email #", "",  "No. #{@order.invoice_number.number}"]]
+                                  [["Email #", "",  "No. #{@order.invoice_number.try(:number)}"]]
 
 
     end

@@ -1,7 +1,11 @@
 class StocksController < ApplicationController
   def index
-    @stocks = Stock.all.order('date DESC')
-    authorize @stocks
+    if params[:name].present?
+      @stocks = Stock.search_by_name(params[:name])
+    else
+      @stocks = Stock.all.order('date DESC')
+      authorize @stocks
+    end
   end
   def new
     @stock = Stock.new

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
   def after_sign_in_path_for(current_user)
     if current_user.is_a?(Employee) && current_user.proprietor?
-      owner_dashboard_index_url
+      store_index_url
     elsif current_user.is_a?(Employee) && current_user.stock_custodian?
       stock_custodian_dashboard_url
     elsif current_user.is_a?(Employee) && current_user.bookkeeper?

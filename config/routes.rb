@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "users", sessions: "users/sessions" }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "store/index"
-  root :to => "owner/dashboard#index", :constraints => lambda { |request| request.env['warden'].user.nil? }, as: :unauthenticated_root
-  root :to => 'owner/dashboard#index', :constraints => lambda { |request| request.env['warden'].user.role == 'proprietor' if request.env['warden'].user }, as: :admin_root
+  root :to => "store#index", :constraints => lambda { |request| request.env['warden'].user.nil? }, as: :unauthenticated_root
+  root :to => 'store#index', :constraints => lambda { |request| request.env['warden'].user.role == 'proprietor' if request.env['warden'].user }, as: :admin_root
   root :to => 'products#index', :constraints => lambda { |request| request.env['warden'].user.role == 'stock_custodian' if request.env['warden'].user }, as: :stock_custodian_root
   root :to => 'accounting/accounts#index', :constraints => lambda { |request| request.env['warden'].user.role == 'bookkeeper' if request.env['warden'].user }, as: :bookkeeper_root
 
@@ -29,12 +29,14 @@ Rails.application.routes.draw do
   resources :low_stock_products, only: [:index]
   resources :out_of_stock_products, only: [:index]
 
-
-
+  resources :refunds, only: [:index, :new, :create]
+  resources :taxes, only: [:new, :create]
   resources :categories
   resources :wholesales
   resources :stocks, only: [:index, :show, :new, :create] do
     match "/scope_to_date" => "stocks#scope_to_date",  via: [:get], on: :collection
+    resources :refunds, only: [:new, :create], module: :stocks
+
   end
   namespace :wholesales do
     resources :line_items

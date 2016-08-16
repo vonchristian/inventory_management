@@ -10,7 +10,7 @@ end
 
 
 def site_name
-    "Kiphodan"
+    "#{Business.last.try(:name)} || 'ITWORX POS' "
   end
 
   def site_url

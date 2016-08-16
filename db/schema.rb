@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815033259) do
+ActiveRecord::Schema.define(version: 20160815091608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20160815033259) do
     t.datetime "updated_at",    null: false
     t.integer  "order_id"
     t.decimal  "amount"
+    t.integer  "employee_id"
+    t.index ["employee_id"], name: "index_discounts_on_employee_id", using: :btree
   end
 
   create_table "entries", force: :cascade do |t|
@@ -160,9 +162,11 @@ ActiveRecord::Schema.define(version: 20160815033259) do
     t.integer  "employee_id"
     t.datetime "deleted_at"
     t.boolean  "discounted",     default: false
+    t.integer  "tax_id"
     t.index ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_orders_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_orders_on_entry_id", using: :btree
+    t.index ["tax_id"], name: "index_orders_on_tax_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
@@ -184,12 +188,18 @@ ActiveRecord::Schema.define(version: 20160815033259) do
 
   create_table "refunds", force: :cascade do |t|
     t.decimal  "amount"
-    t.integer  "reason"
     t.integer  "request_status"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "entry_id"
+    t.integer  "stock_id"
+    t.decimal  "quantity"
+    t.date     "date"
+    t.string   "remarks"
+    t.integer  "employee_id"
+    t.index ["employee_id"], name: "index_refunds_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_refunds_on_entry_id", using: :btree
+    t.index ["stock_id"], name: "index_refunds_on_stock_id", using: :btree
   end
 
   create_table "stocks", force: :cascade do |t|

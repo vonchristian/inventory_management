@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   pg_search_scope :search_by_name, :against => [:name, :bar_code]
 
   has_many :stocks
+  has_many :refunds, through: :stocks
   has_many :line_items, through: :stocks
   validates :name, presence: true
 

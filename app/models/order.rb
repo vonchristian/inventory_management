@@ -1,5 +1,8 @@
 class Order < ApplicationRecord
   acts_as_paranoid
+  include PgSearch
+  pg_search_scope :search_by_name, :against => [:name, :bar_code]
+
   has_one :official_receipt_number
   has_one :invoice_number
   belongs_to :employee, foreign_key: 'employee_id'
@@ -11,11 +14,13 @@ class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :credit_payments
   has_one :discount
+  belongs_to :tax
   before_save :set_date, :set_user
   after_commit :create_entry
 
   validates :user_id, presence: true, allow_nil: true
   accepts_nested_attributes_for :discount
+  scope :created_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
   def customer_name
     member.try(:full_name)
   end
@@ -26,10 +31,14 @@ class Order < ApplicationRecord
     12
   end
   def machine_accreditation
-    "8989289348279"
+    ""
   end
   def total_discount
-    0
+    if discount.present?
+      discount.amount
+    else
+      0
+    end
   end
   def reference_number
     "#{id.to_s.rjust(8, '0')}"

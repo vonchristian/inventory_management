@@ -71,7 +71,7 @@
                   </td>
                   <td>
                     <% if  stock.out_of_stock? %>
-                      <span class="text-danger"> Out of Stock </span>
+                      <span class="text-danger btn"> Out of Stock </span>
                     <% else %>
                       <%=f.submit "Add", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active" %>
                     <% end %>
@@ -95,7 +95,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Sales</span>
-              <span class="info-box-number"><%=number_to_currency current_user.orders.total_amount %></span>
+              <span class="info-box-number"><%=number_to_currency current_user.orders.created_between(Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).total_amount %></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -108,7 +108,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Items Sold</span>
-              <span class="info-box-number">410</span>
+              <span class="info-box-number"><%=current_user.orders.created_between(Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).map{|a| a.line_items }.count %></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -121,7 +121,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Refund</span>
-            <span class="info-box-number"><%=number_to_currency current_user.orders.total_amount %></span>
+            <span class="info-box-number"><%=number_to_currency current_user.refunds.total_amount %></span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -134,7 +134,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Items Returned</span>
-            <span class="info-box-number">410</span>
+            <span class="info-box-number"><%= current_user.refunds.sum(:quantity) %></span>
           </div>
           <!-- /.info-box-content -->
         </div>
