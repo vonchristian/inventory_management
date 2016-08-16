@@ -297,7 +297,7 @@ DEPENDENCIES
   prawn-print
   prawn-table
   public_activity
-  puma (~> 3.0)
+  puma
   pundit
   rails (= 5.0.0.1)
   rails_12factor

@@ -32,7 +32,7 @@ gem 'prawn-print'
 group :production do
   gem 'pg', '~> 0.18',  group: :development
   gem 'rails_12factor'
-  gem 'puma', '~> 3.0', group: :development
+  gem 'puma', group: :development
 end
 group :development, :test do
   gem 'byebug', platform: :mri
