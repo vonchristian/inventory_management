@@ -29,17 +29,16 @@ class Stock < ApplicationRecord
     end
   end
   def in_stock
-    quantity - sold_quantity 
+    quantity - sold
   end
 
   def sold
+    line_items.sum(:quantity)
   end
 
-  def sold_quantity
-    quantity - line_items.all.sum(:quantity)
-  end
+
   def out_of_stock?
-    sold_quantity.zero? || quantity.zero?
+    sold.zero? || quantity.zero?
   end
 
   private

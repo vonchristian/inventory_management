@@ -1,0 +1,26 @@
+<div class="tab-pane" id='credit-sales'>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th> Customer </th>
+        <th>QTY </th>
+        <th> S/N </th>
+        <th> Cost </th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product.line_items.credit.each do |l| %>
+        <tr>
+          <td><%=l.stock.name %></td>
+          <td><%=l.order.try(:member) %></td>
+          <td><%=l.quantity %></td>
+          <td><%=l.stock.serial_number %></td>
+          <td><%=number_to_currency l.stock.unit_price %></td>
+          <td><%=link_to 'Pay', new_line_item_credit_payment_path(l), class: 'btn btn-warning' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

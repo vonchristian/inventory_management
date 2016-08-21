@@ -8,7 +8,12 @@ class LineItem < ApplicationRecord
 
   validates :quantity, numericality: {less_than_or_equal_to: :stock_quantity }, on: :create
   delegate :name, :quantity, to: :stock, prefix: true
-
+  def self.cash
+    all.select{|a| a.order.pay_type=='cash'}
+  end
+  def self.credit
+      all.select{|a| a.order.pay_type=='credit'}
+  end
 
   def total_price
     return stock.retail_price * quantity if self.retail?

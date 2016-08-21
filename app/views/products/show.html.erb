@@ -1,36 +1,54 @@
-<div class="row">
 <div class="col-md-12">
-  <div class="panel panel-default">
+  <div class="box box-solid">
     <div class="panel-heading">
-      <h4 class="panel-title"><%=@product.name %>
-      <div class="pull-right">
-        <%=link_to "Edit", edit_product_path(@product), class: "btn btn-warning" %>
-        <%=link_to "New Stock", new_product_stock_path(@product), class: "btn btn-primary" %>
+      <div class="row">
+        <div class="col-md-10">
+          <h4 class="panel-title">
+            <br>
+            <%=@product.name %><br />
+            <a href="#"><small></small></a>
+          </h4>
+        </div>
       </div>
-      </h4>
-      <hr />
     </div>
     <div class="panel-body">
-      <h4>Stocks </h4>
-      <div class="table table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>QTY </th>
-              <th> S/N </th>
-              <th> Amount </th>
-              <th> In Stock </th>
-              <th> Sold </th>
-            </tr>
-          </thead>
-          <tbody>
-            <%=render @product.stocks %>
-          </tbody>
-        </table>
-
-
+    <div class="nav-tabs-navigation">
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active">
+          <a href="#stocks" data-toggle="tab">
+            <span class="tab-caption"> Stocks</span>
+          </a>
+        </li>
+        <li>
+          <a href="#cash-sales" data-toggle="tab">
+            <span class="tab-caption"> Cash Sales</span>
+          </a>
+        </li>
+        <li>
+          <a href="#credit-sales" data-toggle="tab">
+            <span class="tab-caption"> Credit Sales </span>
+          </a>
+        </li>
+        <li>
+          <a href="#overhead_expenses" data-toggle="tab">
+            <span class="tab-caption"> History</span>
+          </a>
+        </li>
+        <li>
+          <a href="#overhead_expenses" data-toggle="tab">
+            <span class="tab-caption"> Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div id="my-tab-content" class="tab-content">
+        <%=render 'stocks' %>
+        <%=render 'cash_sales' %>
+        <%= render 'credit_sales' %>
+        <%#= render 'overhead_expenses' %>
+      </div>
     </div>
   </div>
-</div>
-</div>
+
+<

@@ -1,0 +1,27 @@
+    <%= simple_form_for @entry, url: :line_item_credit_payments do |f| %>
+
+<div class="row">
+  <div class="col-md-6">
+        <%=f.input :date, as: :string, input_html: { class: "datepicker" } %>
+</div>
+<div class="col-md-6">
+<%=f.input :reference_number %>
+
+</div>
+</div>
+          <%=f.input :description %>
+
+    <%=f.simple_fields_for :debit_amounts do |ff| %>
+    <%=ff.input :amount, input_html: {value: @line_item.unit_cost }%>
+    <%=ff.input :account, input_html: { value: "Cash on Hand"}%>
+    <% end %>
+    <%=f.simple_fields_for :credit_amounts do |ff| %>
+    <%=ff.input :amount, input_html: {value: @line_item.unit_cost } %>
+    <%=ff.input :account, input_html: { value: "Accounts Receivables Trade - Current"} %>
+    <% end %>
+    <div class="modal-footer">
+      <%= f.submit 'Save Payment', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  </div>
+</div>

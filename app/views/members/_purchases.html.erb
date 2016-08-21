@@ -4,8 +4,10 @@
       <thead>
         <tr>
           <th> Date </th>
-          <th> Items </th>
+          <th> Item </th>
           <th> Amount </th>
+          <th> Payment </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -14,11 +16,17 @@
           <td><%= order.date.strftime('%B %e, %Y') %></td>
           <td>
             <% order.line_items.each do |l|%>
-              <%=l.product.name %>,
+              <%=l.stock.name %>
             <% end %>
           </td>
 
           <td><%= number_to_currency order.line_items.total_price %></td>
+          <td><%=order.pay_type %></td>
+          <td>
+            <%if order.credit? %>
+            <%=link_to 'Pay' %>
+            <% end %>
+          </td>
         </tr>
         <% end %>
       </tbody>

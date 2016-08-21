@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :products do
     resources :stocks, only: [:new, :create], module: :products
   end
-  resources :line_items
+  resources :line_items do
+    resources :credit_payments, only: [:new, :create], module: :accounting
+  end
   resources :carts
   resources :orders do
       match "/guest" => "orders#guest",  via: [:post], on: :member

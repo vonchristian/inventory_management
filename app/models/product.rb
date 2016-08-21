@@ -16,7 +16,7 @@ class Product < ApplicationRecord
   end
 
   def in_stock
-    stocks.sum(:quantity) - sold
+    stocks.sum(:quantity) - line_items.sum(:quantity)
   end
 
   def sold

@@ -9,7 +9,6 @@ module Products
       @product = Product.find(params[:product_id])
       @stock = @product.stocks.create(stock_params)
       if @stock.save
-        @stock.purchased
         redirect_to @product, notice: "New stock saved successfully."
       else
         render :new

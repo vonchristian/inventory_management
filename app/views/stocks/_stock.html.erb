@@ -3,8 +3,7 @@
         <td><%=stock.date.strftime('%B %e, %Y')%></td>
         <td><%=stock.quantity %></td>
         <td><%=stock.serial_number %></td>
-        <td><%=stock.purchase_price %></td>
+        <td><%=number_to_currency stock.purchase_price %></td>
         <td><%=stock.in_stock %></td>
         <td><%=stock.sold %></td>
-        <td><%= link_to 'New Refund', new_stock_refund_path(stock), class: 'btn btn-warning' %></td>
       </tr>

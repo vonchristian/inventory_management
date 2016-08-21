@@ -11,7 +11,7 @@ module Accounting
       create?
     end
     def create?
-      @employee.bookkeeper?
+      @employee.bookkeeper? || @employee.proprietor?
     end
   end
 end
