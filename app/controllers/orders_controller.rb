@@ -23,8 +23,14 @@ class OrdersController < ApplicationController
       if @order.save!
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to print_order_url(@order), notice:
-        'Thank you for your order.' }
+        format.html do
+          if @order.credit?
+            InvoiceNumber.new.generate_for(@order)
+            redirect_to print_invoice_order_url(@order, format: 'pdf'), notice: 'Credit transaction saved successfully.'
+          else
+            redirect_to print_order_url(@order), notice: 'Thank you for your order.'
+          end
+        end
         format.json { render json: @order, status: :created,
         location: @order }
       else
@@ -60,8 +66,8 @@ class OrdersController < ApplicationController
   end
   def print_invoice
     @order = Order.find(params[:id])
+    InvoiceNumber.new.generate_for(@order)
     @line_items = @order.line_items
-      InvoiceNumber.new.generate_for(@order)
     respond_to do |format|
       format.pdf do
         pdf = InvoicePdf.new(@order, @line_items, view_context)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815091608) do
+ActiveRecord::Schema.define(version: 20160821124009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,10 +149,9 @@ ActiveRecord::Schema.define(version: 20160815091608) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "pay_type"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "delivery_type"
-    t.string   "receipt_number"
     t.integer  "user_id"
     t.date     "date"
     t.decimal  "cash_tendered"
@@ -161,8 +160,9 @@ ActiveRecord::Schema.define(version: 20160815091608) do
     t.integer  "entry_id"
     t.integer  "employee_id"
     t.datetime "deleted_at"
-    t.boolean  "discounted",     default: false
+    t.boolean  "discounted",       default: false
     t.integer  "tax_id"
+    t.string   "reference_number"
     t.index ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_orders_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_orders_on_entry_id", using: :btree
@@ -212,11 +212,11 @@ ActiveRecord::Schema.define(version: 20160815091608) do
     t.string   "serial_number"
     t.date     "expiry_date"
     t.integer  "entry_id"
-    t.integer  "employee_id"
     t.string   "name"
     t.decimal  "retail_price"
     t.decimal  "wholesale_price"
     t.decimal  "unit_price"
+    t.integer  "employee_id"
     t.index ["employee_id"], name: "index_stocks_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_stocks_on_entry_id", using: :btree
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree

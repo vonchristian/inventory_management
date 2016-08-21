@@ -1,4 +1,6 @@
 class InvoiceNumber < ApplicationRecord
+  include PgSearch
+  pg_search_scope :search_by_name, :against => [:number]
   belongs_to :order
   def generate_for(order)
     if order.invoice_number.blank?

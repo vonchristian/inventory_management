@@ -6,17 +6,5 @@ $("ul.errors").html("")
 <% else %>
   $("#member-modal").modal("hide fade")
   window.location.reload();
-  $("#select2-order_user_id-container").load(location.href + " #select2-order_user_id-container>*", "")
-<% end %>
-
-
-$("ul.errors").html("")
-<% if @product.errors.any? %>
-  <% @product.errors.full_messages.each do |message| %>
-    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
-  <% end %>
-<% else %>
-  $("#product-modal").modal("hide")
-  window.location.reload();
-  $("#stock_product_id").load(location.href + " #stock_product_id>*", "")
+    $("#member_id").load(location.href + " #member_id>*", "")
 <% end %>

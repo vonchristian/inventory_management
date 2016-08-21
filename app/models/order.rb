@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   acts_as_paranoid
   include PgSearch
-  pg_search_scope :search_by_name, :against => [:name, :bar_code]
+  pg_search_scope :search_by_name, :against => [:reference_number]
 
   has_one :official_receipt_number
   has_one :invoice_number

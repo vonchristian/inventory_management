@@ -42,7 +42,7 @@ class InvoicePdf < Prawn::Document
     end
     def barcode
       bounding_box [420, 690], width: 100 do
-        barcode = Barby::Code39.new(@order.invoice_number.number)
+        barcode = Barby::Code39.new(@order.invoice_number.try(:number))
         barcode.annotate_pdf(self, height: 40)
       end
     end
