@@ -21,11 +21,12 @@
             <%=f.input :mobile %>
           </div>
           <div class="col-md-6">
-            <%=f.input :email %>
+            <%=f.input :email, input_html:{ value: "#{rand(1_000_000)}#{rand(1_000_000)}#{rand(1_000_000)}@itworx.com"}%>
           </div>
         </div>
-        <%=f.input :password, input_html: { value: '111111' }, as: :hidden %>
-        <%=f.input :password_confirmation,  input_html: { value: '111111' }, as: :hidden  %>
+        <%=f.input :password, input_html: { value: '111111' } %>
+        <%=f.input :password_confirmation,  input_html: { value: '111111' }  %>
+        <%=f.input :role, as: :string, input_html: { value: 'customer' } %>
         <hr>
         <p class="category"> Address Details </p>
         <%=f.simple_fields_for :addresses do |a| %>

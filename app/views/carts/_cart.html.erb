@@ -1,3 +1,5 @@
+<div id="member-modal" class="modal fade"></div>
+
 <% if @cart.line_items.present? %>
 <div class="col-md-12">
       <h4> <span class='badge bg-green'><%=@cart.line_items.count %></span> Orders
@@ -35,8 +37,8 @@
   <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
   <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first, as: :radio_buttons %>
   <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
-
-  <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
+<span><label>Customer</label> <span class="pull-right"><%= link_to 'New Customer', new_member_path, remote: true %></span></span>
+  <%=f.input :user_id, label: false, collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest', input_html: {id: 'order_user_id'} %>
 <div id='cash_payment_details'>
   <%=f.input :discounted, as: :boolean, input_html: { id: 'order_discount'} %>
   <div id="discount_details" style="display:none;">

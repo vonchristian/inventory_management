@@ -7,12 +7,8 @@ class MembersController < ApplicationController
     @member.addresses.build
   end
   def create
+    @members = Member.all
     @member = Member.create(member_params)
-    if @member.save
-      redirect_to members_url, notice: "Member saved successfully."
-    else
-      render :new
-    end
   end
 
   def show
@@ -21,6 +17,6 @@ class MembersController < ApplicationController
 
   private
   def member_params
-    params.require(:member).permit(:first_name, :last_name, :email, :password, :password_confirmation, :mobile, addresses_attributes:[:house_number, :street, :barangay, :municipality, :province ])
+    params.require(:member).permit(:first_name, :last_name, :email, :password, :password_confirmation, :role, :mobile, addresses_attributes:[:house_number, :street, :barangay, :municipality, :province ])
   end
 end

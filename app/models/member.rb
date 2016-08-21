@@ -1,3 +1,3 @@
 class Member < User
-  enum role: [:member]
+  enum role: [:customer]
 end

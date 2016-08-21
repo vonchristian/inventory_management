@@ -66,8 +66,8 @@ class Order < ApplicationRecord
   def create_entry
     if self.cash?
     Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Cash on Hand"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
-  else
-    false
+  elsif self.credit?
+    Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Credit order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Accounts Receivables Trade - Current"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
   end
   end
   def set_date

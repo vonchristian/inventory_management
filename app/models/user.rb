@@ -26,4 +26,5 @@ class User < ApplicationRecord
   def address
     addresses.first.details
   end
+  private
 end
