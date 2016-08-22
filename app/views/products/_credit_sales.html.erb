@@ -13,11 +13,11 @@
     <tbody>
       <% @product.line_items.credit.each do |l| %>
         <tr>
-          <td><%=l.stock.name %></td>
-          <td><%=l.order.try(:member) %></td>
+          <td><%=l.order.date.strftime("%B %e, %Y") %></td>
+          <td><%=link_to l.order.try(:member), member_path(l.order.member) %></td>
           <td><%=l.quantity %></td>
           <td><%=l.stock.serial_number %></td>
-          <td><%=number_to_currency l.stock.unit_price %></td>
+          <td><%=number_to_currency l.unit_cost %></td>
           <td><%=link_to 'Pay', new_line_item_credit_payment_path(l), class: 'btn btn-warning' %></td>
         </tr>
       <% end %>

@@ -12,6 +12,7 @@
     <tbody>
       <% @product.line_items.cash.each do |l| %>
         <tr>
+          <td><%=l.order.date.strftime("%B %e, %Y") %></td>
           <td><%=l.stock.name %></td>
           <td><%=l.order.try(:member) %></td>
           <td><%=l.quantity %></td>

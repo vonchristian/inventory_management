@@ -2,8 +2,7 @@
 
 <% if @cart.line_items.present? %>
 <div class="col-md-12">
-      <h4> <span class='badge bg-green'><%=@cart.line_items.count %></span> Orders
-        <%=link_to 'View Orders', cart_path(@cart), class: 'btn btn-info btn-xs' %>
+      <h4> <i class="fa fa-cart-plus fa-2x"></i> <span class='badge bg-green'><%=@cart.line_items.count %></span>
         <span class="pull-right">
           <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
       </h4>

@@ -28,8 +28,9 @@ class Stock < ApplicationRecord
       all
     end
   end
+
   def in_stock
-    quantity - sold
+    self.quantity - sold
   end
 
   def sold
@@ -38,7 +39,7 @@ class Stock < ApplicationRecord
 
 
   def out_of_stock?
-    sold.zero? || quantity.zero?
+    in_stock.zero? || in_stock.negative?
   end
 
   private

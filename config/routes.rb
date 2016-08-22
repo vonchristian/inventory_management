@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       match "/print" => "orders#print",  via: [:get], on: :member
       match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
       match "/print_official_receipt" => "orders#print_official_receipt",  via: [:get], on: :member
+      match "/scope_to_date" => "orders#scope_to_date",  via: [:get], on: :collection
+
 
 
     end
