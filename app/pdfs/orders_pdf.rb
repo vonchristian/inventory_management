@@ -22,8 +22,8 @@ class OrdersPdf < Prawn::Document
 
 
     text 'SALES REPORT', size: 12, align: :center, style: :bold
-    text "FROM DATE:                              #{@from_date.strftime("%B %e, %Y")}", size: 9
-    move_down 2
+    text "FROM DATE:                                   #{@from_date.strftime("%B %e, %Y")}", size: 9
+    move_down 2           
     text "TO DATE:                                    #{@to_date.strftime("%B %e, %Y")}", size: 9
     move_down 2
     text "TOTAL SALES:                      #{price(@line_items.created_between(@from_date, @to_date).sum(:total_cost))}", size: 12, style: :bold

@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160821124009) do
-=======
 ActiveRecord::Schema.define(version: 20160821130641) do
->>>>>>> 9fefa95d56796da6c92ebb4b70791764d3017dc0
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,11 +218,8 @@ ActiveRecord::Schema.define(version: 20160821130641) do
     t.decimal  "retail_price"
     t.decimal  "wholesale_price"
     t.decimal  "unit_price"
-<<<<<<< HEAD
     t.integer  "employee_id"
-=======
     t.integer  "stock_type"
->>>>>>> 9fefa95d56796da6c92ebb4b70791764d3017dc0
     t.index ["employee_id"], name: "index_stocks_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_stocks_on_entry_id", using: :btree
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree

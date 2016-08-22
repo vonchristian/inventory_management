@@ -21,19 +21,11 @@ Rails.application.routes.draw do
   end
   resources :carts
   resources :orders do
-<<<<<<< HEAD
       match "/guest" => "orders#guest",  via: [:post], on: :member
       match "/print" => "orders#print",  via: [:get], on: :member
       match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
       match "/print_official_receipt" => "orders#print_official_receipt",  via: [:get], on: :member
       match "/scope_to_date" => "orders#scope_to_date",  via: [:get], on: :collection
-
-=======
-    match "/guest" => "orders#guest",  via: [:post], on: :member
-    match "/print" => "orders#print",  via: [:get], on: :member
-    match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
-    match "/print_official_receipt" => "orders#print_official_receipt",  via: [:get], on: :member
->>>>>>> 9fefa95d56796da6c92ebb4b70791764d3017dc0
 
 
   end
