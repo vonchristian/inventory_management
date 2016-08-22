@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col-md-6">
+            <h4><%=@product.name %> <%=@product.description %></h4>
+          </div>
+          <div class="col-md-6">
+            <div class="pull-right">
+              <%=link_to "Edit Product", edit_product_path(@product), class: "btn btn-warning" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="<%='active' if current_page? stocks_history_product_path %>"><%= link_to 'Stocks History', stocks_history_product_path %></li>
+            <li class="<%='active' if current_page? sales_history_product_path %>"><%= link_to 'Sales History', sales_history_product_path %></li>
+            <li class="<%='active' if current_page? credits_history_product_path %>"><%= link_to 'Credits History', credits_history_product_path %></li>
+          </ul>
+          <br>
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <%= render '/products/histories/stocks_history' if current_page? stocks_history_product_path %>
+              <%= render '/products/histories/sales_history' if current_page? sales_history_product_path %>
+              <%= render '/products/histories/credits_history' if current_page? credits_history_product_path %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="refund-modal" class="modal fade"></div>

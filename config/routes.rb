@@ -9,25 +9,27 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :stocks, only: [:new, :create], module: :products
+    match "/available" => "products#available", as: :available, via: [:get], on: :collection
+    match "/low_stock" => "products#low_stock", as: :low_stock, via: [:get], on: :collection
+    match "/out_of_stock" => "products#out_of_stock", as: :out_of_stock, via: [:get], on: :collection
+    match "/credits_history" => "products#credits_history", as: :credits_history, via: [:get], on: :member
+    match "/sales_history" => "products#sales_history", as: :sales_history, via: [:get], on: :member
+    match "/stocks_history" => "products#stocks_history", as: :stocks_history, via: [:get], on: :member
   end
   resources :line_items
   resources :carts
   resources :orders do
-      match "/guest" => "orders#guest",  via: [:post], on: :member
-      match "/print" => "orders#print",  via: [:get], on: :member
-      match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
-      match "/print_official_receipt" => "orders#print_official_receipt",  via: [:get], on: :member
+    match "/guest" => "orders#guest",  via: [:post], on: :member
+    match "/print" => "orders#print",  via: [:get], on: :member
+    match "/print_invoice" => "orders#print_invoice",  via: [:get], on: :member
+    match "/print_official_receipt" => "orders#print_official_receipt",  via: [:get], on: :member
 
 
-    end
+  end
   resources :members
   resources :reports, only: [:index]
   resources :settings, only: [:index]
   resources :credits, only: [:index]
-  resources :available_products, only: [:index]
-
-  resources :low_stock_products, only: [:index]
-  resources :out_of_stock_products, only: [:index]
 
   resources :refunds, only: [:index, :new, :create]
   resources :taxes, only: [:new, :create]

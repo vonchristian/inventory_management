@@ -20,6 +20,11 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <script type=”text/javascript”>
+      shortcut.add('Ctrl+Shift+X',function() {alert('You Pressed Ctrl+Shift+X!');});
+      shortcut.add('Ctrl+a',function() {alert('You pressed Ctrl+a!');});
+      shortcut.add('D',function() {alert('You Pressed D!');});
+    </script>
   </head>
   <body class="hold-transition skin-purple-light sidebar-mini sidebar-collapse">
   <div class="wrapper">
@@ -30,15 +35,13 @@
 
           <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-
-
             <!-- Main content -->
             <section class="content">
                 <%=render 'layouts/flash' %>
-          <%= yield %>
+              <%= yield %>
             <%#=render 'layouts/footer' %>
-        </section>
-
+          </section>
+        </div>
     </div>
   </body>
 </html>

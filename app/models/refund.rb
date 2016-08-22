@@ -7,5 +7,4 @@ class Refund < ApplicationRecord
   def self.total_amount
     all.sum(:amount)
   end
-
 end

@@ -12,7 +12,9 @@ class ProductsPdf < Prawn::Document
     @view_context.number_to_currency(number, :unit => "P ")
   end
   def heading
-    text 'Reports', size: 12, align: :center
+    text 'Products Report', size: 12, align: :center
+    move_down 5
+    text "As of " + Date.today.strftime("%B %e, %Y"), size: 10, align: :center
   end
   def display_products_table
     if @products.blank?
@@ -31,6 +33,6 @@ class ProductsPdf < Prawn::Document
   def table_data
     move_down 5
     [["NAME", "PRICE", "WHOLESALE PRICE", "IN STOCK", "UNIT", "STOCK ALERT"]] +
-    @table_data ||= @products.map { |e| [e.name, price(e.price), price(e.wholesale_price), e.quantity, e.unit,e.stock_status]}
+    @table_data ||= @products.map { |e| [e.name, price(e.stocks.last.retail_price), price(e.stocks.last.wholesale_price), e.stocks.last.in_stock, e.unit, e.stock_status.titleize]}
   end
 end

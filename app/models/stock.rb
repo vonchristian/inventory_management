@@ -4,17 +4,17 @@ class Stock < ApplicationRecord
   enum stock_type:[:purchased, :returned]
   belongs_to :product
   belongs_to :employee
-    has_many :line_items
-    has_many :orders, through: :line_items
-    has_many :refunds
-  after_commit :set_product_as_available
-  delegate :set_product_as_available, to: :product
+  has_many :line_items, dependent: :destroy
+  has_many :orders, through: :line_items, dependent: :destroy
+  has_many :refunds
   belongs_to :entry, class_name: "Accounting::Entry", foreign_key: 'entry_id'
   scope :created_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
 
   validates :purchase_price, :unit_price, :retail_price, :wholesale_price, presence: true, numericality: true
   before_save :set_date
-  after_commit :create_entry, :set_name
+  after_commit :set_stock_status, :create_entry, :set_name
+  delegate :set_stock_status, to: :product
+
   def self.total_cost_of_purchase
     all.sum(:purchase_price)
   end
@@ -28,16 +28,23 @@ class Stock < ApplicationRecord
       all
     end
   end
+
   def in_stock
-    quantity - sold_quantity 
+    quantity - sold - refunded
+  end
+
+  def refunded
+    refunds.sum(:quantity)
   end
 
   def sold
+    line_items.sum(:quantity)
   end
 
   def sold_quantity
     quantity - line_items.all.sum(:quantity)
   end
+
   def out_of_stock?
     sold_quantity.zero? || quantity.zero?
   end

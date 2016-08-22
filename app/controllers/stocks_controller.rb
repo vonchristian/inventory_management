@@ -8,6 +8,7 @@ class StocksController < ApplicationController
     end
   end
   def new
+    @stocks = Stock.all.order('date DESC')
     @stock = Stock.new
   end
 

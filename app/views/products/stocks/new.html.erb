@@ -1,25 +1,42 @@
-<div class="col-md-6 col-md-offset-3">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h4> New Stock Details</h4>
-    </div>
-    <div class="panel-body">
-          <%=simple_form_for [@product, @stock], url: :product_stocks do |f| %>
-            <%=f.error_notification %>
-            <%=f.input :date, as: :string, input_html: {class: "datepicker"} %>
-            <%=f.input :serial_number %>
-            <%=f.input :quantity %>
-            <%=f.input :unit_price %>
-            <%=f.input :purchase_price %>
-            <h4>Pricing Details </h4>
-            <%=f.input :retail_price %>
-            <%=f.input :wholesale_price %>
-
-            <%=f.input :expiry_date, as: :string, input_html: {class: "datepicker"} %>
-            <div class="modal-footer">
-              <%=f.submit "Save Stock", class: "btn btn-primary" %>
+<div class="row">
+  <div class="col-md-7">
+    <%= render 'stock_history' %>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4> New Stock Details</h4>
+      </div>
+      <div class="panel-body">
+        <%=simple_form_for [@product, @stock], url: :product_stocks do |f| %>
+          <%=f.error_notification %>
+          <%=f.input :date, as: :string, input_html: {class: "datepicker"} %>
+          <%=f.input :serial_number %>
+          <%=f.input :quantity %>
+          <div class="row">
+            <div class="col-md-6">
+              <%=f.input :unit_price %>
             </div>
-          <% end %>
+            <div class="col-md-6">
+              <%=f.input :purchase_price %>
+            </div>
+          </div>
+          <h4>Pricing Details </h4>
+          <div class="row">
+            <div class="col-md-6">
+              <%=f.input :retail_price %>
+            </div>
+            <div class="col-md-6">
+              <%=f.input :wholesale_price %>
+            </div>
+          </div>
+          <%=f.input :expiry_date, as: :string, input_html: {class: "datepicker"} %>
+          <div class="modal-footer">
+            <%= link_to 'Cancel', product_path(@product), class: 'btn btn-default pull-left' %> 
+            <%=f.submit "Save Stock", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

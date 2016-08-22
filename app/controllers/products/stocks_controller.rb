@@ -2,6 +2,7 @@ module Products
   class StocksController < ApplicationController
     def new
       @product = Product.find(params[:product_id])
+      @stocks = Stock.all.order('date DESC')
       @stock = @product.stocks.build
     end
 
@@ -9,7 +10,7 @@ module Products
       @product = Product.find(params[:product_id])
       @stock = @product.stocks.create(stock_params)
       if @stock.save
-        @stock.purchased
+        @stock.purchased!
         redirect_to @product, notice: "New stock saved successfully."
       else
         render :new

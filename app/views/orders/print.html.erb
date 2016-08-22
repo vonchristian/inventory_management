@@ -1,3 +1,5 @@
 <%=link_to "Print Invoice", print_invoice_order_path(@order, format: 'pdf'), class: 'btn btn-primary btn-lg' %>
 <%=link_to "Print OR", order_path(@order, format: 'pdf'), class: 'btn btn-primary btn-lg' %>
-<%=link_to "Back to Store", store_index_path, class: 'btn btn-default btn-lg active', autofocus: true %>
+<%=link_to store_index_path do %>
+  <button class="btn btn-default btn-lg" id="back_to_store" name="back_to_store" >Back to Store</button>
+<% end %>

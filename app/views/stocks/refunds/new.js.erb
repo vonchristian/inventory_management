@@ -1,0 +1,12 @@
+$("#refund-modal").html("<%= escape_javascript(render 'new') %>")
+$('#refund-modal').modal({
+  backdrop: 'static',
+  keyboard: false
+})
+
+$('.datepicker').datepicker({
+  format: "yyyy/mm/dd/",
+  orientation: "auto bottom",
+  todayHighlight: 'true',
+  autoclose: 'true'
+  });

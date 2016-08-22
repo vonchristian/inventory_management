@@ -1,0 +1,20 @@
+<thead>
+  <tr>
+    <th>Date</th>
+    <th>Customer</th>
+    <th>QTY</th>
+    <th class="text-right">Unit Price</th>
+    <th class="text-right">Amount</th>
+  </tr>
+</thead>
+<tbody>
+  <% @product.line_items.where(:pay_type => [:credit]).each do |line_item| %>
+    <tr>
+      <td><%= line_item.order.date.strftime('%B %e, %Y') %></td>
+      <td><%= line_item.order.member.try(:full_name) || 'Guest' %></td>
+      <td><%= line_item.quantity.to_i %></td>
+      <td class="text-right"><%= number_to_currency line_item.stock.unit_price %></td>
+      <td class="text-right"><%= number_to_currency line_item.total_cost %></td>
+    </tr>
+  <% end %>
+</tbody>

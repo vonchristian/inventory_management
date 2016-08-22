@@ -13,9 +13,7 @@
             <%=f.input :date, as: :string, input_html: {class: 'datepicker' } %>
             <%=link_to 'New Member', new_member_path, remote: true %>
             <%=f.input :user_id, label: 'Customer', collection: Member.all.map{ |a| [a.full_name, a.id]} %>
-
-
-            <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons, checked: Order.pay_types.first %>
+            <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, as: :radio_buttons, checked: Order.pay_types.keys.to_a.first %>
             <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
             <div class="modal-footer">
               <%=f.submit "Place Order", class: "btn btn-primary active" %>
