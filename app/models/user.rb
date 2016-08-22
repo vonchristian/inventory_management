@@ -38,4 +38,5 @@ class User < ApplicationRecord
   def set_email
     "#{self.first_name}#{rand(99999)}@#{self.last_name}.com"
   end
+  private
 end
