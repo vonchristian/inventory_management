@@ -1,10 +1,10 @@
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">New Customer</h4>
-    </div>
-    <%=simple_form_for @member, remote: true do |f| %>
-    <%= f.error_notification %>
+<%=simple_form_for @member, remote: true do |f| %>
+<%= f.error_notification %>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">New Customer</h4>
+      </div>
       <div class="modal-body">
         <ul class="errors text-danger">
         </ul>
@@ -16,43 +16,36 @@
             <%=f.input :last_name %>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <%=f.input :mobile %>
-          </div>
-          <div class="col-md-6">
-            <%=f.input :email, input_html:{ value: "#{rand(1_000_000)}#{rand(1_000_000)}#{rand(1_000_000)}@itworx.com"}%>
-          </div>
-        </div>
-        <%=f.input :password, input_html: { value: '111111' } %>
-        <%=f.input :password_confirmation,  input_html: { value: '111111' }  %>
-        <%=f.input :role, as: :string, input_html: { value: 'customer' } %>
+        <%=f.input :mobile %>
+        <%=f.input :password, input_html: { value: '111111' }, as: :hidden %>
+        <%=f.input :password_confirmation,  input_html: { value: '111111' }, as: :hidden  %>
+        <%=f.input :role, collection: Member.roles.keys.to_a.map { |m| [m.titleize, m] }, default: Member.roles.keys.to_a.first %>
+        <%=f.input :email, as: :hidden %>
         <hr>
-        <p class="category"> Address Details </p>
+        <h4> Address Details </h4>
         <%=f.simple_fields_for :addresses do |a| %>
           <div class="row">
             <div class="col-md-6">
-              <%=a.input :street %>
+              <%=a.input :street, label: false, placeholder: 'Street' %>
             </div>
             <div class="col-md-6">
-              <%=a.input :barangay %>
+              <%=a.input :barangay, label: false, placeholder: 'Barangay' %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
-              <%=a.input :municipality, input_html: { value: "Lagawe" } %>
+              <%=a.input :municipality, label: false, placeholder: 'Municipality', input_html: { value: "Lagawe" } %>
             </div>
             <div class="col-md-6">
-              <%=a.input :province, input_html: { value: "Ifugao" } %>
+              <%=a.input :province, label: false, placeholder: 'Province', input_html: { value: "Ifugao" } %>
             </div>
           </div>
         <% end %>
-
+      </div>
       <div class="modal-footer">
-        <%#= link_to 'Cancel', monitoring_project_path(@project), class: 'btn btn-default pull-left' %>
-        <%= link_to "Cancel", "#", class: "btn pull-left", data: {dismiss: "modal"} %>
+        <%= link_to "Cancel", "#", class: "btn btn-default pull-left", data: {dismiss: "modal"} %>
         <%=f.submit "Save", class: "btn btn-primary" %>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

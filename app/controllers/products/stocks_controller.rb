@@ -2,6 +2,7 @@ module Products
   class StocksController < ApplicationController
     def new
       @product = Product.find(params[:product_id])
+      @stocks = Stock.all.order('date DESC')
       @stock = @product.stocks.build
     end
 

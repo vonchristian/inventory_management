@@ -1,25 +1,67 @@
 <div id="member-modal" class="modal fade"></div>
 
 <% if @cart.line_items.present? %>
+<<<<<<< HEAD
 <div class="col-md-12">
       <h4> <i class="fa fa-cart-plus fa-2x"></i> <span class='badge bg-green'><%=@cart.line_items.count %></span>
         <span class="pull-right">
           <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
       </h4>
     <br>
-    </div>
-    <hr>
-<div class="row">
-  <div class="col-md-12">
-      <%=render @cart.line_items.sort_by{|l| l.stock_name } %>
-  </div>
-
-
-
+=======
+  <div class="box box-success">
+    <div class="box-body">
+      <div class="row">
         <div class="col-md-12">
-        <div class="pull-left">
-          <h3> <b>Sub Total</b> </h3>
+          <h4><span class='badge bg-green'><%=@cart.line_items.count %></span> Orders
+            <%=link_to 'View Orders', cart_path(@cart), class: 'btn btn-info btn-xs' %>
+            <span class="pull-right">
+              <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %>
+            </span>
+          </h4>
         </div>
+      </div>
+      <div class="row"><hr></div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover">
+            <tbody>
+              <%=render @cart.line_items.sort_by{|l| l.stock_name } %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="bg-info">
+                  <h3 class="pull-left">Sub Total</h3>
+                  <h3 class="pull-right"><%=number_to_currency @cart.total_price %></h3>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+>>>>>>> 9fefa95d56796da6c92ebb4b70791764d3017dc0
+    </div>
+  </div>
+  <div class="box box-success">
+    <div class="box-header with-border">
+      <h4>Payment Details</h4>
+    </div>
+    <div class="box-body">
+      <%=simple_form_for @order do |f| %>
+        <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
+        <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
+        <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.pay_types.first, as: :radio_buttons %>
+        <%=link_to 'New Member?', new_member_path, remote: true, class: 'pull-right' %>
+        <%=f.input :user_id, label: 'Member', collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest' %>
+        <hr>
+        <%=f.input :discounted, label: 'Discounted?', as: :boolean, input_html: { id: 'order_discount'} %>
+        <div id="discount_field">
+          <%=f.simple_fields_for :discount do |ff| %>
+            <%= ff.input :amount, input_html: {oninput: 'calculateChange()', class: 'input-lg', value: 0}, label: "Discount Amount" %>
+          <% end %>
+          <hr>
+        </div>
+<<<<<<< HEAD
                 <div class="pull-right">
                   <h3> <b><%=number_to_currency @cart.total_price %></b></h3>
                 </div>
@@ -58,32 +100,36 @@
 </div>
 </div>
   <% end %>
+=======
+        <div class="row">
+          <div class="col-md-6">
+            <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'}, label: "Amount Tendered" %>
+          </div>
+          <div class="col-md-6">
+            <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
+          </div>
+        </div>
+        <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
+        <hr>
+        <%=f.submit "Checkout", class: 'btn btn-success btn-block btn-lg' %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="box box-solid">
+    <div class="box-body">
+      <h3 class="text-center text-muted">Your cart is currently empty</h3>
+      <%= image_tag "empty_cart.png", height: 100, width: 100, class: 'center-block' %>
+    </div>
+  </div>
+<% end %>
+<div id="member-modal" class="modal fade"></div>
+>>>>>>> 9fefa95d56796da6c92ebb4b70791764d3017dc0
 <script>
   $(document).ready(function() {
     $("#order_user_id").select2({
       theme: "bootstrap"
     });
   });
-</script>
-<script>
-  var checkbox = document.getElementById('order_discount');
-  var details_div = document.getElementById('discount_details');
-  checkbox.onchange = function() {
-     if(this.checked) {
-       details_div.style['display'] = 'block';
-     } else {
-       details_div.style['display'] = 'none';
-     }
-  };
-</script>
-<script>
-  var checkbox = document.getElementById('order_pay_type');
-  var details_div = document.getElementById('cash_payment_details');
-  checkbox.onchange = function() {
-     if(this.checked) {
-       details_div.style['display'] = 'block';
-     } else {
-       details_div.style['display'] = 'none';
-     }
-  };
 </script>

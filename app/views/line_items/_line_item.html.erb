@@ -1,25 +1,11 @@
 
-<ul class="list-unstyled team-members">
-  <li id="current_item">
-    <div class="row">
-      <div class="col-xs-3">
-          <small><%=line_item.quantity.to_i %></small>
-      </div>
-      <div class="col-xs-5">
-        <small><%=line_item.stock.name%></small></span>
-      </div>
-      <div class="col-xs-2 text-right">
-        <small>
-          <%=number_to_currency line_item.total_cost %>
-
-        </small>
-      </div>
-      <div class="col-xs-2 pull-right">
-        <%=link_to line_item, method: :delete, data: {confirm: 'Are you sure?'} do %>
-        <small class="btn btn-danger btn-xs" title="Remove"><i class="fa fa-times"></i> </small>
-        <% end %>
-      </div>
-    </div>
-    <hr>
-  </li>
-</ul>
+<tr>
+   <td><small><%=line_item.quantity.to_i %></small></td>
+   <td><small><%=line_item.stock.name%></small></td>
+   <td class="text-right"><small><%=number_to_currency line_item.total_cost %></small></td>
+   <td>
+      <%=link_to line_item, method: :delete, data: {confirm: 'Are you sure?'} do %>
+        <small class="btn btn-danger btn-xs pull-right" title="Remove"><i class="fa fa-times"></i> </small>
+      <% end %>
+   </td>
+ </tr>

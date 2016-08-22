@@ -2,7 +2,7 @@
 <div class="col-md-12">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4> New Stock Details</h4>
+      <h4> New Stock Details(<%= @stock.product.name %>)</h4>
     </div>
     <div class="panel-body">
           <%=simple_form_for @stock, html: {class: 'form-horizontal'}, wrapper: :horizontal_form do |f| %>

@@ -1,0 +1,32 @@
+<div id="product-modal" class="modal fade"></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= render 'search_form' %>
+      </div>
+      <div class="panel-body">
+        <div class="content table-responsive table-full-width">
+          <table class="table">
+            <thead>
+              <th>Name</th>
+              <th><span class='pull-right'>In Stock</span></th>
+              <th>Sold</th>
+            </thead>
+            <tbody>
+              <% @products.each do |product| %>
+                <tr class="<%if product.out_of_stock? %>bg-danger<%elsif product.low_stock? %>bg-warning<% end %>">
+                    <td><%=link_to product.name, stocks_history_product_path(product) %></td>
+                    <td><span class='pull-right'><%=product.in_stock%></span></td>
+                    <td><span><%=product.sold %></span></td>
+                    <td><%=link_to "New Stock", new_product_stock_path(product), class: "btn btn-primary btn-sm active" %>
+                    </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

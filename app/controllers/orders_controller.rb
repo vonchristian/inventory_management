@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   def index
     if current_user.proprietor?
-      @orders = Order.all.order(:id).reverse
+      @orders = Order.where(:pay_type => [:cash, :check]).order("id desc").all
     else
       @orders = current_user.sales
     end
@@ -116,6 +116,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date, :discounted)
+    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date, :discounted, :cash_tendered, :change, discount_attributes: [:amount])
   end
 end
