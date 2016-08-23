@@ -1,4 +1,4 @@
-<div class="tab-pane" id="purchases">
+<div class="tab-pane" id="cash-transaction">
   <div class="row">
     <div class="col-md-6">
     </div>
@@ -22,9 +22,12 @@
         </tr>
       </thead>
       <tbody>
-        <% @member.line_items.each do |line_item| %>
+        <% @member.line_items.cash.each do |line_item| %>
         <tr>
+          <td><%=line_item.created_at.strftime("%B %e, %Y") %></td>
+          <td><%=line_item.stock.try(:name) %></td>
           <td><%= number_to_currency line_item.unit_cost %></td>
+          <td><%=line_item.payment_type %></td>
 
           <td>
             <%if line_item.credit? %>

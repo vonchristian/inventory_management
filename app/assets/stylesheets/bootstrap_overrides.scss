@@ -30,3 +30,11 @@
 .tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
 .tab-pane { padding: 15px 0; }
 .tab-content{padding:20px}
+
+.table > thead > tr > th {
+  border-bottom-width: 0;
+  font-size: 1em;
+  font-weight: 300;
+  font-family: 'roboto-condensed-webfont';
+  text-transform: uppercase;
+}

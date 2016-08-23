@@ -5,7 +5,7 @@ module Accounting
       @account = account
     end
     def index?
-      @employee.bookkeeper?
+      @employee.bookkeeper? || @employee.proprietor?
     end
   end
 end

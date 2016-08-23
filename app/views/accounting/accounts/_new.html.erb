@@ -18,6 +18,7 @@
         <div class="form-group">
           <%=f.input :type, collection: ["Accounting::Asset", "Accounting::Liability", "Accounting::Equity", "Accounting::Expense", "Accounting::Revenue"], as: :radio_buttons %>
         </div>
+        <%=f.input :contra %>
       </div>
       <div class="modal-footer">
         <%= f.submit class: "btn btn-primary" %>

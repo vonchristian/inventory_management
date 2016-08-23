@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     end
   resources :members do
+    resources :full_payments, only: [:new, :create], module: :members
     resources :line_items, only: [:index], module: :members do
       match "/scope_to_date" => "line_items#scope_to_date",  via: [:get], on: :collection, module: :members
     end
@@ -54,7 +55,7 @@ Rails.application.routes.draw do
   resources :info, only: [:index]
   resources :users, only: [:show]
   resources :employees, only: [:new, :create]
-
+  resources :accounting, only: [:index]
   namespace :accounting do
     resources :dashboard, only: [:index]
     resources :reports, only:[:index]

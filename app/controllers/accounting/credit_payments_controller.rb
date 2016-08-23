@@ -12,8 +12,9 @@ module Accounting
     def create
       @line_item = LineItem.find(params[:line_item_id])
       @entry = Accounting::Entry.create(entry_params)
+      @entry.commercial_document = @line_item.order.member
       if @entry.save
-        @line_item.order.cash!
+        @line_item.cash!
         redirect_to @line_item.stock.product, notice: "Payment saved successfully."
       else
         render :new

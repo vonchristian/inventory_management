@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
         format.html do
           if @order.credit?
             InvoiceNumber.new.generate_for(@order)
-            redirect_to print_invoice_order_url(@order, format: 'pdf'), notice: 'Credit transaction saved successfully.'
+            redirect_to print_order_url(@order), notice: 'Credit transaction saved successfully.'
           else
             redirect_to print_order_url(@order), notice: 'Thank you for your order.'
           end

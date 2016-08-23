@@ -16,7 +16,7 @@ class Order < ApplicationRecord
   has_one :discount
   belongs_to :tax
   before_save :set_date, :set_user
-  after_commit :create_entry
+  after_commit :create_entry, :set_line_items_payment_type
 
   validates :user_id, presence: true
   accepts_nested_attributes_for :discount
@@ -78,4 +78,16 @@ class Order < ApplicationRecord
       user_id = User.find_by_first_name('Guest').id
     end
   end
+  def set_line_items_payment_type
+    if self.credit?
+      line_items.each do |line_item|
+        line_item.credit!
+      end
+    elsif self.cash?
+      line_items.each do |line_item|
+        line_item.cash!
+      end
+    end
+  end
+
 end

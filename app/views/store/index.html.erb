@@ -54,7 +54,7 @@
             <% @stocks.each do |stock| %>
               <tbody>
                 <tr>
-                  <td><%=number_to_currency(stock.quantity.round, unit: "")%></td>
+                  <td><%=number_to_currency(stock.in_stock.round, unit: "")%></td>
                   <td><%=stock.name.truncate(20) %></td>
                   <td><%=number_to_currency stock.retail_price %></td>
 
@@ -63,8 +63,11 @@
 
               <%=simple_form_for @line_item, url: :line_items do |f| %>
                     <td class="col-md-3">
-
-                      <%=f.input :quantity,  input_html: {value: 1}, autofocus: true, label: false %>
+                       <% if stock.out_of_stock? %>
+                      <%=f.input :quantity, readonly: true, label: false %>
+                      <% else %>
+                        <%=f.input :quantity,  input_html: {value: 1}, autofocus: true, label: false %>
+                      <% end %>
 
                     <%=f.input :stock_id, input_html: {value: stock.id }, as: :hidden %>
                     <%=f.input :unit_cost, input_html: { value: stock.retail_price}, as: :hidden %>

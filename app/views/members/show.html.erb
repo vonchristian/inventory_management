@@ -23,8 +23,13 @@
           </a>
         </li>
         <li>
-          <a href="#purchases" data-toggle="tab">
-            <span class="tab-caption"> Transactions</span>
+          <a href="#cash-transaction" data-toggle="tab">
+            <span class="tab-caption"> Cash Transactions</span>
+          </a>
+        </li>
+        <li>
+          <a href="#credit-transaction" data-toggle="tab">
+            <span class="tab-caption"> Credit Transactions</span>
           </a>
         </li>
         <li>
@@ -42,7 +47,9 @@
     <div class="content">
       <div id="my-tab-content" class="tab-content">
         <%=render 'info' %>
-        <%=render 'purchases' %>
+        <%=render 'cash_transactions' %>
+        <%=render 'credit_transactions' %>
+
         <%#= render 'office_expenses' %>
         <%#= render 'overhead_expenses' %>
       </div>
