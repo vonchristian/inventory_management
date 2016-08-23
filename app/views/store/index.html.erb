@@ -14,7 +14,7 @@
       <div class="panel-heading">
       </div>
       <div class="box-body">
-        <div class="col-md-12">
+          <div class="col-md-12">
           <% if params[:name].present? %>
             <%=form_tag store_index_path, method: :get do %>
               <div class="input-group stylish-input-group">
@@ -26,7 +26,7 @@
                 </span>
               </div>
             <% end %>
-          <% else %>
+            <% else %>
             <%=form_tag store_index_path, method: :get do %>
               <div class="input-group stylish-input-group">
                 <%=text_field_tag :name, params[:name], autofocus: true, class: 'form-control input-lg', placeholder: 'Search Inventory...' %>
@@ -37,30 +37,34 @@
                 </span>
               </div>
             <% end %>
-          <% end %>
-        </div>
+            <% end %>
+          </div>
         <hr>
+        <br>
         <% if params[:name].present? && @stocks.count > 0 %>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>In Stock </th>
-                <th>Product</th>
-                <th>Price </th>
-                <th>Quantity </th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @stocks.each do |stock| %>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>In Stock </th>
+              <th>Product</th>
+              <th>Price </th>
+              <th>Quantity </th>
+              <th></th>
+            </tr>
+            <% @stocks.each do |stock| %>
+              <tbody>
                 <tr>
-                  <td><%=number_to_currency(stock.in_stock.round, unit: "")%></td>
+                  <td><%=number_to_currency(stock.quantity.round, unit: "")%></td>
                   <td><%=stock.name.truncate(20) %></td>
                   <td><%=number_to_currency stock.retail_price %></td>
-                  <%=simple_form_for @line_item, url: :line_items do |f| %>
+
+
+
+
+              <%=simple_form_for @line_item, url: :line_items do |f| %>
                     <td class="col-md-3">
+
                       <%=f.input :quantity,  input_html: {value: 1}, autofocus: true, label: false %>
-<<<<<<< HEAD
 
                     <%=f.input :stock_id, input_html: {value: stock.id }, as: :hidden %>
                     <%=f.input :unit_cost, input_html: { value: stock.retail_price}, as: :hidden %>
@@ -85,110 +89,12 @@
   </div>
 </div>
 </div>
-=======
-                      <%=f.input :stock_id, input_html: {value: stock.id }, as: :hidden %>
-                      <%=f.input :unit_cost, input_html: { value: stock.retail_price}, as: :hidden %>
-                    </td>
-                    <td>
-                      <% if  stock.out_of_stock? %>
-                        <span class="text-danger btn"> Out of Stock </span>
-                      <% else %>
-                        <%=f.submit "Add", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active" %>
-                      <% end %>
-                    </td>
-                  <% end %>
-                </tr>
-              </tbody>
-            <% end %>
-          </table>
-        <% elsif @stocks.count.zero? %>
-          <p class="alert alert-info"> Product not found.<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> </p>
-        <% end %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-green"><i class="fa fa-cart-plus"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Sales</span>
-            <span class="info-box-number"><%=number_to_currency current_user.orders.created_between(Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).total_amount %></span>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Items Sold</span>
-            <span class="info-box-number"><%=current_user.orders.created_between(Time.zone.now.beginning_of_day, Time.zone.now.end_of_day).map{|a| a.line_items }.count %></span>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-red"><i class="fa fa-cart-plus"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Refund</span>
-            <span class="info-box-number"><%=number_to_currency current_user.refunds.total_amount %></span>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-red"><i class="fa fa-cubes"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Items Returned</span>
-            <span class="info-box-number"><%= current_user.refunds.sum(:quantity) %></span>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-aqua"><i class="fa fa-cart-plus"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Refund</span>
-            <span class="info-box-number"><%=number_to_currency current_user.orders.total_amount %></span>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon bg-yellow"><i class="fa fa-cubes"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Discounts</span>
-            <span class="info-box-number">410</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box box-solid">
-          <div class="box-header">
-            <h4 class="box-title"> Refunds </h4>
-          </div>
-          <div class="box-body">
-            <p>Generate Reports for the transactions </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box box-solid">
-          <div class="box-header">
-            <h4 class="box-title"> Reports </h4>
-          </div>
-          <div class="box-body">
-            <p>Generate Reports for the transactions </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
->>>>>>> 9fefa95d56796da6c92ebb4b70791764d3017dc0
   <div class="col-md-5" id="cart">
+    <div class="box box-success">
+      <div class="box-body">
     <%=render @cart %>
   </div>
+</div>
+</div>
+</div>
 </div>

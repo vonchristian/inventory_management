@@ -40,7 +40,7 @@ class Product < ApplicationRecord
   end
 
   def low_stock?
-    quantity <= stock_alert_count && !out_of_stock?
+    # quantity <= stock_alert_count && !out_of_stock?
   end
 
   def stock_alert
