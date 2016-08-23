@@ -1,33 +1,29 @@
 <div id="member-modal" class="modal fade"></div>
-
-<% if @cart.line_items.present? %>
-<div class="col-md-12">
-      <h4> <i class="fa fa-cart-plus fa-2x"></i> <span class='badge bg-green'><%=@cart.line_items.count %></span>
-        <span class="pull-right">
-          <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %></span>
-      </h4>
-    <br>
-    </div>
-    <hr>
-<div class="row">
+<% if @cart.line_items.blank? %>
+<center><%=image_tag('empty_cart.png', height: 150, width: 150) %></center>
+<% else %>
   <div class="col-md-12">
-      <%=render @cart.line_items.sort_by{|l| l.stock_name } %>
+    <h4> <i class="fa fa-cart-plus fa-2x"></i> <span class='badge bg-green'><%=@cart.line_items.count %></span>
+      <span class="pull-right">
+        <%= link_to 'Empty Cart', @cart, method: :delete, confirm: 'Are you sure?', class: "btn btn-danger btn-xs" %>
+      </span>
+    </h4>
+    <br>
   </div>
-
-
-
-        <div class="col-md-12">
-        <div class="pull-left">
-          <h3> <b>Sub Total</b> </h3>
-        </div>
-                <div class="pull-right">
-                  <h3> <b><%=number_to_currency @cart.total_price %></b></h3>
-                </div>
-
-</div>
-</div>
-
-
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <%=render @cart.line_items.sort_by{|l| l.stock_name } %>
+    </div>
+    <div class="col-md-12">
+      <div class="pull-left">
+        <h3> <b>Sub Total</b> </h3>
+      </div>
+      <div class="pull-right">
+        <h3> <b><%=number_to_currency @cart.total_price %></b></h3>
+      </div>
+    </div>
+  </div>
 <br>
 <br>
 <br>
