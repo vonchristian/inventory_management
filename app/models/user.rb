@@ -27,7 +27,7 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
   def address
-    addresses.first.details
+    addresses.first.try(:details)
   end
   private
 end
