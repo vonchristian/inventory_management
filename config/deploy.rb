@@ -1,14 +1,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
-require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
-# require 'mina/puma'    # for rvm support. (http://rvm.io)
-
-# Basic settings:
-#   domain       - The hostname to SSH to.
-#   deploy_to    - Path to deploy into.
-#   repository   - Git repo to clone from. (needed by mina/git)
-#   branch       - Branch name to deploy. (needed by mina/git)
+require 'mina/rbenv'
 
 set :domain, '192.168.254.100'
 set :deploy_to, '/var/www/inventory_management'
@@ -19,11 +12,6 @@ set :term_mode, nil
 set :forward_agent, true
 set :app_path, lambda { "#{deploy_to}/#{current_path}" }
 set :stage, 'production'
-# For system-wide RVM install.
-#   set :rvm_path, '/usr/local/rvm/bin/rvm'
-
-# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
-# They will be linked in the 'deploy:link_shared_paths' step.
 set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'log', 'tmp/log', 'public/system']
 # Optional settings:
 #   set :user, 'foobar'    # Username in the server to SSH to.
