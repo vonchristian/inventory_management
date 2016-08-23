@@ -1,6 +1,7 @@
 module Members
   class LineItemsPdf < Prawn::Document
     TABLE_WIDTHS = [80, 50, 140, 80, 80, 100]
+    HEADING_WIDTHS = [100,100,100,100, 100]
     def initialize(member, line_items, from_date, to_date, view_context)
       super(margin: 40, page_size: [612, 1008], page_layout: :portrait)
       @member = member
@@ -18,37 +19,24 @@ module Members
       @view_context.number_to_currency(number, :unit => "P ")
     end
     def heading
-
-
-
-
-      text "MEMBER'S TRANSACTION REPORT", size: 12, align: :center, style: :bold
+      text "MEMBER TRANSACTION REPORT", align: :center, style: :bold
       stroke_horizontal_rule
       move_down 10
-      text "#{@member.full_name.upcase}", size: 12
-      text "#{Business.last.try(:proprietor)}", size: 10
-      text "#{Business.last.try(:tin)}", size: 10
-      text "#{Business.last.try(:address)}", size: 10
+      text "SUMMARY", style: :bold, size: 10
+      table(heading_data, header: true, cell_style: { size: 10, font: "Helvetica", :padding => [5,5,0,0]}, column_widths: HEADING_WIDTHS) do
+        cells.borders = []
+
+      end
       move_down 10
-      move_down 10
-      text 'SUMMARY:', style: :bold
-      move_down 5
-      text "FROM DATE:                              #{@from_date.strftime("%B %e, %Y")}", size: 10
-      move_down 5
-      text "TO DATE:                                    #{@to_date.strftime("%B %e, %Y")}", size: 10
-      move_down 5
-      text "CASH TRANSACTION:                      #{price(@member.line_items.sum(:unit_cost))}", size: 10, style: :bold
-      text "CREDIT TRANSACTION:                      #{price(@member.line_items.sum(:unit_cost))}", size: 10, style: :bold
-
-
-
-
-
-      move_down 3
       stroke_horizontal_rule
-
-
     end
+    def heading_data
+      [["#{@member.full_name}", "", "", "From Date:",  "#{@from_date.strftime('%B %e, %Y')}"]] +
+      [["#{@member.address}", "", "", "To Date:", "#{@to_date.strftime('%B %e, %Y')}" ]] +
+      [["#{@member.mobile}", "", "", "Cash Transaction", "#{price(@member.line_items.cash.pluck(:total_cost).sum)}" ]] +
+      [["", "", "", "Credit Transaction", "#{price(@member.line_items.credit.pluck(:total_cost).sum)}" ]]
+    end
+
     def display_cash_line_items_table
       if @line_items.blank?
         move_down 10
