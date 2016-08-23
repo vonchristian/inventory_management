@@ -18,7 +18,7 @@ class Order < ApplicationRecord
   before_save :set_date, :set_user
   after_commit :create_entry
 
-  validates :user_id, presence: true, allow_nil: true
+  validates :user_id, presence: true
   accepts_nested_attributes_for :discount
   scope :created_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
   def customer_name

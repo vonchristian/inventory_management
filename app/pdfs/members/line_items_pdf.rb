@@ -9,16 +9,30 @@ module Members
       @from_date = from_date
       @to_date = to_date
       @view_context = view_context
+      logo
       heading
       display_cash_line_items_table
       display_credit_line_items_table
+      footer_for_itworx
 
 
     end
     def price(number)
       @view_context.number_to_currency(number, :unit => "P ")
     end
+    def logo
+      y_position = cursor
+      image "#{Business.last.logo.path(:medium)}", height: 50, width: 50, at: [1, y_position]
+      bounding_box [60, 930], width: 200 do
+        text "<b>#{Business.last.try(:name)}</b>", size: 10, inline_format: true
+        text "Proprietor: #{Business.last.try(:proprietor)}", size: 10, inline_format: true
+        text "TIN: #{Business.last.try(:tin)}", size: 10, inline_format: true
+        text "Contact #: #{Business.last.try(:mobile_number)}", size: 10, inline_format: true
+        text "Email: #{Business.last.try(:email)}", size: 10, inline_format: true
+      end
+    end
     def heading
+     move_down 10
       text "MEMBER TRANSACTION REPORT", align: :center, style: :bold
       stroke_horizontal_rule
       move_down 10
@@ -27,7 +41,7 @@ module Members
         cells.borders = []
 
       end
-      move_down 10
+  move_down 10
       stroke_horizontal_rule
     end
     def heading_data
@@ -82,6 +96,14 @@ module Members
     move_down 5
     [["DATE", "QTY", "PRODUCT",  "SERIAL", "PRICE", "AMOUNT"]] +
     @credit_data ||= @member.line_items.credit.map { |e| [e.created_at.strftime("%B %e, %Y %I:%M %p"), e.quantity, e.stock.try(:name), e.stock.try(:serial_number), e.unit_cost, e.total_cost]}
+  end
+  def footer_for_itworx
+    bounding_box([10, 5], :width => 500, :height => 110) do
+      stroke_horizontal_rule
+      move_down 5
+      text 'This establsihment is proudly supported by <b>ITWORX POINT-OF- SALE SYSTEM.</b>', size: 8, inline_format: true, align: :center
+      text 'Developed by <b> ITWORX TECHNOLOGY SERVICES</b> Email us at <b> vc.halip@gmail.com </b> Contact # <b> 0927 4173 271</b>', size: 8, inline_format: true, align: :center
+    end
   end
 end
 end

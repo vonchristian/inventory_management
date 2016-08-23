@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     @order.add_line_items_from_cart(current_cart)
     @order.employee = current_user
     respond_to do |format|
-      if @order.save!
+      if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html do
