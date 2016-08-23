@@ -6,7 +6,7 @@ require 'mina/rbenv'
 set :domain, '192.168.254.100'
 set :deploy_to, '/var/www/inventory_management'
 set :repository, 'https://github.com/vonchristian/inventory_management.git'
-set :branch, 'belongings'
+set :branch, 'master'
 set :user, 'itworx'
 set :term_mode, nil
 set :forward_agent, true
