@@ -24,7 +24,11 @@ Rails.application.routes.draw do
 
 
     end
-  resources :members
+  resources :members do
+    resources :line_items, only: [:index], module: :members do
+      match "/scope_to_date" => "line_items#scope_to_date",  via: [:get], on: :collection, module: :members
+    end
+  end
   resources :reports, only: [:index]
   resources :settings, only: [:index]
   resources :credits, only: [:index]
