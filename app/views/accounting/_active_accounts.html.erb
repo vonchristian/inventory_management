@@ -1,0 +1,19 @@
+<div class="tab-pane active" id="active-accounts">
+  <%= link_to "New Account", new_accounting_account_path, remote: true, class: "btn btn-primary" %>
+  <table class="table table-hover">
+    <thead>
+      <tr class="title">
+        <th>Code</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th> Debits Balance </th>
+        <th> Credits Balance </th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody class="entry-index">
+      <%= render "accounting/accounts/index", :accounts => @active_accounts %>
+    </tbody>
+  </table>
+  <div id="account-modal" class="modal fade"></div>
+</div>

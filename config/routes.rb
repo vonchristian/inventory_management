@@ -57,6 +57,8 @@ Rails.application.routes.draw do
   resources :employees, only: [:new, :create]
   resources :accounting, only: [:index]
   namespace :accounting do
+    resources :balance_sheet, only:[:index]
+    resources :income_statement, only:[:index]
     resources :dashboard, only: [:index]
     resources :reports, only:[:index]
     resources :accounts do

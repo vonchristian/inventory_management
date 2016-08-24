@@ -2,19 +2,16 @@
   <div class="col-md-12">
     <div class="box box-solid">
       <div class="box-header">
-        <h4 class="title"> Accounting Section </h4>
+        <h4 class="title"> General Ledger</h4>
       </div>
       <div class="box-body">
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#general-ledger" aria-controls="general-ledger" role="tab" data-toggle="tab">General Ledger</a></li>
-          <li role="presentation"><a href="#income-statement" aria-controls="income-statement" role="tab" data-toggle="tab">Income Statement</a></li>
-          <li role="presentation"><a href="#balance-sheet" aria-controls="balance-sheet" role="tab" data-toggle="tab">Balance Sheet</a></li>
+          <li role="presentation" class="active"><a href="#active-accounts" aria-controls="active-accounts" role="tab" data-toggle="tab">Active Accounts</a></li>
+          <li role="presentation"><a href="#inactive-accounts" aria-controls="inactive-accounts" role="tab" data-toggle="tab">Inactive Accounts</a></li>
         </ul>
         <div class="tab-content">
-          <%=render 'general_ledger' %>
-          <%=render 'income_statement' %>
-          <%=render 'balance_sheet' %>
-
+          <%=render 'active_accounts' %>
+          <%=render 'inactive_accounts' %>
         </div>
       </div>
   </div>

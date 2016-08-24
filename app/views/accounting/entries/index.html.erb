@@ -34,6 +34,7 @@
 <hr>
 <div class="row">
   <div class="col-md-3">
+    <span class="pull-right title">Filter Date:</span>
   </div>
   <div class="col-md-9">
     <%= form_tag({:action => 'index'}, {:method => :get})  do %>
@@ -46,7 +47,7 @@
         </div>
         <div class="col-md-4">
         	<button type="submit" class="btn btn-success active"> Go </button>
-          <%=link_to "PDF", accounting_entries_path(format: 'pdf', from_date: @from_date, to_date: @to_date), class: "btn btn-danger active"%>
+          <%=link_to "PDF", accounting_entries_path(format: 'pdf', from_date: @from_date, to_date: @to_date), class: "btn btn-default active"%>
         </div>
       </div>
     <% end %>

@@ -21,6 +21,9 @@ class Order < ApplicationRecord
   validates :user_id, presence: true
   accepts_nested_attributes_for :discount
   scope :created_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
+  def name
+    customer_name
+  end
   def customer_name
     member.try(:full_name)
   end

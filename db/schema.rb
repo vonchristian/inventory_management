@@ -133,7 +133,6 @@ ActiveRecord::Schema.define(version: 20160824033250) do
     t.integer  "user_id"
     t.datetime "deleted_at"
     t.integer  "stock_id"
-    t.integer  "pay_type"
     t.integer  "payment_type"
     t.index ["cart_id"], name: "index_line_items_on_cart_id", using: :btree
     t.index ["deleted_at"], name: "index_line_items_on_deleted_at", using: :btree
@@ -176,8 +175,8 @@ ActiveRecord::Schema.define(version: 20160824033250) do
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "unit"
     t.integer  "category_id"
     t.boolean  "alert"
@@ -186,7 +185,6 @@ ActiveRecord::Schema.define(version: 20160824033250) do
     t.decimal  "stock_alert_count"
     t.string   "bar_code"
     t.integer  "stock_status"
-    t.decimal  "total_quantity",    default: "0.0"
     t.index ["category_id"], name: "index_products_on_category_id", using: :btree
   end
 
@@ -216,12 +214,11 @@ ActiveRecord::Schema.define(version: 20160824033250) do
     t.string   "serial_number"
     t.date     "expiry_date"
     t.integer  "entry_id"
+    t.integer  "employee_id"
     t.string   "name"
     t.decimal  "retail_price"
     t.decimal  "wholesale_price"
     t.decimal  "unit_price"
-    t.integer  "employee_id"
-    t.integer  "stock_type"
     t.index ["employee_id"], name: "index_stocks_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_stocks_on_entry_id", using: :btree
     t.index ["product_id"], name: "index_stocks_on_product_id", using: :btree
