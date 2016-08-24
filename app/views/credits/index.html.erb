@@ -32,9 +32,11 @@
           <tbody>
             <% @members.each do |member| %>
               <tr>
+                <% if member.has_credit? %>
                 <td><%=image_tag(member.profile_photo.url(:small), class: 'img-circle', height: 35, width: 35) %> <%=link_to member.full_name, member %></td>
                 <td><%=number_to_currency member.total_credit %></td>
-                <td><%=time_ago_in_words(member.first_credit_created_at) %> ago
+                <td><%=time_ago_in_words(member.first_credit_created_at) %> ago </td>
+                  <% end %>
               </tr>
             <% end %>
           </tbody>

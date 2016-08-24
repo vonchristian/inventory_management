@@ -13,8 +13,9 @@ scope :by_total_credit, -> {with_credits.to_a.sort_by(&:total_credit).reverse }
   def first_credit_created_at
     if line_items.credit.present?
       line_items.first.created_at.strftime("%B %e, %Y")
-    else
-      ''
     end
+  end
+  def has_credit?
+    line_items.credit.present?
   end
 end
