@@ -18,14 +18,14 @@
             </span>
       </div>
     </form>
-<% if current_user.proprietor? %>
-  <%= render 'layouts/shared/sidebar_for_owner' %>
-<% elsif current_user.cashier? %>
-  <%= render 'layouts/shared/sidebar_for_cashier' %>
-<% elsif current_user.stock_custodian? %>
-  <%= render 'layouts/shared/sidebar_for_stock_custodian' %>
-  <% elsif current_user.bookkeeper? %>
-    <%= render 'layouts/shared/sidebar_for_bookkeeper' %>
-<% end %>
-</section>
+    <% if current_user.proprietor? %>
+      <%= render 'layouts/shared/sidebar_for_owner' %>
+    <% elsif current_user.cashier? %>
+      <%= render 'layouts/shared/sidebar_for_cashier' %>
+    <% elsif current_user.stock_custodian? %>
+      <%= render 'layouts/shared/sidebar_for_stock_custodian' %>
+    <% elsif current_user.bookkeeper? %>
+      <%= render 'layouts/shared/sidebar_for_bookkeeper' %>
+    <% end %>
+  </section>
 </aside>

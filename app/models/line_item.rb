@@ -6,6 +6,7 @@ class LineItem < ApplicationRecord
   belongs_to :employee, foreign_key: 'user_id'
   enum pricing_type: [:retail, :wholesale]
   enum payment_type: [:cash, :credit]
+  scope :by_total_cost, -> { all.to_a.sort_by(&:total_cost) }
   # scope :created_between, lambda {|start_date, end_date| where("created_at >= ? AND created_at <= ?", start_date, end_date )}
 
   validates :quantity, numericality: {less_than_or_equal_to: :stock_quantity }, on: :create

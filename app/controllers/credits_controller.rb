@@ -1,9 +1,9 @@
 class CreditsController < ApplicationController
   def index
     if params[:name].present?
-      @orders = Order.search_by_name(params[:name])
+      @members = Member.search_by_name(params[:name])
     else
-      @orders = Order.credit
+      @members = Member.by_total_credit
     end
   end
 end

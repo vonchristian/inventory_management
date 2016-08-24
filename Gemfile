@@ -28,8 +28,6 @@ gem 'mina-puma', :require => false
 gem "figaro"
 gem 'barby'
 gem 'prawn-print'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 
 group :production do
   gem 'pg', '~> 0.18',  group: :development

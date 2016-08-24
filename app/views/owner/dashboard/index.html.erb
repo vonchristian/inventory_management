@@ -1,70 +1,81 @@
-
-  <div class="row">
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-aqua">
-        <div class="inner">
-          <h3><%=Order.created_between(Time.zone.now.beginning_of_month, Time.zone.now.end_of_month).count %></h3>
-
-          <p>New Orders</p>
-        </div>
-        <div class="icon">
-          <i class="fa fa-cart-plus"></i>
-        </div>
-        <%=link_to orders_path, class: 'small-box-footer' do %>
-        <span>More info <i class="fa fa-arrow-circle-right"></i></span>
-        <% end %>
+<div class="row">
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <h3><%=Order.created_between(Time.zone.now.beginning_of_month, Time.zone.now.end_of_month).count %></h3>
+        <p>New Orders</p>
       </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-          <p>Sales</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-stats-bars"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <div class="icon">
+        <i class="fa fa-cart-plus"></i>
       </div>
+      <%=link_to orders_path, class: 'small-box-footer' do %>
+      <span>More info <i class="fa fa-arrow-circle-right"></i></span>
+      <% end %>
     </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3><%=Member.count %></h3>
-
-          <p>Members</p>
-        </div>
-        <div class="icon">
-          <i class="fa fa-users"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3><%=number_to_currency LineItem.credit.sum(:total_cost) %></h3>
-
-          <p>Credits</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-pie-graph"></i>
-        </div>
-        <%=link_to credits_path, class: 'small-box-footer' do %>
-          <span>More info <i class="fa fa-arrow-circle-right"></i></span>
-        <% end %>
-      </div>
-    </div>
-    <!-- ./col -->
   </div>
-Top ten unpaid credits
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-green">
+      <div class="inner">
+        <h3>53<sup style="font-size: 20px">%</sup></h3>
+        <p>Sales</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-stats-bars"></i>
+      </div>
+      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <h3><%=Member.count %></h3>
+        <p>Members</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-users"></i>
+      </div>
+      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-red">
+      <div class="inner">
+        <h3><%=number_to_currency LineItem.credit.sum(:total_cost) %></h3>
+        <p>Credits</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-pie-graph"></i>
+      </div>
+      <%=link_to credits_path, class: 'small-box-footer' do %>
+        <span>More info <i class="fa fa-arrow-circle-right"></i></span>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-danger">
+      <div class="box-header">
+        <h4> Credits </h4>
+      </div>
+      <div class="box-body">
+        <div class="table table-responsive">
+          <table class="table table-hover">
+            <tbody>
+              <% Member.by_total_credit.first(10).each do |member| %>
+              <tr>
+                <td><%=image_tag(member.profile_photo.url(:small), class: 'img-circle', height: 35, width: 35) %> <%= member.full_name %></td>
+                <td><%=number_to_currency member.total_credit %></td>
+              </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+        <center> <%=link_to 'View All', credits_path, class: 'btn btn-info' %></center>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Top ten unpaid credits
 top ten new sales
-top ten new members
+top ten new members -->

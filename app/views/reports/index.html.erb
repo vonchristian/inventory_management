@@ -1,95 +1,94 @@
 <div class="col-md-12">
-  <div class="panel">
-    <div class="panel-heading bg-purple">
+  <div class="box box-solid">
+    <div class="box-header">
       <h4>Reports Section</h4>
     </div>
     <div class="panel-body">
-    <div class="">
       <h4>Sales and Inventories</h4>
-    </div>
-    <div class="content">
       <div class="row">
         <div class="col-md-6">
-      <%=link_to scope_to_date_orders_path(from_date: Time.zone.now.beginning_of_day, to_date: Time.zone.now.end_of_day, format: 'pdf') do %>
-      <h4> Daily Sales Report </h4>
-
-      <p> Generate daily sales report for today. </p>
-        <% end %>
-      <br>
-      <%=link_to scope_to_date_orders_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') do %>
-      <h4> Weekly Sales Report </h4>
-      <p> Generate daily sales report for today. </p>
-      <% end %>
-      <br>
-      <%=link_to scope_to_date_orders_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
-      <h4> Monthly Sales Report </h4>
-      <p> Generate daily sales report for today. </p>
-      <% end %>
-    </div>
-    <div class="col-md-5">
-      <h4>Inventories</h4>
-      <p> Generate reports for stock alert of products. </p>
-      <br>
-      <%=link_to low_stock_products_path(format: 'pdf'), class: 'text-warning' do %>
-      <h4><span class='text-danger'><i class='fa fa-file-text-o'></i> Low Stock Products </span> </h4>
-      <p>Generate report for all low stock products. </p>
-      <% end %>
-      <hr />
-      <%=link_to out_of_stock_products_path(format: 'pdf'), class: 'text-danger' do %>
-      <h4 class="text-danger"><i class='fa fa-file-text-o text-danger'></i> Out of Stock Products </h4>
-      <p>Generate report for all out of stock products. </p>
-      <% end %>
-    </div>
-  </div>
-  <hr>
-  <h4><i class='fa fa-server'></i> Purchases </h4>
-  <div class="row">
-    <div class="col-md-6">
-      <%=link_to scope_to_date_stocks_path(from_date: Time.zone.now.beginning_of_day, to_date: Time.zone.now.end_of_day, format: 'pdf') do %>
-      <h4> Daily Purchase </h4>
-      <p> Generate report for purchases entered this day. </p>
-      <% end %>
+          <%=link_to scope_to_date_orders_path(from_date: Time.zone.now.beginning_of_day, to_date: Time.zone.now.end_of_day, format: 'pdf') do %>
+            <h4> Daily Sales Report </h4>
+            <p> Generate daily sales report for today. </p>
+          <% end %>
+          <br>
+          <%=link_to scope_to_date_orders_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') do %>
+            <h4> Weekly Sales Report </h4>
+            <p> Generate daily sales report for today. </p>
+          <% end %>
+          <br>
+          <%=link_to scope_to_date_orders_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
+            <h4> Monthly Sales Report </h4>
+            <p> Generate daily sales report for today. </p>
+          <% end %>
+        </div>
+        <div class="col-md-5">
+          <h4>Inventories</h4>
+          <p> Generate reports for stock alert of products. </p>
+          <br>
+          <%=link_to low_stock_products_path(format: 'pdf'), class: 'text-warning' do %>
+            <h4><span class='text-danger'><i class='fa fa-file-text-o'></i> Low Stock Products </span> </h4>
+            <p>Generate report for all low stock products. </p>
+          <% end %>
+          <hr />
+          <%=link_to out_of_stock_products_path(format: 'pdf'), class: 'text-danger' do %>
+            <h4 class="text-danger"><i class='fa fa-file-text-o text-danger'></i> Out of Stock Products </h4>
+            <p>Generate report for all out of stock products. </p>
+          <% end %>
+        </div>
+      </div>
       <hr>
-      <%=link_to scope_to_date_stocks_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') do %>
-      <h4> Weekly Purchase </h4>
-      <p> Generate report for purchases entered this day. </p>
-      <% end %>
+      <h4><i class='fa fa-server'></i> Purchases </h4>
+      <div class="row">
+        <div class="col-md-6">
+          <%=link_to scope_to_date_stocks_path(from_date: Time.zone.now.beginning_of_day, to_date: Time.zone.now.end_of_day, format: 'pdf') do %>
+            <h4> Daily Purchase </h4>
+            <p> Generate report for purchases entered this day. </p>
+          <% end %>
+          <hr>
+          <%=link_to scope_to_date_stocks_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') do %>
+            <h4> Weekly Purchase </h4>
+            <p> Generate report for purchases entered this day. </p>
+          <% end %>
+          <hr>
+          <%=link_to scope_to_date_stocks_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
+            <h4> Monthly Purchase </h4>
+            <p> Generate report for purchases entered this day. </p>
+          <% end %>
+        </div>
+      </div>
       <hr>
-      <%=link_to scope_to_date_stocks_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') do %>
-      <h4> Monthly Purchase </h4>
-      <p> Generate report for purchases entered this day. </p>
-      <% end %>
-    </div>
-  </div>
-  <hr>
-  <h4>Receivables </h4>
-  <div class="row">
-    <div class="col-md-6">
-      <h4>Due from Customers </h4>
-      <p>Generate report for credits due from customers </p>
+      <h4>Receivables </h4>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Due from Customers </h4>
+          <p>Generate report for credits due from customers </p>
+          <hr>
+        </div>
+      </div>
+      <h4>Payables </h4>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Payable to Creditors </h4>
+          <p>Generate report for accounts payable to creditors </p>
+        </div>
+      </div>
       <hr>
-    </div>
-  </div>
-
-  <h4>Payables </h4>
-  <div class="row">
-    <div class="col-md-6">
-      <h4>Payable to Creditors </h4>
-      <p>Generate report for accounts payable to creditors </p>
-
-    </div>
-  </div>
-  <hr>
-  <h4>Accounts </h4>
-  <div class="row">
-    <div class="col-md-12">
-      <h4> Financial Statement </h4>
-      <p>Generate Financial Statement of your business </p>
-      <hr>
-      <h4> Statement of Cash Flow </h4>
-      <p>Generate Financial Statement of your business </p>
-<hr>
-<li><%=link_to 'This Day', scope_to_date_accounting_entries_path(:from_date => Time.zone.now.beginning_of_day, :to_date => Time.zone.now.end_of_day, format: 'pdf') %></li>
+      <h4>Accounts </h4>
+      <div class="row">
+        <div class="col-md-12">
+          <h4> Financial Statement </h4>
+          <p>Generate Financial Statement of your business </p>
+          <hr>
+          <h4> Statement of Cash Flow </h4>
+          <p>Generate Financial Statement of your business </p>
+          <hr>
+          <li><%=link_to 'This Day', scope_to_date_accounting_entries_path(:from_date => Time.zone.now.beginning_of_day, :to_date => Time.zone.now.end_of_day, format: 'pdf') %></li>
           <li> <%=link_to 'This Week', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_week, to_date: Time.zone.now.end_of_week, format: 'pdf') %></li>
           <li> <%=link_to 'This Month', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_month, to_date: Time.zone.now.end_of_month, format: 'pdf') %></li>
-            <li> <%=link_to 'This Year', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_year, to_date: Time.zone.now.end_of_year, format: 'pdf') %></li>
+          <li> <%=link_to 'This Year', scope_to_date_accounting_entries_path(from_date: Time.zone.now.beginning_of_year, to_date: Time.zone.now.end_of_year, format: 'pdf') %></li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -115,7 +115,7 @@ class InvoicePdf < Prawn::Document
                               [["#{@order.member.try(:full_name)}","TOTAL AMOUNT DUE", "#{price(@order.total_amount)}"]]
   end
   def footer_for_warranty
-    bounding_box([10, 80], :width => 500, :height => 110) do
+    bounding_box([10, 80], :width => 530, :height => 110) do
       stroke_horizontal_rule
       move_down 5
   text "Please present this receipt to claim warranty", size: 10, style: :bold, align: :center

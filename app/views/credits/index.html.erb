@@ -1,37 +1,45 @@
 <div class="col-md-12">
   <div class="box box-solid">
-      <div class="box-header">
-        <div class="row">
-          <div class="col-md-3">
-            <h4 class="box-title">Receivables </h4>
-          </div>
-          <div class="col-md-6">
-          </div>
+    <div class="box-header">
+      <div class="row">
+        <div class="col-md-3">
+          <h4 class="box-title">Accounts Receivables </h4>
         </div>
-
-          <hr>
+        <div class="col-md-6">
+          <%=form_tag credits_path, method: :get do %>
+            <div class="input-group stylish-input-group">
+              <%=text_field_tag :name, params[:name], class: 'form-control', placeholder: 'Search for Customer. . . '%>
+              <span class="input-group-btn">
+                <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
+                  <i class="fa fa-search"></i>
+                <% end %>
+              </span>
+            </div>
+          <% end %>
+        </div>
       </div>
-      <div class="box-body">
-        <div class="table table-responsive">
-          <table class="table table-hover">
-            <thead>
+    </div>
+    <div class="box-body">
+      <div class="table table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Customer </th>
+              <th> Amount </th>
+              <th> Since </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @members.each do |member| %>
               <tr>
-                <th>Date </th>
-                <th> Name </th>
-                <th> Amount </th>
+                <td><%=image_tag(member.profile_photo.url(:small), class: 'img-circle', height: 35, width: 35) %> <%=link_to member.full_name, member %></td>
+                <td><%=number_to_currency member.total_credit %></td>
+                <td><%=time_ago_in_words(member.first_credit_created_at) %> ago
               </tr>
-            </thead>
-            <tbody>
-              <% @orders.order(:date).reverse.each do |order| %>
-                <tr>
-                  <td><%= order.date.strftime('%B %e, %Y') %></td>
-                  <td><%= link_to order.member.try(:full_name) || 'Guest', order %></td>
-                  <td> <%= number_to_currency order.line_items.total_price %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-</div>
-</div>
-        </div>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

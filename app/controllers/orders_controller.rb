@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PosReceiptPdf.new(@order, @line_items, view_context)
+        pdf = InvoicePdf.new(@order, @line_items, view_context)
           send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice.pdf"
         pdf.print
       end

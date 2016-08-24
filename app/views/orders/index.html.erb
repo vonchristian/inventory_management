@@ -1,8 +1,8 @@
-<div class="col-md-12">
-  <div class="panel panel-default">
-      <div class="panel-heading">
-          <h4>Sales
-          </h4>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header">
+        <h4>Sales</h4>
       </div>
       <div class="panel-body">
         <div class="table table-responsive">
@@ -10,7 +10,6 @@
             <thead>
               <tr>
                 <th> Customer </th>
-                <th> OR </th>
                 <th> Invoice </th>
                 <th>Date </th>
                 <th> Amount </th>
@@ -22,9 +21,7 @@
               <% @orders.each do |order| %>
                 <tr>
                   <td><%= link_to order.member.try(:full_name) || 'Guest', order %></td>
-                  <td><%=order.official_receipt_number.try(:number) %></td>
                   <td><%=order.invoice_number.try(:number) %></td>
-
                   <td><%= order.date.strftime('%B %e, %Y') %></td>
                   <td> <% if order.wholesale? %>
                     <%= number_to_currency order.line_items.total_whole_sale_price %>
@@ -37,7 +34,8 @@
               <% end %>
             </tbody>
           </table>
-</div>
-</div>
         </div>
+      </div>
+    </div>
+  </div>
 </div>
