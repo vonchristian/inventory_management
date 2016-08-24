@@ -18,7 +18,10 @@
           <td><%= account.type.gsub('Accounting::', '') %></td>
           <td><%= account.debits_balance %> </td>
           <td><%= account.credits_balance %> </td>
-          <td><%= link_to "Edit", account_path(account), remote: true, class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to  activate_accounting_account_path(account) do %>
+            <span><i class="fa fa-toggle-on"></i></span>
+              <% end %>
+          </td>
         </tr>
       <% end %>
 

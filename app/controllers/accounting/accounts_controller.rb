@@ -33,6 +33,11 @@ module Accounting
       @account.update_attributes(account_params)
     end
 
+    def activate
+      @account = Accounting::Account.find(params[:id])
+      @account.active!
+    end
+
 
     def destroy
       @account.destroy

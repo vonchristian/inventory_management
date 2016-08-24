@@ -59,7 +59,9 @@ Rails.application.routes.draw do
   namespace :accounting do
     resources :dashboard, only: [:index]
     resources :reports, only:[:index]
-    resources :accounts
+    resources :accounts do
+      match "/activate" => "accounts#activate", via: [:post], on: :member
+    end
     resources :assets, controller: 'accounts', type: 'Accounting::Asset'
     resources :liabilities, controller: 'accounts', type: 'Accounting::Liability'
     resources :equities, controller: 'accounts', type: 'Accounting::Equity'
