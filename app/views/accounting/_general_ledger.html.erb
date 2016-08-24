@@ -7,20 +7,29 @@
         <th>Type</th>
         <th> Debits Balance </th>
         <th> Credits Balance </th>
-        <th>&nbsp;</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody class="entry-index">
-      <% Accounting::Account.all.each do |account| %>
+      <% Accounting::Account.all.order(:code).each do |account| %>
         <tr>
           <td><%= account.code %></td>
           <td><%= account.name %><small class="text-info"> <%=(account.main_account.try(:name))%> </small></td>
           <td><%= account.type.gsub('Accounting::', '') %></td>
-          <td><%= account.debits_balance %> </td>
-          <td><%= account.credits_balance %> </td>
-        <td><%= link_to  activate_accounting_account_path(account) do %>
-            <span><i class="fa fa-toggle-on"></i></span>
-              <% end %>
+          <td><span class='pull-right'><%= number_to_currency account.debits_balance %></span> </td>
+          <td><span class='pull-right'><%= number_to_currency account.credits_balance %></span> </td>
+          <td></td>
+        <td>
+          <% if account.inactive? %>
+            <%= link_to activate_accounting_account_path(account),method: :post do %>
+              <span class=""><i class="fa fa-toggle-off fa-2x"></i></span>
+            <% end %>
+          <% elsif account.active? %>
+            <%= link_to deactivate_accounting_account_path(account), method: :post do %>
+              <span><i class="fa fa-toggle-on fa-2x"></i></span>
+            <% end %>
+          <% end %>
           </td>
         </tr>
       <% end %>

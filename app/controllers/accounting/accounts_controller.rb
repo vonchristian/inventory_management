@@ -36,6 +36,12 @@ module Accounting
     def activate
       @account = Accounting::Account.find(params[:id])
       @account.active!
+      redirect_to accounting_index_url
+    end
+    def deactivate
+      @account = Accounting::Account.find(params[:id])
+      @account.inactive!
+      redirect_to accounting_index_url
     end
 
 

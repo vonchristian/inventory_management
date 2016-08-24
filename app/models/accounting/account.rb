@@ -1,6 +1,7 @@
 module Accounting
   class Account < ApplicationRecord
     class_attribute :normal_credit_balance
+    enum status: [:active, :inactive]
     belongs_to :main_account, class_name: "Accounting::Account"
     has_many :amounts
     has_many :sub_accounts, class_name: "Accounting::Account", foreign_key: 'main_account_id'

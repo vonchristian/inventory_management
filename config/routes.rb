@@ -61,6 +61,8 @@ Rails.application.routes.draw do
     resources :reports, only:[:index]
     resources :accounts do
       match "/activate" => "accounts#activate", via: [:post], on: :member
+      match "/deactivate" => "accounts#deactivate", via: [:post], on: :member
+
     end
     resources :assets, controller: 'accounts', type: 'Accounting::Asset'
     resources :liabilities, controller: 'accounts', type: 'Accounting::Liability'
