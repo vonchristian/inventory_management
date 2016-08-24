@@ -111,16 +111,10 @@ namespace :puma do
   end
 end
 
-namespace :deploy_to_production do
-  desc "reload the database with seed data"
-  task :seed do
-    run "cd #{app_path}; bundle exec rake db:seed RAILS_ENV=#{stage}"
-  end
-end
-
 namespace :deploy do
   desc "reload the database with seed data"
   task :seed do
-    run "cd #{app_path}; rake db:seed RAILS_ENV=#{stage}"
+    invoke :'rbenv:load'
+    queue "cd #{app_path}; bundle exec rails db:seed RAILS_ENV=#{stage}"
   end
 end
