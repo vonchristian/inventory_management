@@ -3,7 +3,7 @@ class StocksController < ApplicationController
     if params[:name].present?
       @stocks = Stock.search_by_name(params[:name])
     else
-      @stocks = Stock.all.order('date DESC')
+      @stocks = Stock.includes(:product).all.order('date DESC')
       authorize @stocks
     end
   end

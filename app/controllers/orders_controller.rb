@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   def index
     if current_user.proprietor?
-      @orders = Order.all.order(:id).reverse
+      @orders = Order.includes(:member, :invoice_number).all.order(:id).reverse
     else
       @orders = current_user.sales
     end
