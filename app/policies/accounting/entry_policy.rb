@@ -5,7 +5,7 @@ module Accounting
       @entry = entry
     end
     def index?
-      @employee.bookkeeper?
+      @employee.bookkeeper? || @employee.proprietor?
     end
     def new?
       create?

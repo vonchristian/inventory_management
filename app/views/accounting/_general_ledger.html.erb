@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody class="entry-index">
-      <% Accounting::Account.all.order(:code).each do |account| %>
+      <% @accounts.each do |account| %>
         <tr>
           <td><%= account.code %></td>
           <td><%= account.name %><small class="text-info"> <%=(account.main_account.try(:name))%> </small></td>

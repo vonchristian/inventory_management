@@ -3,18 +3,18 @@
     <div class="modal-header">
       <h4 class="modal-title">New Account Details </h4>
     </div>
-    <div class="card">
+    <div class="box-body">
       <div class="content">
         <div class="modal-body">
           <ul class="errors text-danger">
           </ul>
-          <%=simple_form_for @product, remote: true do |f| %>
+          <%=simple_form_for @product, html: {class: 'form-inline'}, remote: true do |f| %>
             <%=f.error_notification %>
             <%=f.input :name, autofocus: true %>
             <%=f.input :description %>
             <%=f.input :stock_alert_count %>
             <div class="modal-footer">
-              <%=link_to "Cancel", "#", class: 'pull-left' %>
+              <%= link_to "Cancel", "#", class: "btn pull-left", data: {dismiss: "modal"} %>
               <%=f.submit "Save Product", class: "btn btn-primary" %>
             </div>
           <% end %>

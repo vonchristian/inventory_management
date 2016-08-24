@@ -20,7 +20,11 @@
 
     <%=f.simple_fields_for :debit_amounts do |ff| %>
     <%=ff.input :amount %>
-    <%=ff.input :account, collection: Accounting::Account.all.pluck(:name) %>
+    <div class="row">
+      <div class="col-md-12">
+    <%=ff.input :account, collection: Accounting::Account.all.pluck(:name), input_html: {class: 'input-medium'} %>
+  </div>
+</div>
     <% end %>
     <%=f.simple_fields_for :credit_amounts do |ff| %>
     <%=ff.input :amount %>
@@ -28,7 +32,7 @@
     <% end %>
     <div class="modal-footer">
       <%= f.submit class: "btn btn-primary" %>
-      <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+      <%= link_to "Cancel", "#", class: "btn pull-left", data: {dismiss: "modal"} %>
     </div>
   <% end %>
   </div>

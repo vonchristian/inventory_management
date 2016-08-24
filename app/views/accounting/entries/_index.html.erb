@@ -1,7 +1,13 @@
 <% @entries.each do |entry| %>
   <tr>
-    <td><%= entry.date %></td>
-    <td><%= entry.description %></td>
-    <td><%= number_to_currency entry.debit_amounts.sum(:amount) %></td>
+    <td><%= entry.date.strftime("%B %e, %Y") %></td>
+
+    <td>
+
+      <%=link_to entry.description.truncate(200), accounting_entry_path(entry) %></td>
+      <td><%=entry.commercial_document.try(:full_name) %></td>
+    <td><%=entry.recorder.try(:full_name) %></td>
+    <td><span class='pull-right'><%=number_to_currency entry.debit_amounts.sum(:amount) %></span></td>
+    </td>
   </tr>
 <% end %>

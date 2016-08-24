@@ -1,5 +1,7 @@
 module Accounting
   class Entry < ApplicationRecord
+    include PgSearch
+    pg_search_scope :search_by_name, :against => [:description]
     acts_as_paranoid
     before_save :default_date
         belongs_to :commercial_document, :polymorphic => true

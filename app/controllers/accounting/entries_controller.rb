@@ -2,10 +2,10 @@ module Accounting
   class EntriesController < ApplicationController
     def index
       if params[:query].present?
-      @entries = Entry.search_by_query(params[:query]).order(:created_at).page(params[:page]).per(30)
+      @entries = Accounting::Entry.search_by_name(params[:query]).order(:date).page(params[:page]).per(30)
 
     else
-      @entries = Accounting::Entry.all.order('date DESC').page(params[:page]).per(30)
+      @entries = Accounting::Entry.includes(:commercial_document, :recorder).all.order('date DESC').page(params[:page]).per(30)
       @from_date = params[:from_date] ? Time.parse(params[:from_date]) : Time.now.beginning_of_day
       @to_date = params[:to_date] ? Time.parse(params[:to_date]) : Time.now.end_of_day
       respond_to do |format|
@@ -29,6 +29,7 @@ module Accounting
     def create
       @entries = Accounting::Entry.all
       @entry = Accounting::Entry.create(entry_params)
+      @entry.recorder = current_user
       authorize @entry
     end
 
