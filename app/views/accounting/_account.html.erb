@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <caption class="text-left"><b><%=name%></b></caption>
+  <% if accounts.count > 0%>
+    <tbody>
+      <% running_total = 0 %>
+      <% accounts.each do |account| %>
+        <% balance = account.balance(:from_date => @from_date, :to_date => @to_date) %>
+        <tr>
+          <td><%=h account.name %></td>
+          <td><span class="pull-right"><%=number_to_currency balance %></span></td>
+          <% running_total += balance %>
+        </tr>
+      <% end %>
+      <tr>
+        <strong>
+          <td>Total <%= name %></td>
+          <td><span class="pull-right"><%=number_to_currency running_total %></span></td>
+        </strong>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
