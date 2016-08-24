@@ -117,3 +117,10 @@ namespace :deploy_to_production do
     run "cd #{app_path}; bundle exec rake db:seed RAILS_ENV=#{stage}"
   end
 end
+
+namespace :deploy do
+  desc "reload the database with seed data"
+  task :seed do
+    run "cd #{app_path}; rake db:seed RAILS_ENV=#{stage}"
+  end
+end
