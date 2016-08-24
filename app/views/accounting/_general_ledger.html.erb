@@ -1,0 +1,27 @@
+<div class="tab-pane active" id="general-ledger">
+  <table class="table table-hover">
+    <thead>
+      <tr class="title">
+        <th>Code</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th> Debits Balance </th>
+        <th> Credits Balance </th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody class="entry-index">
+      <% Accounting::Account.all.each do |account| %>
+        <tr>
+          <td><%= account.code %></td>
+          <td><%= account.name %><small class="text-info"> <%=(account.main_account.try(:name))%> </small></td>
+          <td><%= account.type.gsub('Accounting::', '') %></td>
+          <td><%= account.debits_balance %> </td>
+          <td><%= account.credits_balance %> </td>
+          <td><%= link_to "Edit", account_path(account), remote: true, class: "btn btn-default btn-xs" %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>

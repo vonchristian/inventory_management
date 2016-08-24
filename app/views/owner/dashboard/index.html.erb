@@ -2,7 +2,7 @@
   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-aqua">
       <div class="inner">
-        <h3><%=Order.created_between(Time.zone.now.beginning_of_month, Time.zone.now.end_of_month).count %></h3>
+        <h4><%=Order.created_between(Time.zone.now.beginning_of_month, Time.zone.now.end_of_month).count %></h4>
         <p>New Orders</p>
       </div>
       <div class="icon">
@@ -20,21 +20,25 @@
         <p>Sales</p>
       </div>
       <div class="icon">
-        <i class="ion ion-stats-bars"></i>
+        <i class="fa fa-bar-chart"></i>
       </div>
-      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <%= link_to orders_path, class: 'small-box-footer' do %>
+        <span>More info <i class="fa fa-arrow-circle-right"></i></span>
+      <% end %>
     </div>
   </div>
   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-yellow">
       <div class="inner">
-        <h3><%=Member.count %></h3>
+        <h4><%=Member.count %></h4>
         <p>Members</p>
       </div>
       <div class="icon">
         <i class="fa fa-users"></i>
       </div>
-      <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+      <%=link_to members_path, class: 'small-box-footer' do %>
+        <span>More info <i class="fa fa-arrow-circle-right"></i></span>
+      <% end %>
     </div>
   </div>
   <div class="col-lg-3 col-xs-6">
@@ -44,7 +48,7 @@
         <p>Credits</p>
       </div>
       <div class="icon">
-        <i class="ion ion-pie-graph"></i>
+        <i class="fa fa-cart-arrow-down"></i>
       </div>
       <%=link_to credits_path, class: 'small-box-footer' do %>
         <span>More info <i class="fa fa-arrow-circle-right"></i></span>
@@ -114,6 +118,7 @@
     </div>
   </div>
 </div>
+
 <!-- Top ten unpaid credits
 top ten new sales
 top ten new members -->
