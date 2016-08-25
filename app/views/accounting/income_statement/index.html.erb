@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <div class="card">
-      <div class="header">
+    <div class="box box-solid">
+      <div class="box-header">
         <h4 class="title"><center>Income Statement</center></h4>
         <div class="row"><hr></div>
         <div class="row">
@@ -10,11 +10,11 @@
             <%= form_tag({:action => 'index'}, {:method => :get}) do%>
               <div class="col-md-3">
                 <%= label_tag :from_date, nil, class: 'sr-only'%>
-                <%= text_field_tag :from_date, @from_date, :class => 'datetimepicker form-control border-input', :placeholder => "Date" %>
+                <%= text_field_tag :from_date, @from_date, :class => 'datepicker form-control border-input', :placeholder => "Date" %>
               </div>
               <div class="col-md-3">
                 <%= label_tag :to_date, nil, class: 'sr-only'%>
-                <%= text_field_tag :to_date, @to_date, :class => 'form-control border-input datetimepicker', :placeholder => "Date" %>
+                <%= text_field_tag :to_date, @to_date, :class => 'form-control border-input datepicker', :placeholder => "Date" %>
               </div>
               <div class="col-md-3">
                 <button type="submit" class="btn btn-primary">Get Report</button>
@@ -27,7 +27,7 @@
         </div>
         <div class="row"><hr></div>
       </div>
-      <div class="content">
+      <div class="box-body">
         <%= render 'accounting/account', :name => "Revenues", :accounts => @revenues %>
         <%= render 'accounting/account', :name => "Expenses", :accounts => @expenses %>
         <hr>
