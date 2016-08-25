@@ -1,14 +1,14 @@
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title">New Account Details </h4>
+      <h4 class="modal-title">New Product Details </h4>
     </div>
     <div class="box-body">
       <div class="content">
         <div class="modal-body">
           <ul class="errors text-danger">
           </ul>
-          <%=simple_form_for @product, html: {class: 'form-inline'}, remote: true do |f| %>
+          <%=simple_form_for @product, remote: true do |f| %>
             <%=f.error_notification %>
             <%=f.input :name, autofocus: true %>
             <%=f.input :description %>

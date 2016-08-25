@@ -1,11 +1,12 @@
-
-<div class="col-md-12">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4> New Stock Details</h4>
-    </div>
-    <div class="panel-body">
-          <%=simple_form_for @stock, html: {class: 'form-horizontal'}, wrapper: :horizontal_form do |f| %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-header">
+        <h4 class="title"> New Stock Details</h4>
+        <hr>
+      </div>
+      <div class="box-body">
+        <%=simple_form_for @stock, html: {class: 'form-horizontal'}, wrapper: :horizontal_form do |f| %>
           <div class="row">
             <div class="col-md-3">
             </div>
@@ -13,29 +14,30 @@
             <%=f.error_notification %>
             <div class="row">
               <div class="col-md-12">
-             <%= link_to 'New Product', new_product_path, remote: true, class: 'pull-right' %>
+             <%= link_to 'Enter New Product', new_product_path, remote: true, class: 'pull-right' %>
              <br>
-           </div>
-         </div>
-            <%=f.input :product_id, collection: Product.all.map{ |a| [a.name, a.id]}, input_html: { class: 'input-lg' } %>
-            <%=f.input :date, as: :string, label: 'Date Purchased', input_html: {class: "datepicker"} %>
-            <%=f.input :expiry_date, as: :string, input_html: {class: "datepicker"} %>
-            <%=f.input :serial_number %>
-            <%=f.input :quantity, input_html: { oninput: 'calculateTotalPurchase()'}  %>
-            <br>
-            <h4 class="title">Purchase Details </h4>
-            <hr>
-            <%=f.input :unit_price, label: 'Unit Price', input_html: { oninput: 'calculateTotalPurchase()'}  %>
-            <%=f.input :purchase_price, label: 'Total Price', readonly: true %>
-            <br>
-            <h4 class="title">Pricing Details </h4>
-            <hr>
-            <%=f.input :retail_price %>
-            <%=f.input :wholesale_price %>
-            <div class="modal-footer">
-              <%=f.submit "Save Stock", class: "btn btn-primary" %>
             </div>
-          <% end %>
+          </div>
+          <%=f.input :product_id, collection: Product.all.map{ |a| [a.name, a.id]}, input_html: { class: 'input-lg' } %>
+          <%=f.input :date, as: :string, label: 'Date Purchased', input_html: {class: "datepicker"} %>
+          <%=f.input :expiry_date, as: :string, input_html: {class: "datepicker"} %>
+          <%=f.input :serial_number %>
+          <%=f.input :quantity, input_html: { oninput: 'calculateTotalPurchase()'}  %>
+          <br>
+          <h4 class="title">Purchase Details </h4>
+          <hr>
+          <%=f.input :unit_price, label: 'Unit Price', input_html: { oninput: 'calculateTotalPurchase()'}  %>
+          <%=f.input :purchase_price, label: 'Total Price', readonly: true %>
+          <br>
+          <h4 class="title">Pricing Details </h4>
+          <hr>
+          <%=f.input :retail_price %>
+          <%=f.input :wholesale_price %>
+          <div class="modal-footer">
+            <%=f.submit "Save Stock", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

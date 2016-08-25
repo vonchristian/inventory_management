@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
   resources :low_stock_products, only: [:index]
   resources :out_of_stock_products, only: [:index]
+  resources :expired_products, only: [:index]
+
 
   resources :refunds, only: [:index, :new, :create]
   resources :taxes, only: [:new, :create]

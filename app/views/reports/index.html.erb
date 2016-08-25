@@ -32,6 +32,11 @@
           <% end %>
           <hr />
           <%=link_to out_of_stock_products_path(format: 'pdf'), class: 'text-danger' do %>
+            <h4 class="text-danger"><i class='fa fa-file-text-o text-danger'></i> Expired Products </h4>
+            <p>Generate report for expired products. </p>
+          <% end %>
+          <br>
+          <%=link_to expired_products_path(format: 'pdf'), class: 'text-danger' do %>
             <h4 class="text-danger"><i class='fa fa-file-text-o text-danger'></i> Out of Stock Products </h4>
             <p>Generate report for all out of stock products. </p>
           <% end %>

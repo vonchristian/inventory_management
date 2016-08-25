@@ -10,6 +10,7 @@ class Product < ApplicationRecord
   validates :name, presence: true
 
   before_destroy :ensure_not_referenced_by_any_line_item
+  
 
   def quantity
     stocks.all.sum(:quantity) - line_items.all.sum(:quantity)

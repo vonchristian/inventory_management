@@ -14,6 +14,18 @@ class Stock < ApplicationRecord
 
   validates :purchase_price, :unit_price, :retail_price, :wholesale_price, presence: true, numericality: true
   before_save :set_date,  :set_name
+
+  def self.expired
+    all.select{ |a| a.expired?}
+  end
+  def expired?
+    if expiry_date.present?
+      Time.zone.now >= expiry_date
+    else
+      false
+    end
+  end
+
   def self.total_cost_of_purchase
     all.sum(:purchase_price)
   end
