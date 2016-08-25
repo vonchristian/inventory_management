@@ -52,7 +52,7 @@
           Business Name
         </div>
         <div class="col-md-8">
-          <%#=@business.name %>
+          <%=Business.last.try(:name) %>
         </div>
       </div>
         <hr>
