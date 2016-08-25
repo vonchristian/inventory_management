@@ -8,7 +8,7 @@ class Accounting::IncomeStatementController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.pdf do
-        pdf = IncomeStatementPdf.new(@revenues, @expenses,  @from_date, @to_date, view_context)
+        pdf = Accounting::IncomeStatementPdf.new(@revenues, @expenses,  @from_date, @to_date, view_context)
         send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Income Statement.pdf"
       end
     end
