@@ -15,6 +15,7 @@ class StocksController < ApplicationController
     @stock = Stock.create(stock_params)
     @stock.employee = current_user
     if @stock.save
+      @stock.create_entry
       redirect_to stocks_url, notice: "New stock saved successfully."
     else
       render :new

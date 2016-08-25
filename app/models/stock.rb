@@ -13,8 +13,7 @@ class Stock < ApplicationRecord
   scope :created_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
 
   validates :purchase_price, :unit_price, :retail_price, :wholesale_price, presence: true, numericality: true
-  before_save :set_date
-  after_commit :create_entry, :set_name
+  before_save :set_date,  :set_name
   def self.total_cost_of_purchase
     all.sum(:purchase_price)
   end
@@ -41,6 +40,9 @@ class Stock < ApplicationRecord
   def out_of_stock?
     in_stock.zero? || in_stock.negative?
   end
+  def create_entry
+  Accounting::Entry.create(date: self.date, description: "Purchase of stocks", debit_amounts_attributes: [amount: self.purchase_price, account: "Purchases"], credit_amounts_attributes:[amount: self.purchase_price, account: 'Cash on Hand'],  employee_id: self.employee_id)
+  end
 
   private
   def set_date
@@ -50,8 +52,5 @@ class Stock < ApplicationRecord
   end
   def set_name
     self.name = self.product.name
-  end
-  def create_entry
-    Accounting::Entry.create(date: self.date )
   end
 end
