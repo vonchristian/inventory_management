@@ -22,7 +22,7 @@ module Members
     end
     def logo
       y_position = cursor
-      image "#{Business.last.logo.path(:medium)}", height: 50, width: 50, at: [1, y_position]
+      # image "#{Business.last.logo.path(:medium)}", height: 50, width: 50, at: [1, y_position]
       bounding_box [60, 930], width: 200 do
         text "<b>#{Business.last.try(:name)}</b>", size: 10, inline_format: true
         text "Proprietor: #{Business.last.try(:proprietor)}", size: 10, inline_format: true

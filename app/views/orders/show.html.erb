@@ -5,13 +5,8 @@
       <h4>Order Details <span class="pull-right"><small><i class="fa fa-clock-o"></i> <%=@order.date.strftime("%A, %B %e, %Y %H:%m %p") %></small></span> </h4>
     </div>
     <div class="content">
-      <% if @order.official_receipt_number.blank? && @order.invoice_number.blank? %>
-      <%=link_to 'Generate OR', print_official_receipt_order_path(@order, format: 'pdf'), class: 'btn btn-default'%>
-      <%=link_to 'Generate Invoice', print_invoice_order_path(@order, format: 'pdf'), class: 'btn btn-primary' %>
-      <% end %>
-      <% if @order.official_receipt_number.present? %>
-      <b>OR #: <%=@order.official_receipt_number.try(:number) %></b>
-      <% end %>
+      <%=link_to 'Print Invoice', print_invoice_order_path(@order, format: 'pdf'), class: 'btn btn-primary' %>
+      <span class="pull-right"> <b> Invoice No. <%=@order.invoice_number.try(:number) %></b> </span>
       <hr>
       <h4 class="panel-title"><b>Customer</b></h4>
       <br>

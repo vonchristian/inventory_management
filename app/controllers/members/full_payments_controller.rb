@@ -1,8 +1,7 @@
-module Accounting
-  class CreditPaymentsController < ApplicationController
-
+module Members
+  class FullPaymentsController < ApplicationController
     def new
-      @line_item = LineItem.find(params[:line_item_id])
+      @member = Member.find(params[:member_id])
       @entry = Accounting::Entry.new
       authorize @entry
       @entry.debit_amounts.build
@@ -10,13 +9,13 @@ module Accounting
     end
 
     def create
-      @line_item = LineItem.find(params[:line_item_id])
+      @member = Member.find(params[:member_id])
       @entry = Accounting::Entry.create(entry_params)
-      @entry.commercial_document = @line_item.order
+      @entry.commercial_document = @member
       @entry.recorder = current_user
       if @entry.save
-        @line_item.cash!
-        redirect_to @line_item.stock.product, notice: "Payment saved successfully."
+        @member.set_credits_to_paid
+        redirect_to @member, notice: "Payment saved successfully."
       else
         render :new
       end

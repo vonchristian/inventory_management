@@ -25,7 +25,6 @@ class OrdersController < ApplicationController
         session[:cart_id] = nil
         format.html do
           if @order.credit?
-            InvoiceNumber.new.generate_for(@order)
             redirect_to print_order_url(@order), notice: 'Credit transaction saved successfully.'
           else
             redirect_to print_order_url(@order), notice: 'Thank you for your order.'
@@ -40,6 +39,7 @@ class OrdersController < ApplicationController
         status: :unprocessable_entity }
       end
     end
+    InvoiceNumber.new.generate_for(@order)
   end
 
 
@@ -78,13 +78,12 @@ class OrdersController < ApplicationController
   end
   def print_invoice
     @order = Order.find(params[:id])
-    InvoiceNumber.new.generate_for(@order)
     @line_items = @order.line_items
     respond_to do |format|
       format.pdf do
         pdf = InvoicePdf.new(@order, @line_items, view_context)
           send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Invoice No.#{@order.invoice_number}.pdf"
-        pdf.print
+        pdf.autoprint
       end
     end
   end

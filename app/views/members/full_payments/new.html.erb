@@ -7,22 +7,20 @@
         <h4 class="title"> Payment Details </h4>
       </div>
       <div class="box-body">
-        <span class="title"> Amount: <%=number_to_currency @line_item.unit_cost %></span>
-<hr>
-    <%= simple_form_for @entry, url: :line_item_credit_payments do |f| %>
+        <span class="title">Total Credit: <%= number_to_currency @member.total_credit %></span>
+        <hr>
+    <%= simple_form_for @entry, url: :member_full_payments do |f| %>
     <%= f.error_notification %>
         <%=f.input :date, as: :string, input_html: { class: "datepicker" } %>
-
 <%=f.input :reference_number %>
-
           <%=f.input :description %>
 
     <%=f.simple_fields_for :debit_amounts do |ff| %>
-    <%=ff.input :amount, input_html: {value: @line_item.unit_cost }, as: :hidden %>
+    <%=ff.input :amount, input_html: {value: @member.total_credit } %>
     <%=ff.input :account, input_html: { value: "Cash on Hand"}%>
     <% end %>
     <%=f.simple_fields_for :credit_amounts do |ff| %>
-    <%=ff.input :amount, input_html: {value: @line_item.unit_cost } %>
+    <%=ff.input :amount, input_html: {value: @member.total_credit } %>
     <%=ff.input :account, input_html: { value: "Accounts Receivables Trade - Current"} %>
     <% end %>
     <div class="modal-footer">
