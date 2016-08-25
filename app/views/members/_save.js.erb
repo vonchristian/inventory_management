@@ -4,7 +4,6 @@ $("ul.errors").html("")
     $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
   <% end %>
 <% else %>
-  $("#member-modal").modal("hide fade")
+  $("#member-modal").modal("hide")
   window.location.reload();
-    $("#member_id").load(location.href + " #member_id>*", "")
 <% end %>

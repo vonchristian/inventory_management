@@ -21,6 +21,16 @@ class Order < ApplicationRecord
   validates :user_id, presence: true
   accepts_nested_attributes_for :discount
   scope :created_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
+
+  def self.created_between(hash={})
+    if hash[:from_date] && hash[:to_date]
+      from_date = hash[:from_date].kind_of?(Time) ? hash[:from_date] : Time.parse(hash[:from_date].strftime('%Y-%m-%d 12:00:00'))
+      to_date = hash[:to_date].kind_of?(Time) ? hash[:to_date] : Time.parse(hash[:to_date].strftime('%Y-%m-%d 12:59:59'))
+      where('date' => from_date..to_date)
+    else
+      all
+    end
+  end
   def name
     customer_name
   end
@@ -49,6 +59,12 @@ class Order < ApplicationRecord
   def self.total_amount
     all.map{|a| a.total_amount }.sum
   end
+  def self.total_amount_less_discount
+    all.map{|a| a.total_amount_less_discount }.sum
+  end
+  def self.total_discount
+    all.map{|a| a.total_discount }.sum
+  end
   def tax_rate
     if business.non_vat_registered?
       0.03
@@ -59,6 +75,9 @@ class Order < ApplicationRecord
   def total_amount
     line_items.sum(:total_cost)
   end
+  def total_amount_less_discount
+    total_amount - total_discount
+  end
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
       item.cart_id = nil
@@ -67,10 +86,12 @@ class Order < ApplicationRecord
   end
   private
   def create_entry
-    if self.cash?
+    if self.cash? && !self.discounted?
     Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Cash on Hand"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
   elsif self.credit?
     Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Credit order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount, account: "Accounts Receivables Trade - Current"], credit_amounts_attributes:[amount: self.total_amount, account: 'Sales'],  employee_id: self.employee_id)
+  elsif self.cash? && self.discounted?
+    Accounting::Entry.create(commercial_document_id: self.id, commercial_document_type: self.class, date: self.date, description: "Payment for order ##{self.reference_number}", debit_amounts_attributes: [amount: self.total_amount_less_discount, account: "Cash on Hand"], credit_amounts_attributes:[amount: self.total_amount_less_discount, account: 'Sales'],  employee_id: self.employee_id)
   end
   end
   def set_date

@@ -56,13 +56,13 @@ class OrdersController < ApplicationController
     end
   end
   def scope_to_date
-    @line_items = LineItem.created_between(params[:from_date], params[:to_date])
     @from_date = params[:from_date] ? DateTime.parse(params[:from_date]) : Time.now.beginning_of_day
     @to_date = params[:to_date] ? DateTime.parse(params[:to_date]) : Time.now.end_of_day
+      @orders = Order.cash.created_between({from_date: @from_date, to_date: @to_date})
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = OrdersPdf.new(@line_items, @from_date, @to_date, view_context)
+        pdf = OrdersPdf.new(@orders, @from_date, @to_date, view_context)
           send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Purchases Report.pdf"
       end
     end
@@ -116,6 +116,6 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date, :discounted)
+    params.require(:order).permit(:user_id, :pay_type, :delivery_type, :date, :discounted, discount_attributes:[:amount])
   end
 end
