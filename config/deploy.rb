@@ -3,7 +3,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'
 
-set :domain, '192.168.254.101'
+set :domain, '192.168.254.103'
 set :deploy_to, '/var/www/inventory_management'
 set :repository, 'https://github.com/vonchristian/inventory_management.git'
 set :branch, 'master'
