@@ -51,7 +51,12 @@ class InvoicePdf < Prawn::Document
     move_down 2
     text '<b>SALES INVOICE</b>', size: 14, align: :center, inline_format: true
     move_down 2
-    stroke_horizontal_rule
+    stroke do
+  stroke_color 'CCCCCC'
+  line_width 0.2
+  stroke_horizontal_rule
+  move_down 15
+end
   end
   def customer_details
     table(customer_details_data, cell_style: { :padding => [2,0,0,2], size: 10, font: "Helvetica", inline_format: true}, column_widths: ORDER_DETAILS_WIDTHS) do
@@ -72,14 +77,19 @@ class InvoicePdf < Prawn::Document
       text "No orders data.", align: :center
     else
       move_down 10
-
+      stroke do
+      stroke_color 'CCCCCC'
+      line_width 0.2
+      stroke_horizontal_rule
+      move_down 15
+      end
       table(table_data, header: true, cell_style: { size: 9, font: "Helvetica"}, column_widths: TABLE_WIDTHS) do
+        cells.borders = []
         row(0).font_style = :bold
         # row(0).background_color = 'DDDDDD'
         column(0).align = :right
         column(3).align = :right
         column(4).align = :right
-        row(0).align = :center
       end
     end
   end
