@@ -17,23 +17,22 @@
     </div>
     <div class="col-md-12">
       <div class="pull-left">
-        <h3> <b>Sub Total</b> </h3>
+        <h3 class="title"> <b>Sub Total</b> </h3>
       </div>
       <div class="pull-right">
-        <h3> <b><%=number_to_currency @cart.total_price %></b></h3>
+        <h3 class="title"> <b><%=number_to_currency @cart.total_price %></b></h3>
       </div>
     </div>
   </div>
-<br>
-<br>
-<br>
+
+<hr>
 
   <%=simple_form_for @order do |f| %>
+  <span><label>Customer</label> <span class="pull-right"><%= link_to 'New Customer', new_member_path, remote: true %></span></span>
+    <%=f.input :user_id, label: false, collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest', input_html: {id: 'order_user_id'} %>
   <input type="hidden" name="total" id="total" value="<%= @cart.total_price %>" oninput="calculateChange()">
-  <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.pay_types.first, as: :radio_buttons %>
+  <%=f.input :pay_type, collection: Order.pay_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.pay_types.first%>
   <%=f.input :date, as: :string, input_html: {class: 'datepicker'}, default: Time.zone.now %>
-<span><label>Customer</label> <span class="pull-right"><%= link_to 'New Customer', new_member_path, remote: true %></span></span>
-  <%=f.input :user_id, label: false, collection: Member.all.map{|a| [a.full_name, a.id] } || 'Guest', input_html: {id: 'order_user_id'} %>
 <div id='cash_payment_details'>
   <%=f.input :discounted, as: :boolean, input_html: { id: 'order_discount'} %>
   <div id="discount_details" style="display:none;">
@@ -47,7 +46,7 @@
   <%=f.input :cash_tendered, input_html: {oninput: 'calculateChange()', class: 'input-lg'}, label: "Cash / Check Amount" %>
   <%=f.input :change, input_html: { class: 'input-lg'}, readonly: true %>
 </div>
-  <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, checked: Order.delivery_types.keys.to_a.third, as: :radio_buttons %>
+  <%=f.input :delivery_type, collection: Order.delivery_types.keys.to_a.map{|a| [a.titleize, a]}, default: Order.delivery_types.keys.to_a.third%>
 
   <%=f.submit "Checkout", class: 'btn btn-success btn-block btn-lg' %>
   <br>
@@ -60,6 +59,16 @@
 <script>
   $(document).ready(function() {
     $("#order_user_id").select2({
+      theme: "bootstrap"
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $("#order_pay_type").select2({
+      theme: "bootstrap"
+    });
+    $("#order_delivery_type").select2({
       theme: "bootstrap"
     });
   });

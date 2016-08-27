@@ -1,0 +1,43 @@
+<div class="tab-pane active" id='retail'>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-solid">
+        <div class="box-header">
+          <h4>Retail Sales</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th> Customer </th>
+                  <th> Invoice </th>
+                  <th>Date </th>
+                  <th> Amount </th>
+                  <th> Items Total </th>
+                  <th> Type </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @retail_orders.each do |order| %>
+                  <tr>
+                    <td><%= link_to order.member.try(:full_name) || 'Guest', order %></td>
+                    <td><%=order.invoice_number.try(:number) %></td>
+                    <td><%= order.date.strftime('%B %e, %Y') %></td>
+                    <td> <% if order.wholesale? %>
+                      <%= number_to_currency order.line_items.total_whole_sale_price %>
+                      <% else %>
+                      <%= number_to_currency order.total_amount %>
+                    <% end %></td>
+                    <td><%=order.line_items.count %></td>
+                    <td><%=order.pay_type %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

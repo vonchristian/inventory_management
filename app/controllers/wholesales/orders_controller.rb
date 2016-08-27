@@ -16,6 +16,7 @@ module Wholesales
       @order.add_line_items_from_cart(current_cart)
       respond_to do |format|
         if @order.save!
+          @order.wholesale!
           Cart.destroy(session[:cart_id])
           session[:cart_id] = nil
           format.html { redirect_to store_url, notice:

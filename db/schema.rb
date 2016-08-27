@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824033250) do
+ActiveRecord::Schema.define(version: 20160827082304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20160824033250) do
     t.boolean  "discounted",       default: false
     t.integer  "tax_id"
     t.string   "reference_number"
+    t.integer  "order_type"
     t.index ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
     t.index ["employee_id"], name: "index_orders_on_employee_id", using: :btree
     t.index ["entry_id"], name: "index_orders_on_entry_id", using: :btree

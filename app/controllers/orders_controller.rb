@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
   def index
     if current_user.proprietor?
-      @orders = Order.includes(:member, :invoice_number).all.order(:id).reverse
+      @retail_orders = Order.retail.includes(:member, :invoice_number).all.order(:id).reverse
+      @wholesale_orders = Order.wholesale.includes(:member, :invoice_number).all.order(:id).reverse
+
     else
       @orders = current_user.sales
     end
@@ -21,6 +23,7 @@ class OrdersController < ApplicationController
     @order.employee = current_user
     respond_to do |format|
       if @order.save
+        @order.retail!
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html do

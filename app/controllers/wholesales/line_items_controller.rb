@@ -23,7 +23,7 @@ module Wholesales
 
     private
     def line_item_params
-      params.require(:line_item).permit(:product_id, :quantity, :unit_cost, :total_cost)
+      params.require(:line_item).permit(:user_id, :stock_id, :quantity, :unit_cost, :total_cost)
     end
   end
 end

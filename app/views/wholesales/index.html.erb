@@ -1,69 +1,82 @@
-
-  <div class="card">
-    <div class="content">
-      <div class="row">
-        <div class="col-md-3">
-          <ul class="nav navbar-nav">
-                  <li class="dropdown">
-                    <li class="dropdown">
-                    <button href="#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown" aria-expanded="false">All Products <b class="caret"></b></button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <% Category.all.each do |category| %>
-                      <li><%=link_to category.name  %></li>
-                      <% end %>
-                    </ul>
-                  </li>
-                </ul>
-        </div>
-
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-    <%=form_tag store_path, class: 'form-inline', method: :get do %>
-      <div class="input-group stylish-input-group">
-        <%=text_field_tag :name, params[:name], class: 'form-control border-input', placeholder: 'Search Inventory...', autofocus: true %>
-        <span class="input-group-btn">
-          <%= button_tag(type: 'submit', class: "btn btn-flat") do %>
-            <i class="fa fa-search"></i>
-          <% end %>
-        </span>
-      </div>
-    <% end %>
-  </div>
-
-</div>
-<hr>
+<section class="content-header">
+  <h1>
+  <%=Business.last.try(:name) %> (WHOLESALE)
+   <small><%=Business.last.try(:address) %></small>
+     </h1>
+  <ol class="breadcrumb">
+    <li class="active">ITWORX POS Software - by ITWORX Technology Services</li>
+  </ol>
+</section>
+<br>
 <div class="row">
-  <div class="col-md-6">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Wholesale Price </th>
-          <th>Stock </th>
-          <th>Quantity </th>
-          <th></th>
-        </tr>
-    <% @products.each do |product| %>
-      <tbody>
-        <tr>
-          <td><%=product.name %></td>
-          <td><%=number_to_currency product.wholesale_price %></td>
-          <td><%=product.quantity.round%> <%=product.unit %></td>
+  <div class="col-md-7">
+    <div class="box box-default">
+      <div class="panel-heading">
+      </div>
+      <div class="box-body">
+          <div class="col-md-12">
+          <% if params[:name].present? %>
+            <%=form_tag wholesales_path, url: :wholesales, method: :get do %>
+              <div class="input-group stylish-input-group">
+                <%=text_field_tag :name, params[:name], class: 'form-control input-lg', placeholder: 'Search Inventory...' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', class: "btn btn-flat btn-lg") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+            <% else %>
+            <%=form_tag wholesales_path, url: :wholesales, method: :get do %>
+              <div class="input-group stylish-input-group">
+                <%=text_field_tag :name, params[:name], autofocus: true, class: 'form-control input-lg', placeholder: 'Search Inventory...' %>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', class: "btn btn-flat btn-lg") do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+            <% end %>
+          </div>
+        <hr>
+        <br>
+        <% if params[:name].present? && @stocks.count > 0 %>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>In Stock </th>
+              <th>Product</th>
+              <th>Price </th>
+              <th>Quantity </th>
+              <th></th>
+            </tr>
+            <% @stocks.each do |stock| %>
+              <tbody>
+                <tr>
+                  <td><%=number_to_currency(stock.in_stock.round, unit: "")%></td>
+                  <td><%=stock.name.truncate(20) %></td>
+                  <td><%=number_to_currency stock.wholesale_price %></td>
 
 
 
 
               <%=simple_form_for @line_item, url: :wholesales_line_items do |f| %>
                     <td class="col-md-3">
-                    <%=f.input :quantity, label: false %>
+                       <% if stock.out_of_stock? %>
+                      <%=f.input :quantity, readonly: true, label: false %>
+                      <% else %>
+                        <%=f.input :quantity,  input_html: {value: 1}, autofocus: true, label: false %>
+                      <% end %>
 
-                    <%=f.input :product_id, input_html: {value: product.id }, as: :hidden %>
-                    <%=f.input :unit_cost, input_html: { value: product.wholesale_price}, as: :hidden %>
+                    <%=f.input :stock_id, input_html: {value: stock.id }, as: :hidden %>
+                    <%=f.input :unit_cost, input_html: { value: stock.retail_price}, as: :hidden %>
                   </td>
                   <td>
-                    <% if  product.out_of_stock? %>
-                      <span class="btn btn-danger btn-sm active"> Out of Stock </span>
+                    <% if  stock.out_of_stock? %>
+                      <span class="text-danger btn"> Out of Stock </span>
                     <% else %>
-                      <%=f.submit "Add to Cart", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active", autofocus: true %>
+                      <%=f.submit "Add", data: {disable_with: "Adding Product..."}, class: "btn btn-primary btn-sm active" %>
                     <% end %>
                   </td>
 
@@ -72,9 +85,17 @@
         </tbody>
     <% end %>
   </table>
+  <% elsif @stocks.count.zero? %>
+  <p class="alert alert-info"> Product not found.<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> </p>
+  <% end %>
+
   </div>
-  <div class="col-md-5 col-md-offset-1" id="cart">
-    <%=render  @cart %>
+</div>
+</div>
+  <div class="col-md-5" id="cart">
+    <div class="box box-solid">
+      <div class="box-body">
+    <%=render @cart %>
   </div>
 </div>
 </div>

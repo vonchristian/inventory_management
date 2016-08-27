@@ -1,11 +1,14 @@
 class WholesalesController < ApplicationController
   def index
     if params[:name].present?
-      @products = Product.search_by_name(params[:name])
+      @stocks = Stock.search_by_name(params[:name])
     else
-      @products = Product.all
+      @stocks = Stock.all
     end
-    @cart = current_cart
-    @line_item = LineItem.new
-  end
+    authorize :store
+  @cart = current_cart
+  @line_item = LineItem.new
+  @order = Order.new
+  @order.build_discount
+end
 end
